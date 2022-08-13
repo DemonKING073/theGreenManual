@@ -17,7 +17,7 @@ class CustomError extends DioError {
 Dio getHttp() {
   Dio dio = Dio();
 
-  dio.options.baseUrl = "https://api.dynocrm.com/api/v1/";
+  dio.options.baseUrl = "https://api-gmanual.herokuapp.com/api/";
   dio.interceptors.add(InterceptorsWrapper(
     onRequest: (options, handler) {
       String token =

@@ -1,47 +1,34 @@
-import 'dart:async';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:the_green_manual/core/http/http.dart';
+
 import 'package:the_green_manual/core/services/local_storage_services.dart';
+import 'package:the_green_manual/core/states/base_state.dart';
 
 import '../../main.dart';
 
-class SplashState extends ChangeNotifier {
-  SplashState() {}
-  Dio dio = Dio();
-  checkAccessToken() {
-    Future.delayed(const Duration(seconds: 0), () {
-      final token = LocalStorageService().read(LocalStorageKeys.accessToken);
+class SplashState extends BaseState {
+  Dio dio = getHttp();
 
-      if (token == null) {
-        navigatorKey.currentState!
-            .pushNamedAndRemoveUntil('/register', (route) => false);
-      } else {
-        validAccessToken();
-      }
-    });
-    notifyListeners();
+  String? token;
+  SplashState() {
+    token = LocalStorageService().read(LocalStorageKeys.accessToken);
+    if (token == null) {
+      navigatorKey.currentState!
+          .pushNamedAndRemoveUntil('/register', (route) => false);
+    } else {
+      validAccessToken();
+    }
   }
 
   bool isError = false;
 
   validAccessToken() async {
-    // print('object');
-    // try {
-    //   final savedAccessToken = token.read("accessToken");
-    //   // print(savedAccessToken);
-
-    //   await dio.get('$url/api/v1/auth/profile',
-    //       options:
-    //           Options(headers: {'Authorization': 'Bearer $savedAccessToken'}));
-    //   // print(savedAccessToken);
-
-    //   navigatorKey.currentState!
-    //       .pushNamedAndRemoveUntil(Home.id, (route) => false);
-    // } on DioError catch (e) {
-    //   print(e.response);
-    //   isError = true;
-    //   notifyListeners();
-    // }
+    try {
+      await dio.get('/auth/profile');
+      navigatorKey.currentState!
+          .pushNamedAndRemoveUntil('/home', (route) => false);
+    } on DioError catch (e) {
+      print(e);
+    }
   }
 }

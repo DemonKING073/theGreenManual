@@ -27,7 +27,7 @@ class TheGreenManual extends StatelessWidget {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.id,
+      initialRoute: '/splash',
       routes: {
         '/splash': (context) => ChangeNotifierProvider(
               create: (_) => SplashState(),
