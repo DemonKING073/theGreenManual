@@ -2,18 +2,7 @@ import 'package:get_storage/get_storage.dart';
 
 class LocalStorageKeys {
   static const accessToken = "AccessToken";
-  static const refreshToken = "RefreshToken";
-  static const leadInteraction = "leadInteraction";
-  static const leadPersistance = "leadPersistance";
-  static const dealPersistance = "dealPersistance";
-  static const taskAndAct = "taskAndAct";
-  static const pipeline = "pipeline";
-  static const dealStatus = "dealStatus";
-  static const leadRating = "leadRating";
-  static const filterCreatedDate = "filterCreatedDate";
-  static const taskFilterType = "taskFilterType";
-  static const taskFilterPriority = "taskFilterPriority";
-  static const privacyPolicy = "privacyPolicy";
+  static const isFirstTime = "isFirstTime";
 }
 
 class LocalStorageService {
