@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:the_green_manual/constants/constant.dart';
-import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/screens/termsAndConditions/termsAndCondition.dart';
+import 'package:the_green_manual/core/states/base_state.dart';
 
-class RegisterState extends ChangeNotifier {
+class RegisterState extends BaseState {
   String? name;
   String? password;
   String? email;
@@ -38,12 +36,12 @@ class RegisterState extends ChangeNotifier {
     try {
       var response =
           await dio.post('$url/api/v1/auth/register-client', data: data);
-      print(response);
+      // print(response);
       tokenInstance.write('accessToken', response.data['token']);
       Navigator.pushNamedAndRemoveUntil(
-          context, TermsAndCondition.id, (route) => false);
+          context, '/terms_condition', (route) => false);
     } on DioError catch (e) {
-      print(e.response);
+      // print(e.response);
       // showToast('Some Error Occured');
     }
     isButtonPressed = false;

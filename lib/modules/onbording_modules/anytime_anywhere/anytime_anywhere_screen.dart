@@ -1,49 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:the_green_manual/screens/anyTimeAnywhere/anytimeAnywhere.dart';
 
 import '../../../constants/constant.dart';
 
-class AddAndManage extends StatelessWidget {
-  static const String id = 'AddAndManage';
+class AnyTimeAnyWhere extends StatelessWidget {
+  static const String id = 'AnyTimeAnyWhere';
+
+  const AnyTimeAnyWhere({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/green.png',
+                'assets/images/location.png',
                 width: MediaQuery.of(context).size.width * 0.6,
               ),
               LSizedBox(),
               LSizedBox(),
-              Text(
-                'ADD AND MANAGE',
+              const Text(
+                'ANYTIME AND ANYWHERE',
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
               LSizedBox(),
-              Text('The ultimate and the easiest way to add'),
-              Text('and manage your product manual.'),
+              const Text('All of your product manuals in a single place'),
+              const Text(' for easy access without any hassle'),
               kSizedBox(),
               LSizedBox(),
               LSizedBox(),
               InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, AnyTimeAnyWhere.id);
+                    Navigator.pushNamed(context, '/private_secure');
                   },
                   child: Image.asset(
-                    'assets/images/button1.png',
+                    'assets/images/button2.png',
                     width: 80,
                   )),
               LSizedBox(),
               LSizedBox(),
-              Text('SKIP',
+              const Text('SKIP',
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
             ],
           ),
