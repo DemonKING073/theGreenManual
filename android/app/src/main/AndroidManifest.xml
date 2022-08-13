@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.the_green_manual">
+    package="com.greenmanual.in">
    <application
         android:label="the_green_manual"
         android:name="${applicationName}"

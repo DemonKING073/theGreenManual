@@ -1,4 +1,4 @@
-package com.example.the_green_manual
+com.greenmanual.in
 
 import io.flutter.embedding.android.FlutterActivity
 
