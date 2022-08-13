@@ -9,15 +9,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<SplashState>(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Image.asset(
-            'assets/images/logo.png',
-            height: 200,
-            width: 200,
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset(
+          'assets/images/logo.png',
+          height: 200,
+          width: 200,
         ),
       ),
     );

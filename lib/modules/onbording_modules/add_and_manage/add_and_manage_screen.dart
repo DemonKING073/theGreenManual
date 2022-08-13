@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/constant.dart';
 
-class AddAndManage extends StatelessWidget {
+class AddAndManageScreen extends StatelessWidget {
   static const String id = 'AddAndManage';
 
-  const AddAndManage({super.key});
+  const AddAndManageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

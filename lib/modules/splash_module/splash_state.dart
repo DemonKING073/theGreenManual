@@ -12,11 +12,31 @@ class SplashState extends BaseState {
   String? token;
   SplashState() {
     token = LocalStorageService().read(LocalStorageKeys.accessToken);
-    if (token == null) {
-      navigatorKey.currentState!
-          .pushNamedAndRemoveUntil('/register', (route) => false);
+    serializeAndNavigate();
+  }
+
+  serializeAndNavigate() {
+    final isFirstTime =
+        LocalStorageService().read(LocalStorageKeys.isFirstTime);
+    if (isFirstTime == null) {
+      Future.delayed(
+        const Duration(milliseconds: 600),
+        () {
+          navigatorKey.currentState!.pushNamed('/add_manage');
+        },
+      );
     } else {
-      validAccessToken();
+      if (token == null) {
+        Future.delayed(
+          const Duration(microseconds: 600),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/register', (route) => false);
+          },
+        );
+      } else {
+        validAccessToken();
+      }
     }
   }
 

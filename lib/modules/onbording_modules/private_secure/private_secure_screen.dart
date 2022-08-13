@@ -13,10 +13,6 @@ class PrivateAndSecure extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<PrivateAndSecureState>(context);
 
-    onTap() {
-      Navigator.pushNamed(context, '/welcome');
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -44,7 +40,9 @@ class PrivateAndSecure extends StatelessWidget {
               LSizedBox(),
               LSizedBox(),
               InkWell(
-                onTap: onTap,
+                onTap: () {
+                  state.getStarted();
+                },
                 child: Image.asset(
                   'assets/images/button3.png',
                   width: 80,

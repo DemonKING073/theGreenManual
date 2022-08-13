@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
+import 'package:the_green_manual/core/states/main_state.dart';
 import 'package:the_green_manual/modules/onbording_modules/add_and_manage/add_and_manage_screen.dart';
+import 'package:the_green_manual/modules/onbording_modules/add_and_manage/add_and_manage_state.dart';
 import 'package:the_green_manual/modules/onbording_modules/anytime_anywhere/anytime_anywhere_screen.dart';
 import 'package:the_green_manual/modules/onbording_modules/private_secure/private_secure_screen.dart';
 import 'package:the_green_manual/modules/onbording_modules/private_secure/private_secure_state.dart';
@@ -24,28 +26,34 @@ class TheGreenManual extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => ChangeNotifierProvider(
-              create: (_) => SplashState(),
-              child: const SplashScreen(),
-            ),
-        '/add_manage': (context) => const AddAndManage(),
-        '/anytime_anywhere': (context) => const AnyTimeAnyWhere(),
-        '/private_secure': (context) => ChangeNotifierProvider(
-              create: (_) => PrivateAndSecureState(),
-              child: const PrivateAndSecure(),
-            ),
-        '/welcome': (context) => const Welcome(),
-        '/register': (context) => ChangeNotifierProvider(
-              create: (_) => RegisterState(),
-              child: const RegisterScreen(),
-            ),
-        '/terms_condition': (context) => TermsAndCondition(),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => MainState(),
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/splash',
+        routes: {
+          '/splash': (context) => ChangeNotifierProvider(
+                create: (_) => SplashState(),
+                child: const SplashScreen(),
+              ),
+          '/add_manage': (context) => ChangeNotifierProvider(
+                create: (_) => AddAndManageState(),
+                child: const AddAndManageScreen(),
+              ),
+          '/anytime_anywhere': (context) => const AnyTimeAnyWhere(),
+          '/private_secure': (context) => ChangeNotifierProvider(
+                create: (_) => PrivateAndSecureState(),
+                child: const PrivateAndSecure(),
+              ),
+          '/welcome': (context) => const Welcome(),
+          '/register': (context) => ChangeNotifierProvider(
+                create: (_) => RegisterState(),
+                child: const RegisterScreen(),
+              ),
+          '/terms_condition': (context) => TermsAndCondition(),
+        },
+      ),
     );
   }
 }
