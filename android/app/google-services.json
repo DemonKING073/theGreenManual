@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "900226879411",
+    "firebase_url": "https://webfeedback-56f5e.firebaseio.com",
+    "project_id": "webfeedback-56f5e",
+    "storage_bucket": "webfeedback-56f5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900226879411:android:19732c2823412fcab2c5c6",
+        "android_client_info": {
+          "package_name": "com.greenmanual.in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900226879411-90o3u0ntscqs2kplj8vinbtsicb0fdc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.greenmanual.in",
+            "certificate_hash": "3450a7c1d79ffdd83708f164996f6413dd8d67b3"
+          }
+        },
+        {
+          "client_id": "900226879411-acuikm2g4n1lp4m1hjf7scgauh8l9j6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4jS82gKU7tuqngwaK85cRpuC-O19wd-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900226879411-acuikm2g4n1lp4m1hjf7scgauh8l9j6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
