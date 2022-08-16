@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/states/main_state.dart';
+import 'package:the_green_manual/modules/home_module/home_screen.dart';
+import 'package:the_green_manual/modules/home_module/home_state.dart';
 import 'package:the_green_manual/modules/login_module/login_screen.dart';
 import 'package:the_green_manual/modules/login_module/login_state.dart';
 import 'package:the_green_manual/modules/onbording_modules/add_and_manage/add_and_manage_screen.dart';
@@ -61,6 +63,10 @@ class TheGreenManual extends StatelessWidget {
             '/login': (context) => ChangeNotifierProvider(
                   create: (_) => LoginState(),
                   child: const LoginScreen(),
+                ),
+            '/home': (context) => ChangeNotifierProvider(
+                  create: (_) => HomeState(),
+                  child: const HomeScreen(),
                 ),
             '/terms_condition': (context) => TermsAndCondition(),
           },

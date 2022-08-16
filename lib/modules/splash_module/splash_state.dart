@@ -35,7 +35,14 @@ class SplashState extends BaseState {
           },
         );
       } else {
-        validAccessToken();
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/register', (route) => false);
+          },
+        );
+        // validAccessToken();
       }
     }
   }
