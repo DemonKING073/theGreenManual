@@ -4,20 +4,16 @@ import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/constants/helper.dart';
 import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/modules/register_module/register_state.dart';
+import 'package:the_green_manual/modules/login_module/login_state.dart';
 
-class RegisterScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   static const String id = 'RegisterScreen';
 
-  const RegisterScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<RegisterState>(context);
-
-    // onBtnTap() {
-    //   state.createAccount();
-    // }
+    final state = Provider.of<LoginState>(context);
 
     faceBookLogin() {}
     googleLogin() {}
@@ -46,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            navigatorKey.currentState!.pushNamed("/login");
+                            navigatorKey.currentState!.pop();
                           },
                           child: const Text('Later'),
                         ),
@@ -56,32 +52,10 @@ class RegisterScreen extends StatelessWidget {
                     kSizedBox(),
                     const Center(
                         child: Text(
-                      'Create An Account',
+                      'Login',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     )),
-                    LSizedBox(),
-                    TextFormField(
-                      onChanged: state.onNameChanged,
-                      decoration: InputDecoration(
-                        hintText: 'Name',
-                        isDense: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Name is required!";
-                        }
-                        return null;
-                      },
-                    ),
                     LSizedBox(),
                     TextFormField(
                       onChanged: state.onEmailChanged,
@@ -139,7 +113,7 @@ class RegisterScreen extends StatelessWidget {
                       onTap: state.submitLoading
                           ? null
                           : () {
-                              state.createAccount(context);
+                              state.submitLogin(context);
                             },
                       child: Container(
                         decoration: BoxDecoration(
@@ -166,7 +140,7 @@ class RegisterScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              'Create Account',
+                              'Sign in',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -186,15 +160,8 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    LSizedBox(),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          navigatorKey.currentState!.pushNamed("/login");
-                        },
-                        child: const Text('Sign In'),
-                      ),
-                    ),
+                    kSizedBox(),
+                    const Center(child: Text('Create Account')),
                     LSizedBox(),
                     const Divider(thickness: 2),
                     LSizedBox(),

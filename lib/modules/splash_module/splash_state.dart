@@ -20,7 +20,7 @@ class SplashState extends BaseState {
         LocalStorageService().read(LocalStorageKeys.isFirstTime);
     if (isFirstTime == null) {
       Future.delayed(
-        const Duration(milliseconds: 1800),
+        const Duration(seconds: 2),
         () {
           navigatorKey.currentState!.pushNamed('/add_manage');
         },
@@ -28,14 +28,21 @@ class SplashState extends BaseState {
     } else {
       if (token == null) {
         Future.delayed(
-          const Duration(microseconds: 1800),
+          const Duration(seconds: 2),
           () {
             navigatorKey.currentState!
                 .pushNamedAndRemoveUntil('/register', (route) => false);
           },
         );
       } else {
-        validAccessToken();
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/register', (route) => false);
+          },
+        );
+        // validAccessToken();
       }
     }
   }

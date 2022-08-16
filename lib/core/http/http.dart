@@ -23,7 +23,7 @@ Dio getHttp() {
       String token =
           LocalStorageService().read(LocalStorageKeys.accessToken) ?? "";
       if (token.isNotEmpty) {
-        options.headers['Authorization'] = "Bearer $token";
+        options.headers['token'] = token;
       }
 
       return handler.next(options);
