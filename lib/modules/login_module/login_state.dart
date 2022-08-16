@@ -1,28 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get_storage/get_storage.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
-
 import 'package:the_green_manual/core/states/base_state.dart';
 
-class RegisterState extends BaseState {
-  String? name;
+class LoginState extends BaseState {
+  final formKey = GlobalKey<FormState>();
+
   String? password;
   String? email;
 
-  onNameChanged(val) {
-    name = val;
+  onEmailChanged(val) {
+    email = val;
     notifyListeners();
   }
 
   onPasswordChanged(val) {
     password = val;
-    notifyListeners();
-  }
-
-  onEmailChanged(val) {
-    email = val;
     notifyListeners();
   }
 
@@ -32,10 +25,7 @@ class RegisterState extends BaseState {
     notifyListeners();
   }
 
-  final tokenInstance = GetStorage();
-  final formKey = GlobalKey<FormState>();
-
-  createAccount(context) async {
+  submitLogin(context) async {
     final firebaseInstance = FirebaseAuth.instance;
 
     setSubmitLoading(true);
