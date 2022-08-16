@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get_storage/get_storage.dart';
-import 'package:the_green_manual/constants/constant.dart';
+import 'package:the_green_manual/core/services/toast_service.dart';
+
 import 'package:the_green_manual/core/states/base_state.dart';
 
 class RegisterState extends BaseState {
@@ -25,26 +29,28 @@ class RegisterState extends BaseState {
     notifyListeners();
   }
 
-  bool isButtonPressed = false;
+  bool submitLoading = false;
+  setSubmitLoading(val) {
+    submitLoading = val;
+    notifyListeners();
+  }
 
   final tokenInstance = GetStorage();
+  final formKey = GlobalKey<FormState>();
 
   createAccount(context) async {
-    isButtonPressed = true;
-    notifyListeners();
-    var data = {"name": name, "email": email, "password": password};
-    try {
-      var response =
-          await dio.post('$url/api/v1/auth/register-client', data: data);
-      // print(response);
-      tokenInstance.write('accessToken', response.data['token']);
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/terms_condition', (route) => false);
-    } on DioError catch (e) {
-      // print(e.response);
-      // showToast('Some Error Occured');
+    final firebaseInstance = FirebaseAuth.instance;
+
+    setSubmitLoading(true);
+    if (formKey.currentState!.validate()) {
+      try {
+        await firebaseInstance.createUserWithEmailAndPassword(
+            email: email!, password: password!);
+        ToastService().s("Registration Successfull!");
+      } on FirebaseAuthException catch (e) {
+        ToastService().e(e.message ?? "Error");
+      }
     }
-    isButtonPressed = false;
-    notifyListeners();
+    setSubmitLoading(false);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/main.dart';
 
 import '../../../constants/constant.dart';
@@ -12,6 +13,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     onTap() {
+      LocalStorageService().write(LocalStorageKeys.isFirstTime, "yes");
       navigatorKey.currentState!
           .pushNamedAndRemoveUntil('/register', (route) => false);
     }
