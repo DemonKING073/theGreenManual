@@ -27,7 +27,10 @@ class Search extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Product Name',style: kTextStyle(),),
+              Text(
+                'Product Name',
+                style: kTextStyle(),
+              ),
               sSizedBox(),
               TextFormField(
                 decoration: InputDecoration(
@@ -36,7 +39,7 @@ class Search extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
+                        borderSide: BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(10)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor),
@@ -45,18 +48,31 @@ class Search extends StatelessWidget {
               LSizedBox(),
               Row(
                 children: [
-                  Expanded(child: Divider(thickness: 2,)),
-                  SizedBox(width: 10,),
-                  Text('Or', style: TextStyle(color: Colors.grey),),
-                  SizedBox(width: 10,),
-    
-                  Expanded(child: Divider(thickness: 2,)),
-                  
-    
+                  Expanded(
+                      child: Divider(
+                    thickness: 2,
+                  )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Or',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Divider(
+                    thickness: 2,
+                  )),
                 ],
               ),
-              LSizedBox(), 
-              Text('Model Number',style: kTextStyle(),),
+              LSizedBox(),
+              Text(
+                'Model Number',
+                style: kTextStyle(),
+              ),
               sSizedBox(),
               TextFormField(
                 decoration: InputDecoration(
@@ -65,7 +81,7 @@ class Search extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                       borderSide: BorderSide(color: Colors.grey),
+                        borderSide: BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(10)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor),
@@ -73,8 +89,8 @@ class Search extends StatelessWidget {
               ),
               LSizedBox(),
 // ,              SearchButton(onTap: (){}, name: 'Search',),
-LSizedBox(),
-Divider()
+              LSizedBox(),
+              Divider()
             ],
           )),
     );

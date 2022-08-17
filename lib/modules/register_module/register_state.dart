@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/core/states/base_state.dart';
+import 'package:the_green_manual/main.dart';
 
 class RegisterState extends BaseState {
   String? name;
@@ -43,6 +44,7 @@ class RegisterState extends BaseState {
       try {
         await firebaseInstance.createUserWithEmailAndPassword(
             email: email!, password: password!);
+        navigatorKey.currentState!.pushNamed('/home_display');
         ToastService().s("Registration Successfull!");
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");

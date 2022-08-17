@@ -34,7 +34,9 @@ class TermsAndCondition extends StatelessWidget {
                 ),
                 LSizedBox(),
                 Button(
-                  onTap: () {},
+                  onTap: () {
+                    // Navigator.pushNamed(context, '/home_display');
+                  },
                   name: 'Accept',
                 ),
                 LSizedBox(),

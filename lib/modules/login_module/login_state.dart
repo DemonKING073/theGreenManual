@@ -65,7 +65,7 @@ class LoginState extends BaseState {
       LocalStorageService()
           .write(LocalStorageKeys.accessToken, response.data['token']);
       navigatorKey.currentState!
-          .pushNamedAndRemoveUntil("/home", (route) => false);
+          .pushNamedAndRemoveUntil("/home_display", (route) => false);
       // ignore: empty_catches
     } on DioError {}
   }

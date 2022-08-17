@@ -19,6 +19,8 @@ import 'package:the_green_manual/modules/splash_module/splash_screen.dart';
 import 'package:the_green_manual/modules/splash_module/splash_state.dart';
 import 'package:the_green_manual/modules/term&conditions/term_condition_screen.dart';
 import 'package:the_green_manual/modules/welcome_module/welcome_screen.dart';
+import 'package:the_green_manual/screens/homeDisplay/homeDisplay.dart';
+import 'package:the_green_manual/screens/homeDisplay/homeDisplayState.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +71,9 @@ class TheGreenManual extends StatelessWidget {
                   child: const HomeScreen(),
                 ),
             '/terms_condition': (context) => TermsAndCondition(),
+            '/home_display' : (context) => ChangeNotifierProvider(
+              create: (_) => HomeDisplayState(),
+              child: HomeDisplay()),
           },
         ),
       ),
