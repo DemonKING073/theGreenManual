@@ -20,6 +20,8 @@ import 'package:the_green_manual/modules/splash_module/splash_state.dart';
 import 'package:the_green_manual/modules/term&conditions/term_condition_screen.dart';
 import 'package:the_green_manual/modules/welcome_module/welcome_screen.dart';
 import 'package:the_green_manual/screens/Search/search.dart';
+import 'package:the_green_manual/screens/editProfile/editProfile.dart';
+import 'package:the_green_manual/screens/editProfile/editProfileState.dart';
 import 'package:the_green_manual/screens/homeDisplay/homeDisplay.dart';
 import 'package:the_green_manual/screens/homeDisplay/homeDisplayState.dart';
 import 'package:the_green_manual/screens/scannerScreen/scannerScreen.dart';
@@ -81,6 +83,9 @@ class TheGreenManual extends StatelessWidget {
               '/scanner_screen' :(context) => ChangeNotifierProvider(
                 create: (_) => ScannerState(),
                 child: ScannerScreen()),
+                '/profile_edit' :(context) => ChangeNotifierProvider(
+                  create: (_) => EditProfileState(),
+                  child: EditProfile())
           },
         ),
       ),
