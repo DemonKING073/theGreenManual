@@ -5,6 +5,7 @@ import 'package:the_green_manual/screens/create/createScreen.dart';
 import 'package:the_green_manual/screens/create/createScreenState.dart';
 import 'package:the_green_manual/screens/inventory/inventoryScreen.dart';
 import 'package:the_green_manual/screens/profile/profileScreen.dart';
+import 'package:the_green_manual/screens/profile/profileState.dart';
 import 'package:the_green_manual/screens/resume/resumeScreen.dart';
 
 class HomeDisplayState extends ChangeNotifier{
@@ -22,7 +23,9 @@ class HomeDisplayState extends ChangeNotifier{
       create: (_) => CreateScreenState(),
       child: CreateScreen()),
     InventoryScreen(),
-    ProfileScreen()
+    ChangeNotifierProvider(
+      create: (_) => ProfileState(),
+      child: ProfileScreen())
     // BillingScreen(),
     // SupportScreen(),
     // MoreScreen(),

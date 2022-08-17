@@ -23,7 +23,7 @@ class CreateScreen extends StatelessWidget {
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         title: Text(
           'Create',
-          style: kBoldTextStyle(),
+          style: LBoldTextStyle(),
         ),
         centerTitle: true,
         actions: [

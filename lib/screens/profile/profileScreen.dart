@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:the_green_manual/main.dart';
+import 'package:the_green_manual/screens/profile/profileState.dart';
 
 import '../../constants/constant.dart';
 
@@ -10,6 +12,114 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<ProfileState>(context);
+
+    showLanguageUpdateDialog(BuildContext context) async {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  // shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  // insetPadding: EdgeInsets.zero,
+                  // title: Text('Select Language', style: kBoldTextStyle()),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 24,
+                          backgroundColor: primaryColor, child: Icon(Icons.language, color: Colors.white, size: 30,),),
+                        kSizedBox(),
+                        Text('Select Language', style: kBoldTextStyle()),
+                        kSizedBox(),
+                        DropdownButton(
+                            isExpanded: true,
+                            hint: Text('Select your Prefered Language'),
+                            value: state.selectedLanguage,
+                            items: state.language
+                                .map(
+                                  (e) => DropdownMenuItem(
+                                    child: Text(
+                                      e,
+                                      style: kTextStyle().copyWith(fontSize: 14),
+                                    ),
+                                    value: e,
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (val) {
+                              state.onLanguageChanged(val as String);
+                              setState(() {});
+                            }),
+                      ],
+                    ),
+                  ),
+
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text(
+                        "Cancel",
+                        style: kTextStyle().copyWith(color: Colors.grey),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    TextButton(
+                        child: Text(
+                          'Update',
+                          style: kTextStyle().copyWith(color: primaryColor),
+                        ),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                );
+              },
+            );
+          });
+    }
+
+    showLogoutConfirmationDialog(BuildContext context) async {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return AlertDialog(
+                  // shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  // insetPadding: EdgeInsets.zero,
+                  title: Text('Log Out!', style: kBoldTextStyle()),
+                  content: Text('Are you sure you want to logout?'),
+
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text(
+                        "Cancel",
+                        style: kTextStyle().copyWith(color: Colors.grey),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    TextButton(
+                        child: Text(
+                          'Log Out',
+                          style: kTextStyle().copyWith(color: primaryColor),
+                        ),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                );
+              },
+            );
+          });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -21,7 +131,7 @@ class ProfileScreen extends StatelessWidget {
         leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         title: Text(
           'Profile',
-          style: kBoldTextStyle(),
+          style: LBoldTextStyle(),
         ),
         centerTitle: true,
         actions: [
@@ -110,13 +220,17 @@ class ProfileScreen extends StatelessWidget {
                       title: 'Language',
                       description: 'Select Language for Manual',
                       icons: Icons.language,
-                      onTap: () {}),
+                      onTap: () {
+                        showLanguageUpdateDialog(context);
+                      }),
                   LSizedBox(),
                   profileButtons(
                       title: 'Log out',
                       description: 'Further secure your account for safety',
                       icons: Icons.logout,
-                      onTap: () {}),
+                      onTap: () {
+                        showLogoutConfirmationDialog(context);
+                      }),
                 ],
               ),
             ),
@@ -145,7 +259,9 @@ class ProfileScreen extends StatelessWidget {
                   profileButtonsWithOutDescription(
                     title: 'Help And Support',
                     icons: Icons.support_agent,
-                    onTap: () {},
+                    onTap: () {
+                      navigatorKey.currentState!.pushNamed('/helpAndSupport');
+                    },
                   ),
                   LSizedBox(),
                   profileButtonsWithOutDescription(

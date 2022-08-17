@@ -24,7 +24,7 @@ class EditProfile extends StatelessWidget {
         // leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         title: Text(
           'Edit Profile',
-          style: kBoldTextStyle(),
+          style: LBoldTextStyle(),
         ),
         centerTitle: true,
       ),
