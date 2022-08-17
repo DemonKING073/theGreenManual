@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_green_manual/modules/home_module/home_screen.dart';
 import 'package:the_green_manual/screens/create/createScreen.dart';
+import 'package:the_green_manual/screens/create/createScreenState.dart';
 import 'package:the_green_manual/screens/inventory/inventoryScreen.dart';
 import 'package:the_green_manual/screens/profile/profileScreen.dart';
 import 'package:the_green_manual/screens/resume/resumeScreen.dart';
@@ -16,7 +18,9 @@ class HomeDisplayState extends ChangeNotifier{
     // ChangeNotifierProvider(child: Home(), create: (context) => HomeState(),),
     HomeScreen(),
     ResumeScreen(),
-    CreateScreen(),
+    ChangeNotifierProvider(
+      create: (_) => CreateScreenState(),
+      child: CreateScreen()),
     InventoryScreen(),
     ProfileScreen()
     // BillingScreen(),

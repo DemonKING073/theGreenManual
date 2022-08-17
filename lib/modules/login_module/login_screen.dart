@@ -81,7 +81,22 @@ class LoginScreen extends StatelessWidget {
                     LSizedBox(),
                     TextFormField(
                       onChanged: state.onPasswordChanged,
+                      obscureText: state.isPasswordVisible,
                       decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                                onPressed: state.onVisibilityChanged,
+                                icon: state.isPasswordVisible
+                                    ? Icon(
+                                        Icons.visibility_off,
+                                        color: primaryColor,
+                                      )
+                                    : Icon(
+                                        Icons.visibility,
+                                        color: primaryColor,
+                                      ),
+                              ),
+
+
                         hintText: 'Password',
                         isDense: true,
                         filled: true,

@@ -12,6 +12,14 @@ class RegisterState extends BaseState {
   String? password;
   String? email;
 
+    bool isPasswordVisible = true;
+
+onVisibilityChanged() {
+    isPasswordVisible = !isPasswordVisible;
+    print(isPasswordVisible);
+    notifyListeners();
+  }
+
   onNameChanged(val) {
     name = val;
     notifyListeners();

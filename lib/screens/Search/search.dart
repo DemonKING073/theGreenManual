@@ -88,9 +88,37 @@ class Search extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10))),
               ),
               LSizedBox(),
-// ,              SearchButton(onTap: (){}, name: 'Search',),
+              SearchButton(
+                onTap: () {},
+                name: 'Search',
+              ),
               LSizedBox(),
-              Divider()
+              Divider(),
+              LSizedBox(),
+
+              //    If Product Found      /////
+              // Container(
+              //   width: double.infinity,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Colors.grey),
+              //     borderRadius: BorderRadius.circular(10),
+              //   ),
+              //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              //   child : Text('Master Bedroom Lamp',style: kTextStyle().copyWith(color: Colors.grey),),
+              // ),
+
+              ////    If Product Not Found      /////
+              LSizedBox(),
+              Center(
+                child: Column(
+                  children: [
+                    Image.asset('assets/icons/Frame.png'),
+                    kSizedBox(),
+                    Text('No product to show for', style: kTextStyle().copyWith(color: Colors.grey),),
+                    Text('"Master Bedroom Lamp”', style: kTextStyle().copyWith(color: Colors.grey)),
+                  ],
+                ),
+              )
             ],
           )),
     );

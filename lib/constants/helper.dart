@@ -9,7 +9,6 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return InkWell(
       onTap: () {
         onTap();
@@ -35,11 +34,11 @@ class Button extends StatelessWidget {
   }
 }
 
-class WhiteButton extends StatelessWidget {
+class ButtonWithIcon extends StatelessWidget {
   String? name;
   Function onTap;
-  String? image;
-  WhiteButton({this.name, required this.onTap , this.image});
+  IconData icon;
+  ButtonWithIcon({this.name, required this.onTap, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +49,100 @@ class WhiteButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white
+          gradient: LinearGradient(
+              colors: [primaryColor, Color(0xff7ACCA9)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter),
         ),
         width: double.infinity,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-        SizedBox(width: MediaQuery.of(context).size.width*0.15,),
-
-        Image.asset(image!, height: 25, width: 25),
-        SizedBox(width: 15,),
+        Icon(
+          icon,
+          color: Colors.white,
+        ),
+        SizedBox(
+          width: 5,
+        ),
         Text(
           name!,
           style: TextStyle(
-              fontSize: 18,
+              color: Colors.white,
+              fontSize: 16,
               fontWeight: FontWeight.w400),
         ),
+          ],
+        ),
+        padding: EdgeInsets.symmetric(vertical: 10),
+      ),
+    );
+  }
+}
+
+class SearchButton extends StatelessWidget {
+  String? name;
+  Function onTap;
+  SearchButton({this.name, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+                colors: [primaryColor, Color(0xff7ACCA9)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+          ),
+          width: MediaQuery.of(context).size.width * 0.35,
+          child: Center(
+              child: Text(
+            name!,
+            style: TextStyle(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+          )),
+          padding: EdgeInsets.symmetric(vertical: 10),
+        ),
+      ),
+    );
+  }
+}
+
+class WhiteButton extends StatelessWidget {
+  String? name;
+  Function onTap;
+  String? image;
+  WhiteButton({this.name, required this.onTap, this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        width: double.infinity,
+        child: Row(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.15,
+            ),
+            Image.asset(image!, height: 25, width: 25),
+            SizedBox(
+              width: 15,
+            ),
+            Text(
+              name!,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+            ),
           ],
         ),
         padding: EdgeInsets.symmetric(vertical: 15),
@@ -86,16 +164,12 @@ class WhiteButtonNoLogo extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Color(0xffEEEEEE)
-        ),
+            borderRadius: BorderRadius.circular(10), color: Color(0xffEEEEEE)),
         width: double.infinity,
         child: Center(
           child: Text(
             name,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
         ),
         padding: EdgeInsets.symmetric(vertical: 15),

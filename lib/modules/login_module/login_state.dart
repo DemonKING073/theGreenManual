@@ -24,6 +24,14 @@ class LoginState extends BaseState {
     notifyListeners();
   }
 
+  bool isPasswordVisible = true;
+
+onVisibilityChanged() {
+    isPasswordVisible = !isPasswordVisible;
+    print(isPasswordVisible);
+    notifyListeners();
+  }
+
   bool submitLoading = false;
   setSubmitLoading(val) {
     submitLoading = val;

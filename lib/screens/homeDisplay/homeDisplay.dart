@@ -41,9 +41,8 @@ class HomeDisplay extends StatelessWidget {
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outlined,
-            ),
+            icon: ImageIcon(AssetImage('assets/icons/profile.2.png')),
+
             label: 'Profile',
             // backgroundColor: Colors.black
           ),
