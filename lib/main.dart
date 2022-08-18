@@ -27,6 +27,7 @@ import 'package:the_green_manual/screens/editProfile/editProfileState.dart';
 import 'package:the_green_manual/screens/helpAndSupport/helpAndSupport.dart';
 import 'package:the_green_manual/screens/homeDisplay/homeDisplay.dart';
 import 'package:the_green_manual/screens/homeDisplay/homeDisplayState.dart';
+import 'package:the_green_manual/screens/projectDetails/projectDetails.dart';
 import 'package:the_green_manual/screens/scannerScreen/scannerScreen.dart';
 import 'package:the_green_manual/screens/scannerScreen/scannerState.dart';
 
@@ -79,20 +80,17 @@ class TheGreenManual extends StatelessWidget {
                   child: const HomeScreen(),
                 ),
             '/terms_condition': (context) => TermsAndCondition(),
-            '/home_display' : (context) => ChangeNotifierProvider(
-              create: (_) => HomeDisplayState(),
-              child: HomeDisplay()),
-              '/search' :(context) => Search(),
-              '/scanner_screen' :(context) => ChangeNotifierProvider(
-                create: (_) => ScannerState(),
-                child: ScannerScreen()),
-                '/profile_edit' :(context) => ChangeNotifierProvider(
-                  create: (_) => EditProfileState(),
-                  child: EditProfile()),
-                  '/helpAndSupport' : (context) => HelpAndSupport(),
-                  '/contactUs' : (context) => ChangeNotifierProvider(
-                    create: (_) => ContactUsState(),
-                    child: ContactUs())
+            '/home_display': (context) => ChangeNotifierProvider(
+                create: (_) => HomeDisplayState(), child: HomeDisplay()),
+            '/search': (context) => Search(),
+            '/scanner_screen': (context) => ChangeNotifierProvider(
+                create: (_) => ScannerState(), child: ScannerScreen()),
+            '/profile_edit': (context) => ChangeNotifierProvider(
+                create: (_) => EditProfileState(), child: EditProfile()),
+            '/helpAndSupport': (context) => HelpAndSupport(),
+            '/contactUs': (context) => ChangeNotifierProvider(
+                create: (_) => ContactUsState(), child: ContactUs()),
+            '/project_details': (context) => ProjectDetails(),
           },
         ),
       ),
