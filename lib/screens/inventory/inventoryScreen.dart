@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:the_green_manual/screens/inventory/inventoryState.dart';
 
 import '../../constants/constant.dart';
 
@@ -9,6 +11,7 @@ class InventoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<InventoryState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,14 +27,24 @@ class InventoryScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: ListView.builder(
-            itemCount: 8,
-            itemBuilder: (context, index) {
-              return ProjectTile(onTap: (){}, projectName: 'Project Name',);
-            }),
-      ),
+      body: state.isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: primaryColor,
+              ),
+            )
+          : Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: ListView.builder(
+                  itemCount: state.product!.data!.products!.length,
+                  itemBuilder: (context, index) {
+                    return ProjectTile(
+                      onTap: () {},
+                      projectName: state.product!.data!.products![index].name!,
+                      // projectName: 'project name',
+                    );
+                  }),
+            ),
     );
   }
 }
@@ -51,7 +64,8 @@ class ProjectTile extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
           decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10)),
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -63,7 +77,10 @@ class ProjectTile extends StatelessWidget {
                   onPressed: () {
                     onTap();
                   },
-                  icon: Icon(Icons.more_vert, color: Colors.grey,))
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: Colors.grey,
+                  ))
             ],
           ),
         ),

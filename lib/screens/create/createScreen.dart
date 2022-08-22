@@ -40,7 +40,7 @@ class CreateScreen extends StatelessWidget {
             Column(
               children: [
                 TextFormField(
-                  onChanged: state.onProjectNameChanged,
+                  onChanged: state.onNameChanged,
                   cursorColor: primaryColor,
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(
@@ -49,7 +49,7 @@ class CreateScreen extends StatelessWidget {
                 ),
                 kSizedBox(),
                 TextFormField(
-                  onChanged: state.onProductNameChanged,
+                  onChanged: state.onModelChanged,
                   cursorColor: primaryColor,
                   decoration: InputDecoration(
                       focusedBorder: UnderlineInputBorder(
@@ -66,7 +66,9 @@ class CreateScreen extends StatelessWidget {
               ],
             ),
             Button(
-              onTap: () {},
+              onTap: () {
+                state.createProjects();
+              },
               name: 'Create',
             ),
           ],

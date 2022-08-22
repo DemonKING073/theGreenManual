@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:the_green_manual/main.dart';
+import 'package:the_green_manual/screens/resume/resumeState.dart';
 
 import '../../constants/constant.dart';
 
@@ -10,6 +12,7 @@ class ResumeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<ResumeState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,22 +27,29 @@ class ResumeScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: InkWell(
-          onTap: () {
-            navigatorKey.currentState!.pushNamed('/project_details');
-          },
-          child: ListView.builder(
-              itemCount: 15,
-              itemBuilder: (context, index) {
-                return ProjectTile(
-                  onTap: () {},
-                  projectName: 'Project Name',
-                );
-              }),
-        ),
-      ),
+      body: state.isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: primaryColor,
+              ),
+            )
+          : Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: InkWell(
+                onTap: () {
+                  navigatorKey.currentState!.pushNamed('/project_details');
+                },
+                child: ListView.builder(
+                    itemCount: state.product!.data!.products!.length,
+                    itemBuilder: (context, index) {
+                      return ProjectTile(
+                        onTap: () {},
+                        projectName:
+                            state.product!.data!.products![index].name!,
+                      );
+                    }),
+              ),
+            ),
     );
   }
 }

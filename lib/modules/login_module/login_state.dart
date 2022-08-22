@@ -26,7 +26,7 @@ class LoginState extends BaseState {
 
   bool isPasswordVisible = true;
 
-onVisibilityChanged() {
+  onVisibilityChanged() {
     isPasswordVisible = !isPasswordVisible;
     print(isPasswordVisible);
     notifyListeners();
@@ -47,6 +47,7 @@ onVisibilityChanged() {
         final res = await firebaseInstance.signInWithEmailAndPassword(
             email: email!, password: password!);
         final token = await res.user!.getIdToken();
+        print('Yo login ko token ho $token');
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
         ToastService().s("Login Successfull!");
         getVerification();
@@ -60,6 +61,7 @@ onVisibilityChanged() {
   getVerification() async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
+      print('kera jasto token: $token');
       Dio newDio = Dio();
       final response = await newDio
           .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
@@ -72,6 +74,9 @@ onVisibilityChanged() {
       // print("yo condo jsto $response");
       LocalStorageService()
           .write(LocalStorageKeys.accessToken, response.data['token']);
+      final tokens = LocalStorageService().read(LocalStorageKeys.accessToken);
+      print('kera jasto token: $tokens');
+
       navigatorKey.currentState!
           .pushNamedAndRemoveUntil("/home_display", (route) => false);
       // ignore: empty_catches

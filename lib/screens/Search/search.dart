@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/constants/helper.dart';
+import 'package:the_green_manual/screens/Search/searchState.dart';
 
 class Search extends StatelessWidget {
   static const String id = 'search';
@@ -8,6 +10,7 @@ class Search extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<SearchState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -33,6 +36,7 @@ class Search extends StatelessWidget {
               ),
               sSizedBox(),
               TextFormField(
+                onChanged: state.onProductNameChanged,
                 decoration: InputDecoration(
                     hintText: 'Master Bedroom Lamp',
                     isDense: true,
@@ -75,6 +79,7 @@ class Search extends StatelessWidget {
               ),
               sSizedBox(),
               TextFormField(
+                onChanged: state.onModelNumberChanged,
                 decoration: InputDecoration(
                     hintText: '1111-1111-1111-1111',
                     isDense: true,
@@ -89,7 +94,9 @@ class Search extends StatelessWidget {
               ),
               LSizedBox(),
               SearchButton(
-                onTap: () {},
+                onTap: () {
+                  state.searchProducts();
+                },
                 name: 'Search',
               ),
               LSizedBox(),
@@ -97,28 +104,39 @@ class Search extends StatelessWidget {
               LSizedBox(),
 
               //    If Product Found      /////
-              // Container(
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: Colors.grey),
-              //     borderRadius: BorderRadius.circular(10),
-              //   ),
-              //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              //   child : Text('Master Bedroom Lamp',style: kTextStyle().copyWith(color: Colors.grey),),
-              // ),
-
-              ////    If Product Not Found      /////
-              LSizedBox(),
-              Center(
-                child: Column(
-                  children: [
-                    Image.asset('assets/icons/Frame.png'),
-                    kSizedBox(),
-                    Text('No product to show for', style: kTextStyle().copyWith(color: Colors.grey),),
-                    Text('"Master Bedroom Lamp”', style: kTextStyle().copyWith(color: Colors.grey)),
-                  ],
-                ),
-              )
+              // state.product!.data!.products != null
+              //     ? Column(
+              //         children: state.product!.data!.products!.map((e) {
+              //           return Container(
+              //             width: double.infinity,
+              //             decoration: BoxDecoration(
+              //               border: Border.all(color: Colors.grey),
+              //               borderRadius: BorderRadius.circular(10),
+              //             ),
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: 20, vertical: 15),
+              //             child: Text(
+              //               e.name!,
+              //               style: kTextStyle().copyWith(color: Colors.grey),
+              //             ),
+              //           );
+              //         }).toList(),
+              //       )
+              //     : 
+                  Center(
+                      child: Column(
+                        children: [
+                          Image.asset('assets/icons/Frame.png'),
+                          kSizedBox(),
+                          Text(
+                            'No product to show for',
+                            style: kTextStyle().copyWith(color: Colors.grey),
+                          ),
+                          Text('"Master Bedroom Lamp”',
+                              style: kTextStyle().copyWith(color: Colors.grey)),
+                        ],
+                      ),
+                    )
             ],
           )),
     );
