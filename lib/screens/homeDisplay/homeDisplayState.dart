@@ -10,7 +10,14 @@ import 'package:the_green_manual/screens/profile/profileState.dart';
 import 'package:the_green_manual/screens/resume/resumeScreen.dart';
 import 'package:the_green_manual/screens/resume/resumeState.dart';
 
-class HomeDisplayState extends ChangeNotifier{
+class HomeDisplayState extends ChangeNotifier {
+  HomeDisplayState(context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    if (args != null) {
+      selectedIndex = 3;
+      notifyListeners();
+    }
+  }
   int selectedIndex = 0;
   void onItemTapped(int index) {
     selectedIndex = index;
@@ -20,20 +27,12 @@ class HomeDisplayState extends ChangeNotifier{
   List onNavigation = [
     // ChangeNotifierProvider(child: Home(), create: (context) => HomeState(),),
     HomeScreen(),
+    ChangeNotifierProvider(create: (_) => ResumeState(), child: ResumeScreen()),
     ChangeNotifierProvider(
-      create: (_) => ResumeState(),
-      child: ResumeScreen()),
+        create: (_) => CreateScreenState(), child: CreateScreen()),
     ChangeNotifierProvider(
-      create: (_) => CreateScreenState(),
-      child: CreateScreen()),
+        create: (_) => InventoryState(), child: InventoryScreen()),
     ChangeNotifierProvider(
-      create: (_) =>InventoryState(),
-      child: InventoryScreen()),
-    ChangeNotifierProvider(
-      create: (_) => ProfileState(),
-      child: ProfileScreen())
-    // BillingScreen(),
-    // SupportScreen(),
-    // MoreScreen(),
+        create: (_) => ProfileState(), child: ProfileScreen())
   ];
 }

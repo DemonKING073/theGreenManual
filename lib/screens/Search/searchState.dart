@@ -41,12 +41,16 @@ class SearchState extends ChangeNotifier {
     setLoading(false);
   }
 
-  late String keySearch;
+  late String keySearchName;
+  late String keySearchModelNo;
+
+  bool isSearched = false;
 
   searchProducts() async {
+    setLoading(true);
     try {
       var response = await dio.get(
-        '/v1/products?fields=assignee,name=$productName,model=$modelNumber&private=true',
+        '/v1/products?fields=assignee,name,model&private=true&name[regex]=$keySearchName&model[regex]=$keySearchModelNo&model[options]=i',
       );
 
       product = Product.fromJson(response.data);
@@ -56,10 +60,20 @@ class SearchState extends ChangeNotifier {
       // TODO
       print(e.response);
     }
+    setLoading(false);
   }
 
-  late Debouncer<String> searchQuery = Debouncer(Duration(seconds: 1), (query) {
-    keySearch = query;
+  late Debouncer<String> searchName = Debouncer(Duration(seconds: 1), (query) {
+    keySearchName = query;
+    print(keySearchName);
+    notifyListeners();
+    searchProducts();
+  }, '');
+
+  late Debouncer<String> searchModelNo =
+      Debouncer(Duration(seconds: 1), (query) {
+    keySearchModelNo = query;
+    print(keySearchModelNo);
     notifyListeners();
     searchProducts();
   }, '');

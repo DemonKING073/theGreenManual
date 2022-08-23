@@ -25,7 +25,8 @@ class Search extends StatelessWidget {
           color: Colors.black, //change your color here
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,9 @@ class Search extends StatelessWidget {
               ),
               sSizedBox(),
               TextFormField(
-                onChanged: state.onProductNameChanged,
+                onChanged: (query) {
+                  state.searchName.value = query;
+                },
                 decoration: InputDecoration(
                     hintText: 'Master Bedroom Lamp',
                     isDense: true,
@@ -79,7 +82,9 @@ class Search extends StatelessWidget {
               ),
               sSizedBox(),
               TextFormField(
-                onChanged: state.onModelNumberChanged,
+                onChanged: (query) {
+                  state.searchModelNo.value = query;
+                },
                 decoration: InputDecoration(
                     hintText: '1111-1111-1111-1111',
                     isDense: true,
@@ -102,43 +107,51 @@ class Search extends StatelessWidget {
               LSizedBox(),
               Divider(),
               LSizedBox(),
-
-              //    If Product Found      /////
-              // state.product!.data!.products != null
-              //     ? Column(
-              //         children: state.product!.data!.products!.map((e) {
-              //           return Container(
-              //             width: double.infinity,
-              //             decoration: BoxDecoration(
-              //               border: Border.all(color: Colors.grey),
-              //               borderRadius: BorderRadius.circular(10),
-              //             ),
-              //             padding: EdgeInsets.symmetric(
-              //                 horizontal: 20, vertical: 15),
-              //             child: Text(
-              //               e.name!,
-              //               style: kTextStyle().copyWith(color: Colors.grey),
-              //             ),
-              //           );
-              //         }).toList(),
-              //       )
-              //     : 
-                  Center(
-                      child: Column(
-                        children: [
-                          Image.asset('assets/icons/Frame.png'),
-                          kSizedBox(),
-                          Text(
-                            'No product to show for',
-                            style: kTextStyle().copyWith(color: Colors.grey),
-                          ),
-                          Text('"Master Bedroom Lamp”',
-                              style: kTextStyle().copyWith(color: Colors.grey)),
-                        ],
+      
+              //  If Product Found      /////
+              state.isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: primaryColor,
                       ),
                     )
+                  : state.product!.data!.products == null
+                      ? Center(
+                          child: Column(
+                            children: [
+                              Image.asset('assets/icons/Frame.png'),
+                              kSizedBox(),
+                              Text(
+                                'No product to show for',
+                                style: kTextStyle().copyWith(color: Colors.grey),
+                              ),
+                              Text('state.keySearch',
+                                  style:
+                                      kTextStyle().copyWith(color: Colors.grey)),
+                            ],
+                          ),
+                        )
+                      : Column(
+                          children: state.product!.data!.products!.map((e) {
+                            return Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: Text(
+                                e.name!,
+                                style: kTextStyle().copyWith(color: Colors.grey),
+                              ),
+                            );
+                          }).toList(),
+                        )
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }

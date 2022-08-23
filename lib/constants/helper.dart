@@ -58,20 +58,20 @@ class ButtonWithIcon extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-        Icon(
-          icon,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        Text(
-          name!,
-          style: TextStyle(
+            Icon(
+              icon,
               color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w400),
-        ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              name!,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
+            ),
           ],
         ),
         padding: EdgeInsets.symmetric(vertical: 10),
@@ -89,7 +89,7 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onTap();
+        onTap;
       },
       child: Center(
         child: Container(

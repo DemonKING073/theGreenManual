@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/constants/helper.dart';
+import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/screens/create/createScreenState.dart';
 
 class CreateScreen extends StatelessWidget {
@@ -58,16 +57,19 @@ class CreateScreen extends StatelessWidget {
                 ),
                 LSizedBox(),
                 LSizedBox(),
-                ButtonWithIcon(
-                  onTap: () {},
-                  icon: Icons.edit_outlined,
-                  name: 'Create Section',
-                )
+                // ButtonWithIcon(
+                //   onTap: () {},
+                //   icon: Icons.edit_outlined,
+                //   name: 'Create Section',
+                // )
               ],
             ),
             Button(
-              onTap: () {
-                state.createProjects();
+              onTap: () async {
+                print('tapped');
+                await state.createProjects();
+                navigatorKey.currentState!
+                    .pushNamed('/home_display', arguments: 'home_display');
               },
               name: 'Create',
             ),

@@ -82,7 +82,7 @@ class TheGreenManual extends StatelessWidget {
                 ),
             '/terms_condition': (context) => TermsAndCondition(),
             '/home_display': (context) => ChangeNotifierProvider(
-                create: (_) => HomeDisplayState(), child: HomeDisplay()),
+                create: (_) => HomeDisplayState(context), child: HomeDisplay()),
             '/search': (context) => ChangeNotifierProvider(
               create: (_) => SearchState(),
               child: Search()),
