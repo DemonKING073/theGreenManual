@@ -150,138 +150,158 @@ class ProfileScreen extends StatelessWidget {
               icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              decoration: BoxDecoration(
-                  color: primaryColor, borderRadius: BorderRadius.circular(10)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: state.isLoading
+          ? Center(
+              child: CircularProgressIndicator(color: primaryColor),
+            )
+          : Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
                 children: [
-                  Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 28,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: 26,
-                          backgroundImage:
-                              AssetImage('assets/images/luffy.jpg'),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const CircleAvatar(
+                              radius: 28,
+                              backgroundColor: Colors.white,
+                              child: CircleAvatar(
+                                radius: 26,
+                                backgroundImage:
+                                    AssetImage('assets/images/luffy.jpg'),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.profile!.data!.user!.name == null
+                                      ? 'No Name'
+                                      : state.profile!.data!.user!.name!,
+                                  style: kBoldTextStyle()
+                                      .copyWith(color: Colors.white),
+                                ),
+                                Text(
+                                  state.profile!.data!.user!.email!,
+                                  style: kTextStyle()
+                                      .copyWith(color: Colors.white),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Will Billings',
-                            style:
-                                kBoldTextStyle().copyWith(color: Colors.white),
-                          ),
-                          Text(
-                            '@willbillings',
-                            style: kTextStyle().copyWith(color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        navigatorKey.currentState!.pushNamed('/profile_edit');
-                      },
-                      icon: const Icon(
-                        Icons.edit_outlined,
-                        color: Colors.white,
-                        size: 24,
-                      ))
-                ],
-              ),
-            ),
-            LSizedBox(),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 1,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: Column(
-                children: [
-                  profileButtons(
-                    title: 'My Account',
-                    description: 'Make Changes to your Account',
-                    icons: Icons.person_outline,
-                    onTap: () {},
+                        IconButton(
+                            onPressed: () async {
+                              await navigatorKey.currentState!
+                                  .pushNamed('/profile_edit');
+                              state.fetchProfile();
+                            },
+                            icon: const Icon(
+                              Icons.edit_outlined,
+                              color: Colors.white,
+                              size: 24,
+                            ))
+                      ],
+                    ),
                   ),
                   LSizedBox(),
-                  profileButtons(
-                      title: 'Language',
-                      description: 'Select Language for Manual',
-                      icons: Icons.language,
-                      onTap: () {
-                        showLanguageUpdateDialog(context);
-                      }),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Column(
+                      children: [
+                        profileButtons(
+                          title: 'My Account',
+                          description: 'Make Changes to your Account',
+                          icons: Icons.person_outline,
+                          onTap: () {},
+                        ),
+                        LSizedBox(),
+                        profileButtons(
+                            title: 'Language',
+                            description: 'Select Language for Manual',
+                            icons: Icons.language,
+                            onTap: () {
+                              showLanguageUpdateDialog(context);
+                            }),
+                        LSizedBox(),
+                        profileButtons(
+                            title: 'Log out',
+                            description:
+                                'Further secure your account for safety',
+                            icons: Icons.logout,
+                            onTap: () {
+                              showLogoutConfirmationDialog(context);
+                            }),
+                      ],
+                    ),
+                  ),
                   LSizedBox(),
-                  profileButtons(
-                      title: 'Log out',
-                      description: 'Further secure your account for safety',
-                      icons: Icons.logout,
-                      onTap: () {
-                        showLogoutConfirmationDialog(context);
-                      }),
-                ],
-              ),
-            ),
-            LSizedBox(),
-            Text(
-              'More',
-              style: kBoldTextStyle(),
-            ),
-            LSizedBox(),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 3,
-                    blurRadius: 2,
-                    offset: const Offset(0, 3), // changes position of shadow
+                  Text(
+                    'More',
+                    style: kBoldTextStyle(),
+                  ),
+                  LSizedBox(),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 3,
+                          blurRadius: 2,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Column(
+                      children: [
+                        profileButtonsWithOutDescription(
+                          title: 'Help And Support',
+                          icons: Icons.support_agent,
+                          onTap: () {
+                            navigatorKey.currentState!
+                                .pushNamed('/helpAndSupport');
+                          },
+                        ),
+                        LSizedBox(),
+                        profileButtonsWithOutDescription(
+                            title: 'About App',
+                            icons: Icons.info,
+                            onTap: () {}),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: Column(
-                children: [
-                  profileButtonsWithOutDescription(
-                    title: 'Help And Support',
-                    icons: Icons.support_agent,
-                    onTap: () {
-                      navigatorKey.currentState!.pushNamed('/helpAndSupport');
-                    },
-                  ),
-                  LSizedBox(),
-                  profileButtonsWithOutDescription(
-                      title: 'About App', icons: Icons.info, onTap: () {}),
-                ],
-              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

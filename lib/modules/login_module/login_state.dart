@@ -46,6 +46,7 @@ class LoginState extends BaseState {
         final res = await firebaseInstance.signInWithEmailAndPassword(
             email: email!, password: password!);
         final token = await res.user!.getIdToken();
+        print(token);
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
         ToastService().s("Login Successfull!");
         getVerification();

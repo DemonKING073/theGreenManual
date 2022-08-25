@@ -100,7 +100,7 @@ class Search extends StatelessWidget {
               LSizedBox(),
               SearchButton(
                 onTap: () {
-                  state.searchProducts();
+                  // state.searchProducts();
                 },
                 name: 'Search',
               ),
