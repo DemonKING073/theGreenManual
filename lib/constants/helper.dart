@@ -89,7 +89,7 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onTap;
+        onTap();
       },
       child: Center(
         child: Container(

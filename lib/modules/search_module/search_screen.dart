@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/constants/helper.dart';
 import 'package:the_green_manual/modules/search_module/search_state.dart';
@@ -21,13 +22,13 @@ class SearchScreen extends StatelessWidget {
           'SEARCH',
           style: LBoldTextStyle(),
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,7 +47,7 @@ class SearchScreen extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(10)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor),
@@ -54,7 +55,7 @@ class SearchScreen extends StatelessWidget {
               ),
               LSizedBox(),
               Row(
-                children: [
+                children: const [
                   Expanded(
                       child: Divider(
                     thickness: 2,
@@ -91,7 +92,7 @@ class SearchScreen extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(10)),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: primaryColor),
@@ -100,22 +101,21 @@ class SearchScreen extends StatelessWidget {
               LSizedBox(),
               SearchButton(
                 onTap: () {
-                  state.searchProducts();
+                  state.search();
                 },
                 name: 'Search',
               ),
               LSizedBox(),
-              Divider(),
+              const Divider(),
               LSizedBox(),
-
-              //  If Product Found      /////
               state.isLoading
                   ? Center(
                       child: CircularProgressIndicator(
                         color: primaryColor,
                       ),
                     )
-                  : state.product!.data!.products == null
+                  : state.product == null ||
+                          state.product!.data!.products!.isEmpty
                       ? Center(
                           child: Column(
                             children: [
@@ -126,27 +126,37 @@ class SearchScreen extends StatelessWidget {
                                 style:
                                     kTextStyle().copyWith(color: Colors.grey),
                               ),
-                              Text('state.keySearch',
-                                  style: kTextStyle()
-                                      .copyWith(color: Colors.grey)),
+                              if (state.keySearchName.isNotEmpty)
+                                Text(state.keySearchName,
+                                    style: kTextStyle()
+                                        .copyWith(color: Colors.grey))
+                              else
+                                Text(state.keySearchModelNo,
+                                    style: kTextStyle()
+                                        .copyWith(color: Colors.grey)),
                             ],
                           ),
                         )
                       : Column(
                           children: state.product!.data!.products!.map((e) {
-                            return Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              child: Text(
-                                e.name!,
-                                style:
-                                    kTextStyle().copyWith(color: Colors.grey),
-                              ),
+                            return Column(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 15),
+                                  child: Text(
+                                    e.name!,
+                                    style: kTextStyle()
+                                        .copyWith(color: Colors.grey),
+                                  ),
+                                ),
+                                sHeightSpan,
+                              ],
                             );
                           }).toList(),
                         )
