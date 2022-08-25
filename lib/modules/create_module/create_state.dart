@@ -38,16 +38,12 @@ class CreateScreenState extends ChangeNotifier {
     // final token = LocalStorageService().read(LocalStorageKeys.accessToken);
     final token = LocalStorageService().read(LocalStorageKeys.accessToken);
 
-    print('create garni bela ko tokjen ho $token');
     try {
       await dio.post('/v1/products/personal-product', data: data);
       ToastService().s('Created Successfully');
       navigatorKey.currentState!
           .pushNamedAndRemoveUntil('/inventory_screen', (route) => false);
     } on DioError catch (e) {
-      print(e);
-      print(e.response);
-      print(e.message);
       // ToastService().e(e.message[0] ?? "Error");
     }
   }

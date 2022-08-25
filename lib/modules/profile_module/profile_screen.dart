@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, camel_case_types
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -21,17 +23,13 @@ class ProfileScreen extends StatelessWidget {
             return StatefulBuilder(
               builder: (context, setState) {
                 return AlertDialog(
-                  // shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  // insetPadding: EdgeInsets.zero,
-                  // title: Text('Select Language', style: kBoldTextStyle()),
                   content: SingleChildScrollView(
                     child: Column(
                       children: [
                         CircleAvatar(
                           radius: 24,
                           backgroundColor: primaryColor,
-                          child: Icon(
+                          child: const Icon(
                             Icons.language,
                             color: Colors.white,
                             size: 30,
@@ -42,17 +40,17 @@ class ProfileScreen extends StatelessWidget {
                         kSizedBox(),
                         DropdownButton(
                             isExpanded: true,
-                            hint: Text('Select your Prefered Language'),
+                            hint: const Text('Select your Prefered Language'),
                             value: state.selectedLanguage,
                             items: state.language
                                 .map(
                                   (e) => DropdownMenuItem(
+                                    value: e,
                                     child: Text(
                                       e,
                                       style:
                                           kTextStyle().copyWith(fontSize: 14),
                                     ),
-                                    value: e,
                                   ),
                                 )
                                 .toList(),
@@ -63,7 +61,6 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   actions: <Widget>[
                     TextButton(
                       child: Text(
@@ -100,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                   //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   // insetPadding: EdgeInsets.zero,
                   title: Text('Log Out!', style: kBoldTextStyle()),
-                  content: Text('Are you sure you want to logout?'),
+                  content: const Text('Are you sure you want to logout?'),
 
                   actions: <Widget>[
                     TextButton(
@@ -137,10 +134,11 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading:
+            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
         title: Text(
           'Profile',
           style: LBoldTextStyle(),
@@ -149,15 +147,15 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: ImageIcon(AssetImage('assets/icons/mic.png')))
+              icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
         ],
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               decoration: BoxDecoration(
                   color: primaryColor, borderRadius: BorderRadius.circular(10)),
               child: Row(
@@ -165,7 +163,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 28,
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
@@ -174,7 +172,7 @@ class ProfileScreen extends StatelessWidget {
                               AssetImage('assets/images/luffy.jpg'),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Column(
@@ -196,7 +194,7 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () {
                         navigatorKey.currentState!.pushNamed('/profile_edit');
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.edit_outlined,
                         color: Colors.white,
                         size: 24,
@@ -214,11 +212,11 @@ class ProfileScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 2,
                     blurRadius: 1,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                 children: [
                   profileButtons(
@@ -261,11 +259,11 @@ class ProfileScreen extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.2),
                     spreadRadius: 3,
                     blurRadius: 2,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                 children: [
                   profileButtonsWithOutDescription(
@@ -288,14 +286,80 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class profileButtons extends StatelessWidget {
+class profileButtons extends StatefulWidget {
   String title;
   String description;
   IconData icons;
   Function onTap;
   profileButtons(
-      {required this.title,
+      {super.key,
+      required this.title,
       required this.description,
+      required this.icons,
+      required this.onTap});
+
+  @override
+  State<profileButtons> createState() => _profileButtonsState();
+}
+
+class _profileButtonsState extends State<profileButtons> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        widget.onTap();
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey[200],
+                child: Icon(
+                  widget.icons,
+                  color: primaryColor,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.title, style: kBoldTextStyle()),
+                  Row(
+                    children: [
+                      Text(
+                        widget.description,
+                        overflow: TextOverflow.ellipsis,
+                        style: kTextStyle()
+                            .copyWith(color: Colors.grey, fontSize: 10),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+          const Icon(
+            Icons.keyboard_arrow_right_rounded,
+            color: Colors.grey,
+            size: 24,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class profileButtonsWithOutDescription extends StatelessWidget {
+  String title;
+  IconData icons;
+  Function onTap;
+  profileButtonsWithOutDescription(
+      {super.key,
+      required this.title,
       required this.icons,
       required this.onTap});
 
@@ -317,59 +381,7 @@ class profileButtons extends StatelessWidget {
                   color: primaryColor,
                 ),
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: kBoldTextStyle()),
-                  Text(
-                    description,
-                    style:
-                        kTextStyle().copyWith(color: Colors.grey, fontSize: 12),
-                  )
-                ],
-              ),
-            ],
-          ),
-          Icon(
-            Icons.keyboard_arrow_right_rounded,
-            color: Colors.grey,
-            size: 24,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class profileButtonsWithOutDescription extends StatelessWidget {
-  String title;
-  IconData icons;
-  Function onTap;
-  profileButtonsWithOutDescription(
-      {required this.title, required this.icons, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onTap();
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey[200],
-                child: Icon(
-                  icons,
-                  color: primaryColor,
-                ),
-              ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Column(
@@ -380,7 +392,7 @@ class profileButtonsWithOutDescription extends StatelessWidget {
               ),
             ],
           ),
-          Icon(
+          const Icon(
             Icons.keyboard_arrow_right_rounded,
             color: Colors.grey,
             size: 24,

@@ -21,7 +21,6 @@ class ResumeState extends ChangeNotifier {
       var response =
           await dio.get('/v1/products?fields=assignee,name,model&private=true');
       product = Product.fromJson(response.data);
-      print(response.data);
     } catch (e) {}
     setLoading(false);
   }

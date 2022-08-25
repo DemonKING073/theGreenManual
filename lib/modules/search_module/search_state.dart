@@ -58,14 +58,12 @@ class SearchState extends ChangeNotifier {
       notifyListeners();
     } on DioError catch (e) {
       // TODO
-      print(e.response);
     }
     setLoading(false);
   }
 
   late Debouncer<String> searchName = Debouncer(Duration(seconds: 1), (query) {
     keySearchName = query;
-    print(keySearchName);
     notifyListeners();
     searchProducts();
   }, '');
@@ -73,7 +71,6 @@ class SearchState extends ChangeNotifier {
   late Debouncer<String> searchModelNo =
       Debouncer(Duration(seconds: 1), (query) {
     keySearchModelNo = query;
-    print(keySearchModelNo);
     notifyListeners();
     searchProducts();
   }, '');

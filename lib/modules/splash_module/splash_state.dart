@@ -31,7 +31,7 @@ class SplashState extends BaseState {
           const Duration(seconds: 2),
           () {
             navigatorKey.currentState!
-                .pushNamedAndRemoveUntil('/register', (route) => false);
+                .pushNamedAndRemoveUntil('/login', (route) => false);
           },
         );
       } else {
@@ -54,8 +54,6 @@ class SplashState extends BaseState {
       await dio.get('/auth/profile');
       navigatorKey.currentState!
           .pushNamedAndRemoveUntil('/home', (route) => false);
-    } on DioError catch (e) {
-      print(e);
-    }
+    } on DioError catch (e) {}
   }
 }

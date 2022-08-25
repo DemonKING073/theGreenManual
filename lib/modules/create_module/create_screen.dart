@@ -66,7 +66,6 @@ class CreateScreen extends StatelessWidget {
             ),
             Button(
               onTap: () async {
-                print('tapped');
                 await state.createProjects();
                 navigatorKey.currentState!
                     .pushNamed('/home_display', arguments: 'home_display');

@@ -35,7 +35,7 @@ TextStyle sBoldTextStyle() => TextStyle(
 TextStyle kTextStyle() => TextStyle(
       color: Colors.grey[800],
       fontFamily: 'Poppins',
-      fontSize: 14,
+      fontSize: 12,
     );
 
 TextStyle LTextStyle() => TextStyle(
