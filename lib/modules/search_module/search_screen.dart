@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/constants/helper.dart';
-import 'package:the_green_manual/screens/Search/searchState.dart';
+import 'package:the_green_manual/modules/search_module/search_state.dart';
 
-class Search extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
   static const String id = 'search';
-  const Search({Key? key}) : super(key: key);
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +107,7 @@ class Search extends StatelessWidget {
               LSizedBox(),
               Divider(),
               LSizedBox(),
-      
+
               //  If Product Found      /////
               state.isLoading
                   ? Center(
@@ -123,11 +123,12 @@ class Search extends StatelessWidget {
                               kSizedBox(),
                               Text(
                                 'No product to show for',
-                                style: kTextStyle().copyWith(color: Colors.grey),
+                                style:
+                                    kTextStyle().copyWith(color: Colors.grey),
                               ),
                               Text('state.keySearch',
-                                  style:
-                                      kTextStyle().copyWith(color: Colors.grey)),
+                                  style: kTextStyle()
+                                      .copyWith(color: Colors.grey)),
                             ],
                           ),
                         )
@@ -143,7 +144,8 @@ class Search extends StatelessWidget {
                                   horizontal: 20, vertical: 15),
                               child: Text(
                                 e.name!,
-                                style: kTextStyle().copyWith(color: Colors.grey),
+                                style:
+                                    kTextStyle().copyWith(color: Colors.grey),
                               ),
                             );
                           }).toList(),

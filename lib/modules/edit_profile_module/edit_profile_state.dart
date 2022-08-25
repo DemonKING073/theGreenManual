@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:the_green_manual/core/states/base_state.dart';
 
-class EditProfileState extends ChangeNotifier {
+class EditProfileState extends BaseState {
   List gender = ['Male', 'Female', 'Others'];
   String? selectedGender;
   onGenderChanged(val) {

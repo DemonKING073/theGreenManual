@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:the_green_manual/main.dart';
 
 import '../../constants/constant.dart';
 
-class HelpAndSupport extends StatelessWidget {
-  const HelpAndSupport({Key? key}) : super(key: key);
+class HelpAndSupportScreen extends StatelessWidget {
+  const HelpAndSupportScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

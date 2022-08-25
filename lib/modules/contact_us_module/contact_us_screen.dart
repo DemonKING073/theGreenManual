@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/helper.dart';
-import 'package:the_green_manual/screens/contactUs/contactUsState.dart';
+import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
 
 import '../../constants/constant.dart';
 
-class ContactUs extends StatelessWidget {
-  const ContactUs({Key? key}) : super(key: key);
+class ContactUsScreen extends StatelessWidget {
+  const ContactUsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,6 @@ class ContactUs extends StatelessWidget {
             LSizedBox(),
             TextFormField(
               onChanged: state.onEmailChanged,
-
               decoration: InputDecoration(
                 filled: true,
                 hintText: "Email",
@@ -64,7 +63,6 @@ class ContactUs extends StatelessWidget {
               ),
             ),
             LSizedBox(),
-
             TextFormField(
               onChanged: state.onDescriptionChanged,
               maxLines: 5,
@@ -83,10 +81,12 @@ class ContactUs extends StatelessWidget {
               ),
             ),
             LSizedBox(),
-            SearchButton(onTap: (){}, name: 'Send',)
+            SearchButton(
+              onTap: () {},
+              name: 'Send',
+            )
           ],
         ),
-        
       ),
     );
   }

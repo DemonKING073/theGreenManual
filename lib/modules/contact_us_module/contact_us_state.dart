@@ -9,10 +9,12 @@ class ContactUsState extends ChangeNotifier {
     name = val;
     notifyListeners();
   }
+
   onEmailChanged(val) {
     email = val;
     notifyListeners();
   }
+
   onDescriptionChanged(val) {
     description = val;
     notifyListeners();

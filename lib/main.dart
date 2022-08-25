@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/states/main_state.dart';
+import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
+import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
 import 'package:the_green_manual/modules/home_module/home_screen.dart';
 import 'package:the_green_manual/modules/home_module/home_state.dart';
 import 'package:the_green_manual/modules/login_module/login_screen.dart';
@@ -19,18 +21,15 @@ import 'package:the_green_manual/modules/splash_module/splash_screen.dart';
 import 'package:the_green_manual/modules/splash_module/splash_state.dart';
 import 'package:the_green_manual/modules/term&conditions/term_condition_screen.dart';
 import 'package:the_green_manual/modules/welcome_module/welcome_screen.dart';
-import 'package:the_green_manual/screens/Search/search.dart';
-import 'package:the_green_manual/screens/Search/searchState.dart';
-import 'package:the_green_manual/screens/contactUs/contactUs.dart';
-import 'package:the_green_manual/screens/contactUs/contactUsState.dart';
-import 'package:the_green_manual/screens/editProfile/editProfile.dart';
-import 'package:the_green_manual/screens/editProfile/editProfileState.dart';
-import 'package:the_green_manual/screens/helpAndSupport/helpAndSupport.dart';
-import 'package:the_green_manual/screens/homeDisplay/homeDisplay.dart';
-import 'package:the_green_manual/screens/homeDisplay/homeDisplayState.dart';
-import 'package:the_green_manual/screens/projectDetails/projectDetails.dart';
-import 'package:the_green_manual/screens/scannerScreen/scannerScreen.dart';
-import 'package:the_green_manual/screens/scannerScreen/scannerState.dart';
+import 'package:the_green_manual/modules/search_module/search_screen.dart';
+import 'package:the_green_manual/modules/search_module/search_state.dart';
+import 'package:the_green_manual/modules/edit_profile_module/edit_profile_screen.dart';
+import 'package:the_green_manual/modules/edit_profile_module/edit_profile_state.dart';
+import 'package:the_green_manual/modules/help_support_module/help_support_screen.dart';
+
+import 'package:the_green_manual/modules/project_details_module/project_details_screen.dart';
+import 'package:the_green_manual/modules/scanner_module/scanner_screen.dart';
+import 'package:the_green_manual/modules/scanner_module/scanner_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,23 +76,25 @@ class TheGreenManual extends StatelessWidget {
                   child: const LoginScreen(),
                 ),
             '/home': (context) => ChangeNotifierProvider(
-                  create: (_) => HomeState(),
+                  create: (_) => HomeState(context),
                   child: const HomeScreen(),
                 ),
             '/terms_condition': (context) => TermsAndCondition(),
             '/home_display': (context) => ChangeNotifierProvider(
-                create: (_) => HomeDisplayState(context), child: HomeDisplay()),
+                create: (_) => HomeState(context), child: const HomeScreen()),
             '/search': (context) => ChangeNotifierProvider(
-              create: (_) => SearchState(),
-              child: Search()),
+                create: (_) => SearchState(), child: const SearchScreen()),
             '/scanner_screen': (context) => ChangeNotifierProvider(
-                create: (_) => ScannerState(), child: ScannerScreen()),
+                create: (_) => ScannerState(), child: const ScannerScreen()),
             '/profile_edit': (context) => ChangeNotifierProvider(
-                create: (_) => EditProfileState(), child: EditProfile()),
-            '/helpAndSupport': (context) => HelpAndSupport(),
+                create: (_) => EditProfileState(),
+                child: const EditProfileScreen()),
+            '/helpAndSupport': (context) => const HelpAndSupportScreen(),
             '/contactUs': (context) => ChangeNotifierProvider(
-                create: (_) => ContactUsState(), child: ContactUs()),
-            '/project_details': (context) => ProjectDetails(),
+                  create: (_) => ContactUsState(),
+                  child: const ContactUsScreen(),
+                ),
+            '/project_details': (context) => const ProjectDetailsScreen(),
           },
         ),
       ),

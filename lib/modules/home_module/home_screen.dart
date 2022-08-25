@@ -1,128 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:the_green_manual/main.dart';
-
-import '../../constants/constant.dart';
+import 'package:provider/provider.dart';
+import 'package:the_green_manual/constants/constant.dart';
+import 'package:the_green_manual/modules/home_module/home_state.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String id = 'HomeScreen';
+
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    final homeState = Provider.of<HomeState>(context);
+    return Scaffold(
+      body: homeState.onNavigation.elementAt(homeState.selectedIndex),
+      // bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icons/Home.png')),
+            label: 'Home',
+            // backgroundColor: Colors.black
           ),
-          title: Text('Home', style: LBoldTextStyle()),
-          elevation: 0,
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.support_agent,
-                ))
-          ],
-        ),
-        body: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: MediaQuery.of(context).size.width * 0.15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/search');
-                },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
-                        offset: Offset(4, 8), // Shadow position
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                            radius: 25,
-                            backgroundColor: primaryColor,
-                            child: Image.asset('assets/icons/search.png')),
-                        kSizedBox(),
-                        Text(
-                          'Search',
-                          style: LBoldTextStyle(),
-                        ),
-                        kSizedBox(),
-                        Text('We help develop company'),
-                        Text('websites to be more'),
-                        Text('professional and attractive')
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  navigatorKey.currentState!.pushNamed('/scanner_screen');
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
-                        offset: Offset(4, 8), // Shadow position
-                      ),
-                    ],
-                  ),
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 25,
-                          backgroundColor: primaryColor,
-                          // child: Image.asset(
-                          //   'assets/icons/Search.png',
-                          // )
-                          child: Icon(
-                            Icons.fit_screen_sharp,
-                            color: Colors.white,
-                            size: 28,
-                          ),
-                        ),
-                        kSizedBox(),
-                        Text(
-                          'Scan',
-                          style: LBoldTextStyle(),
-                        ),
-                        kSizedBox(),
-                        Text('We help develop company'),
-                        Text('websites to be more'),
-                        Text('professional and attractive')
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icons/resume.png')),
+            label: 'Resume',
+            // backgroundColor: Colors.black
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icons/create.png')),
+
+            label: 'Create',
+            // backgroundColor: Colors.black
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icons/inventory.png')),
+
+            label: 'Inventory',
+            // backgroundColor: Colors.black
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/icons/profile.2.png')),
+
+            label: 'Profile',
+            // backgroundColor: Colors.black
+          ),
+        ],
+        currentIndex: homeState.selectedIndex,
+        selectedItemColor: primaryColor,
+        onTap: homeState.onItemTapped,
       ),
     );
   }

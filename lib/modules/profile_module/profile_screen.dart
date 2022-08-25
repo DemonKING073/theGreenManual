@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:provider/provider.dart';
+import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/screens/profile/profileState.dart';
+import 'package:the_green_manual/modules/profile_module/profile_state.dart';
 
 import '../../constants/constant.dart';
 
@@ -30,7 +30,13 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 24,
-                          backgroundColor: primaryColor, child: Icon(Icons.language, color: Colors.white, size: 30,),),
+                          backgroundColor: primaryColor,
+                          child: Icon(
+                            Icons.language,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
                         kSizedBox(),
                         Text('Select Language', style: kBoldTextStyle()),
                         kSizedBox(),
@@ -43,7 +49,8 @@ class ProfileScreen extends StatelessWidget {
                                   (e) => DropdownMenuItem(
                                     child: Text(
                                       e,
-                                      style: kTextStyle().copyWith(fontSize: 14),
+                                      style:
+                                          kTextStyle().copyWith(fontSize: 14),
                                     ),
                                     value: e,
                                   ),
@@ -112,6 +119,11 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         onPressed: () async {
                           Navigator.pop(context);
+
+                          LocalStorageService()
+                              .clear(LocalStorageKeys.accessToken);
+                          navigatorKey.currentState!.pushNamedAndRemoveUntil(
+                              "/login", (route) => false);
                         }),
                   ],
                 );

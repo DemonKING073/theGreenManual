@@ -6,6 +6,11 @@ import 'package:the_green_manual/constants/helper.dart';
 import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/login_module/login_state.dart';
 
+bool canPop(BuildContext context) {
+  final NavigatorState? navigator = Navigator.maybeOf(context);
+  return navigator != null && navigator.canPop();
+}
+
 class LoginScreen extends StatelessWidget {
   static const String id = 'RegisterScreen';
 
@@ -42,7 +47,9 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            navigatorKey.currentState!.pop();
+                            if (canPop(context)) {
+                              navigatorKey.currentState!.pop();
+                            }
                           },
                           child: const Text('Later'),
                         ),
@@ -84,19 +91,17 @@ class LoginScreen extends StatelessWidget {
                       obscureText: state.isPasswordVisible,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
-                                onPressed: state.onVisibilityChanged,
-                                icon: state.isPasswordVisible
-                                    ? Icon(
-                                        Icons.visibility_off,
-                                        color: primaryColor,
-                                      )
-                                    : Icon(
-                                        Icons.visibility,
-                                        color: primaryColor,
-                                      ),
-                              ),
-
-
+                          onPressed: state.onVisibilityChanged,
+                          icon: state.isPasswordVisible
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: primaryColor,
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  color: primaryColor,
+                                ),
+                        ),
                         hintText: 'Password',
                         isDense: true,
                         filled: true,
@@ -176,7 +181,14 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     kSizedBox(),
-                    const Center(child: Text('Create Account')),
+                    InkWell(
+                      onTap: () {
+                        navigatorKey.currentState!.pushNamed("/register");
+                      },
+                      child: const Center(
+                        child: Text('Create Account'),
+                      ),
+                    ),
                     LSizedBox(),
                     const Divider(thickness: 2),
                     LSizedBox(),

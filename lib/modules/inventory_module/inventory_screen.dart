@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/screens/resume/resumeState.dart';
+import 'package:the_green_manual/modules/inventory_module/inventory_state.dart';
 
 import '../../constants/constant.dart';
 
-class ResumeScreen extends StatelessWidget {
-  const ResumeScreen({Key? key}) : super(key: key);
+class InventoryScreen extends StatelessWidget {
+  const InventoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ResumeState>(context);
+    final state = Provider.of<InventoryState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -21,8 +18,9 @@ class ResumeScreen extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         title: Text(
-          'Start where you left',
+          'Inventory',
           style: LBoldTextStyle(),
         ),
         centerTitle: true,
@@ -35,20 +33,15 @@ class ResumeScreen extends StatelessWidget {
             )
           : Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: InkWell(
-                onTap: () {
-                  navigatorKey.currentState!.pushNamed('/project_details');
-                },
-                child: ListView.builder(
-                    itemCount: state.product!.data!.products!.length,
-                    itemBuilder: (context, index) {
-                      return ProjectTile(
-                        onTap: () {},
-                        projectName:
-                            state.product!.data!.products![index].name!,
-                      );
-                    }),
-              ),
+              child: ListView.builder(
+                  itemCount: state.product!.data!.products!.length,
+                  itemBuilder: (context, index) {
+                    return ProjectTile(
+                      onTap: () {},
+                      projectName: state.product!.data!.products![index].name!,
+                      // projectName: 'project name',
+                    );
+                  }),
             ),
     );
   }

@@ -1,12 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/main.dart';
-
-import '../../constants/constant.dart';
 
 class CreateScreenState extends ChangeNotifier {
   String? projectName;

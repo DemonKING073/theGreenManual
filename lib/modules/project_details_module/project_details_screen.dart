@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../constants/constant.dart';
 
-class ProjectDetails extends StatelessWidget {
-  const ProjectDetails({Key? key}) : super(key: key);
+class ProjectDetailsScreen extends StatelessWidget {
+  const ProjectDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,12 @@ class ProjectDetails extends StatelessWidget {
           style: LBoldTextStyle(),
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.bookmark, color: primaryColor,))
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.bookmark,
+                color: primaryColor,
+              ))
         ],
         centerTitle: true,
       ),
@@ -116,38 +121,66 @@ class ProjectDetails extends StatelessWidget {
                     ),
                   ],
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: MediaQuery.of(context).size.height*0.04),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: MediaQuery.of(context).size.height * 0.04),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        Text('Assembly/SetUp', style: LBoldTextStyle().copyWith(fontWeight: FontWeight.w600),),
+                        Text(
+                          'Assembly/SetUp',
+                          style: LBoldTextStyle()
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
                       ],
                     ),
                     kSizedBox(),
-                    Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', style: kTextStyle(),),
+                    Text(
+                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
+                      style: kTextStyle(),
+                    ),
                     LSizedBox(),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          Image.asset('assets/images/anime1.jpeg', width: MediaQuery.of(context).size.width*0.4,),
-                          SizedBox(width: 10,),
-                          Image.asset('assets/images/anime1.jpeg', width: MediaQuery.of(context).size.width*0.4,),
-                          SizedBox(width: 10,),
-                          Image.asset('assets/images/anime1.jpeg', width: MediaQuery.of(context).size.width*0.4,),
-                    
+                          Image.asset(
+                            'assets/images/anime1.jpeg',
+                            width: MediaQuery.of(context).size.width * 0.4,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Image.asset(
+                            'assets/images/anime1.jpeg',
+                            width: MediaQuery.of(context).size.width * 0.4,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Image.asset(
+                            'assets/images/anime1.jpeg',
+                            width: MediaQuery.of(context).size.width * 0.4,
+                          ),
                         ],
                       ),
                     ),
                     LSizedBox(),
-                     Row(
+                    Row(
                       children: [
-                        Text('Assembly/SetUp', style: LBoldTextStyle().copyWith(fontWeight: FontWeight.w600),),
+                        Text(
+                          'Assembly/SetUp',
+                          style: LBoldTextStyle()
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
                       ],
                     ),
                     kSizedBox(),
-                    Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', style: kTextStyle(),),
+                    Text(
+                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
+                      style: kTextStyle(),
+                    ),
                   ],
                 ),
               ),

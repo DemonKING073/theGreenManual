@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/helper.dart';
-import 'package:the_green_manual/screens/editProfile/editProfileState.dart';
+import 'package:the_green_manual/modules/edit_profile_module/edit_profile_state.dart';
 
 import '../../constants/constant.dart';
 
-class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
