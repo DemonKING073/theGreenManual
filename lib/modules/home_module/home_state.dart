@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/modules/create_module/create_screen.dart';
 import 'package:the_green_manual/modules/create_module/create_state.dart';
-import 'package:the_green_manual/modules/home_module/home_screen.dart';
-
 import 'package:the_green_manual/modules/inventory_module/inventory_screen.dart';
 import 'package:the_green_manual/modules/inventory_module/inventory_state.dart';
 import 'package:the_green_manual/modules/profile_module/profile_screen.dart';
 import 'package:the_green_manual/modules/profile_module/profile_state.dart';
 import 'package:the_green_manual/modules/resume_module/resume_screen.dart';
 import 'package:the_green_manual/modules/resume_module/resume_state.dart';
+import 'package:the_green_manual/modules/search_scan_module/search_scan_screen.dart';
 
 class HomeState extends ChangeNotifier {
   HomeState(context) {
@@ -27,7 +26,7 @@ class HomeState extends ChangeNotifier {
   }
 
   List onNavigation = [
-    const HomeScreen(),
+    SearchScanScreen(),
     ChangeNotifierProvider(
         create: (_) => ResumeState(), child: const ResumeScreen()),
     ChangeNotifierProvider(

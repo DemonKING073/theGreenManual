@@ -76,12 +76,8 @@ class TheGreenManual extends StatelessWidget {
                   child: const LoginScreen(),
                 ),
             '/home': (context) => ChangeNotifierProvider(
-                  create: (_) => HomeState(context),
-                  child: const HomeScreen(),
-                ),
-            '/terms_condition': (context) => TermsAndCondition(),
-            '/home_display': (context) => ChangeNotifierProvider(
                 create: (_) => HomeState(context), child: const HomeScreen()),
+            '/terms_condition': (context) => TermsAndCondition(),
             '/search': (context) => ChangeNotifierProvider(
                 create: (_) => SearchState(), child: const SearchScreen()),
             '/scanner_screen': (context) => ChangeNotifierProvider(

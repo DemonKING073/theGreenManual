@@ -39,7 +39,7 @@ class SplashState extends BaseState {
           const Duration(seconds: 2),
           () {
             navigatorKey.currentState!
-                .pushNamedAndRemoveUntil('/home_display', (route) => false);
+                .pushNamedAndRemoveUntil('/home', (route) => false);
           },
         );
         // validAccessToken();

@@ -78,7 +78,7 @@ class LoginState extends BaseState {
       print('kera jasto token: $tokens');
 
       navigatorKey.currentState!
-          .pushNamedAndRemoveUntil("/home_display", (route) => false);
+          .pushNamedAndRemoveUntil("/home", (route) => false);
       // ignore: empty_catches
     } on DioError {}
   }
