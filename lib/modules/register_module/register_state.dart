@@ -12,11 +12,10 @@ class RegisterState extends BaseState {
   String? password;
   String? email;
 
-    bool isPasswordVisible = true;
+  bool isPasswordVisible = true;
 
-onVisibilityChanged() {
+  onVisibilityChanged() {
     isPasswordVisible = !isPasswordVisible;
-    print(isPasswordVisible);
     notifyListeners();
   }
 
@@ -52,7 +51,7 @@ onVisibilityChanged() {
       try {
         await firebaseInstance.createUserWithEmailAndPassword(
             email: email!, password: password!);
-        navigatorKey.currentState!.pushNamed('/home_display');
+        navigatorKey.currentState!.pushNamed('/login');
         ToastService().s("Registration Successfull!");
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
