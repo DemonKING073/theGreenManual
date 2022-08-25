@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches, unused_catch_clause
+
 import 'package:dio/dio.dart';
 import 'package:the_green_manual/core/http/http.dart';
 

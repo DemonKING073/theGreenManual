@@ -15,6 +15,7 @@ import 'package:the_green_manual/modules/onbording_modules/add_and_manage/add_an
 import 'package:the_green_manual/modules/onbording_modules/anytime_anywhere/anytime_anywhere_screen.dart';
 import 'package:the_green_manual/modules/onbording_modules/private_secure/private_secure_screen.dart';
 import 'package:the_green_manual/modules/onbording_modules/private_secure/private_secure_state.dart';
+import 'package:the_green_manual/modules/project_details_module/project_details_state.dart';
 import 'package:the_green_manual/modules/register_module/register_screen.dart';
 import 'package:the_green_manual/modules/register_module/register_state.dart';
 import 'package:the_green_manual/modules/splash_module/splash_screen.dart';
@@ -90,7 +91,10 @@ class TheGreenManual extends StatelessWidget {
                   create: (_) => ContactUsState(),
                   child: const ContactUsScreen(),
                 ),
-            '/project_details': (context) => const ProjectDetailsScreen(),
+            '/project_details': (context) => ChangeNotifierProvider(
+                  create: (_) => ProjectDetailsState(context),
+                  child: const ProjectDetailsScreen(),
+                ),
           },
         ),
       ),
