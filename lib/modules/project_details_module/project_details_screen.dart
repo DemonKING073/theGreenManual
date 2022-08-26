@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
+
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/common/ui/widgets/k_text_form_field.dart';
@@ -12,6 +14,8 @@ class ProjectDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ProjectDetailsState>(context);
+
+    QuillController controller = QuillController.basic();
 
     showCreateSection() async {
       return showDialog(
@@ -33,9 +37,9 @@ class ProjectDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         sHeightSpan,
-                        Text("Enter the section name you want to create"),
+                        const Text("Enter the section name you want to create"),
                         sHeightSpan,
-                        KTextFormField(
+                        const KTextFormField(
                           label: "Section Name",
                         )
                       ],
@@ -80,7 +84,9 @@ class ProjectDetailsScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              print(controller.document.toDelta());
+            },
             icon: Icon(
               Icons.save,
               color: primaryColor,
@@ -189,10 +195,20 @@ class ProjectDetailsScreen extends StatelessWidget {
               ),
             ),
             LSizedBox(),
-            Expanded(
-              child: Center(
-                child: Text("No sections found!"),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  QuillToolbar.basic(
+                    controller: controller,
+                    showUndo: false,
+                    showRedo: false,
+                  ),
+                ],
               ),
+            ),
+            Expanded(
+              child: QuillEditor.basic(controller: controller, readOnly: false),
             )
           ],
         ),
@@ -201,81 +217,80 @@ class ProjectDetailsScreen extends StatelessWidget {
   }
 }
 
-
-      // child: 
-      //         Container(
-      //           decoration: BoxDecoration(
-      //             borderRadius: BorderRadius.circular(10),
-      //             color: Colors.white,
-      //             boxShadow: [
-      //               BoxShadow(
-      //                 color: Colors.grey.withOpacity(0.2),
-      //                 spreadRadius: 2,
-      //                 blurRadius: 1,
-      //                 offset: const Offset(0, 3), // changes position of shadow
-      //               ),
-      //             ],
-      //           ),
-      //           padding: EdgeInsets.symmetric(
-      //               horizontal: 20,
-      //               vertical: MediaQuery.of(context).size.height * 0.04),
-      //           // child: Column(
-      //           //   children: [
-      //           //     Row(
-      //           //       children: [
-      //           //         Text(
-      //           //           'Assembly/SetUp',
-      //           //           style: LBoldTextStyle()
-      //           //               .copyWith(fontWeight: FontWeight.w600),
-      //           //         ),
-      //           //       ],
-      //           //     ),
-      //           //     kSizedBox(),
-      //           //     Text(
-      //           //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-      //           //       style: kTextStyle(),
-      //           //     ),
-      //           //     LSizedBox(),
-      //           //     SingleChildScrollView(
-      //           //       scrollDirection: Axis.horizontal,
-      //           //       child: Row(
-      //           //         children: [
-      //           //           Image.asset(
-      //           //             'assets/images/anime1.jpeg',
-      //           //             width: MediaQuery.of(context).size.width * 0.4,
-      //           //           ),
-      //           //           const SizedBox(
-      //           //             width: 10,
-      //           //           ),
-      //           //           Image.asset(
-      //           //             'assets/images/anime1.jpeg',
-      //           //             width: MediaQuery.of(context).size.width * 0.4,
-      //           //           ),
-      //           //           const SizedBox(
-      //           //             width: 10,
-      //           //           ),
-      //           //           Image.asset(
-      //           //             'assets/images/anime1.jpeg',
-      //           //             width: MediaQuery.of(context).size.width * 0.4,
-      //           //           ),
-      //           //         ],
-      //           //       ),
-      //           //     ),
-      //           //     LSizedBox(),
-      //           //     Row(
-      //           //       children: [
-      //           //         Text(
-      //           //           'Assembly/SetUp',
-      //           //           style: LBoldTextStyle()
-      //           //               .copyWith(fontWeight: FontWeight.w600),
-      //           //         ),
-      //           //       ],
-      //           //     ),
-      //           //     kSizedBox(),
-      //           //     Text(
-      //           //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-      //           //       style: kTextStyle(),
-      //           //     ),
-      //           //   ],
-      //           // ),
-      //         ),
+// child:
+//         Container(
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(10),
+//             color: Colors.white,
+//             boxShadow: [
+//               BoxShadow(
+//                 color: Colors.grey.withOpacity(0.2),
+//                 spreadRadius: 2,
+//                 blurRadius: 1,
+//                 offset: const Offset(0, 3), // changes position of shadow
+//               ),
+//             ],
+//           ),
+//           padding: EdgeInsets.symmetric(
+//               horizontal: 20,
+//               vertical: MediaQuery.of(context).size.height * 0.04),
+//           // child: Column(
+//           //   children: [
+//           //     Row(
+//           //       children: [
+//           //         Text(
+//           //           'Assembly/SetUp',
+//           //           style: LBoldTextStyle()
+//           //               .copyWith(fontWeight: FontWeight.w600),
+//           //         ),
+//           //       ],
+//           //     ),
+//           //     kSizedBox(),
+//           //     Text(
+//           //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
+//           //       style: kTextStyle(),
+//           //     ),
+//           //     LSizedBox(),
+//           //     SingleChildScrollView(
+//           //       scrollDirection: Axis.horizontal,
+//           //       child: Row(
+//           //         children: [
+//           //           Image.asset(
+//           //             'assets/images/anime1.jpeg',
+//           //             width: MediaQuery.of(context).size.width * 0.4,
+//           //           ),
+//           //           const SizedBox(
+//           //             width: 10,
+//           //           ),
+//           //           Image.asset(
+//           //             'assets/images/anime1.jpeg',
+//           //             width: MediaQuery.of(context).size.width * 0.4,
+//           //           ),
+//           //           const SizedBox(
+//           //             width: 10,
+//           //           ),
+//           //           Image.asset(
+//           //             'assets/images/anime1.jpeg',
+//           //             width: MediaQuery.of(context).size.width * 0.4,
+//           //           ),
+//           //         ],
+//           //       ),
+//           //     ),
+//           //     LSizedBox(),
+//           //     Row(
+//           //       children: [
+//           //         Text(
+//           //           'Assembly/SetUp',
+//           //           style: LBoldTextStyle()
+//           //               .copyWith(fontWeight: FontWeight.w600),
+//           //         ),
+//           //       ],
+//           //     ),
+//           //     kSizedBox(),
+//           //     Text(
+//           //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
+//           //       style: kTextStyle(),
+//           //     ),
+//           //   ],
+//           // ),
+//         ),
