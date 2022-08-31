@@ -4,17 +4,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:the_green_manual/apiModels/products.dart';
 import 'package:the_green_manual/core/http/http.dart';
+import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
+import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/project_details_module/models/project_detail_response.dart';
 
-class ProjectDetailsState extends BaseState {
+class InventoryDetailState extends BaseState {
   // late String name;
 
   late String id;
 
   ProductsModel? productsModel;
 
-  ProjectDetailsState(context) {
+  InventoryDetailState(context) {
     final args = ModalRoute.of(context)!.settings.arguments as String;
     if (args != null) {
       print(args);
@@ -48,14 +50,31 @@ class ProjectDetailsState extends BaseState {
     setLoading(false);
   }
 
+  num? selectedSection;
+  onSelectedSectionChanged(val) {
+    selectedSection = val;
+    notifyListeners();
+  }
+
+  String? sectionName;
+  onSectionNameChanged(val) {
+    sectionName = val;
+    notifyListeners();
+  }
+
+  fetchSingleSection() {}
+
   createSection() async {
+    var data = {"productId": id, "name": sectionName};
+
     try {
-      final response = await dio.post("/v1/sections", data: {
-        // "productId": singleProductResponse!.data!.projects!.first.product!.sId,
-      });
-      print(response.data);
-    } catch (err) {
-      print(err);
+      await dio.post('/v1/sections', data: data);
+      fetchProjectDetails();
+      ToastService().s('Created Successfully');
+      navigatorKey.currentState!.pop();
+      print('created successfully');
+    } on DioError catch (e) {
+      print(e.response);
     }
   }
 }

@@ -1,10 +1,10 @@
-class SingleProduct {
+class SingleProuctResponse {
   String? status;
   Data? data;
 
-  SingleProduct({this.status, this.data});
+  SingleProuctResponse({this.status, this.data});
 
-  SingleProduct.fromJson(Map<String, dynamic> json) {
+  SingleProuctResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }

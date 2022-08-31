@@ -79,7 +79,8 @@ class ProjectDetailsScreen extends StatelessWidget {
           color: Colors.black, //change your color here
         ),
         title: Text(
-          state.name,
+          // 'Text Title',
+          state.singleProductResponse?.data?.product?.name ?? '',
           style: LBoldTextStyle(),
         ),
         actions: [
@@ -95,7 +96,9 @@ class ProjectDetailsScreen extends StatelessWidget {
         ],
         centerTitle: true,
       ),
-      body: Container(
+      body: 
+      state.isLoading ? Center(child: CircularProgressIndicator(color: primaryColor,),):
+      Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

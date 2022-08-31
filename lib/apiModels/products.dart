@@ -23,15 +23,15 @@ class Product {
 }
 
 class Data {
-  List<Products>? products;
+  List<ProductsModel>? products;
 
   Data({this.products});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['products'] != null) {
-      products = <Products>[];
+      products = <ProductsModel>[];
       json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+        products!.add(new ProductsModel.fromJson(v));
       });
     }
   }
@@ -45,15 +45,15 @@ class Data {
   }
 }
 
-class Products {
+class ProductsModel {
   String? sId;
   String? name;
   String? model;
   List<Null>? assignees;
 
-  Products({this.sId, this.name, this.model, this.assignees});
+  ProductsModel({this.sId, this.name, this.model, this.assignees});
 
-  Products.fromJson(Map<String, dynamic> json) {
+  ProductsModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     model = json['model'];

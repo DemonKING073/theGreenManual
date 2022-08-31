@@ -35,20 +35,22 @@ class ResumeScreen extends StatelessWidget {
             )
           : Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: InkWell(
-                onTap: () {
-                  navigatorKey.currentState!.pushNamed('/project_details');
-                },
-                child: ListView.builder(
-                    itemCount: state.product!.data!.products!.length,
-                    itemBuilder: (context, index) {
-                      return ProjectTile(
+              child: ListView.builder(
+                  itemCount: state.product!.data!.products!.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        navigatorKey.currentState!.pushNamed(
+                            '/project_details',
+                            arguments: state.product!.data!.products![index].sId);
+                      },
+                      child: ProjectTile(
                         onTap: () {},
                         projectName:
                             state.product!.data!.products![index].name!,
-                      );
-                    }),
-              ),
+                      ),
+                    );
+                  }),
             ),
     );
   }

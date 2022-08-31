@@ -24,4 +24,5 @@ class ResumeState extends ChangeNotifier {
     } catch (e) {}
     setLoading(false);
   }
+  
 }

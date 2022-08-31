@@ -41,10 +41,7 @@ class InventoryScreen extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         navigatorKey.currentState!
-                            .pushNamed("/project_details", arguments: {
-                          "id": state.product!.data!.products![index].sId,
-                          "name": state.product!.data!.products![index].name,
-                        });
+                            .pushNamed("/inventory_details", arguments: state.product!.data!.products![index].sId,);
                       },
                       child: ProjectTile(
                         projectName:

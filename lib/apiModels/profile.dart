@@ -38,6 +38,7 @@ class Data {
 }
 
 class User {
+  Addresses? addresses;
   String? sId;
   String? uuid;
   String? role;
@@ -48,9 +49,11 @@ class User {
   String? designation;
   String? language;
   String? name;
+  String? gender;
 
   User(
-      {this.sId,
+      {this.addresses,
+      this.sId,
       this.uuid,
       this.role,
       this.email,
@@ -59,9 +62,13 @@ class User {
       this.iV,
       this.designation,
       this.language,
-      this.name});
+      this.name,
+      this.gender});
 
   User.fromJson(Map<String, dynamic> json) {
+    addresses = json['addresses'] != null
+        ? new Addresses.fromJson(json['addresses'])
+        : null;
     sId = json['_id'];
     uuid = json['uuid'];
     role = json['role'];
@@ -72,10 +79,14 @@ class User {
     designation = json['designation'];
     language = json['language'];
     name = json['name'];
+    gender = json['gender'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.addresses != null) {
+      data['addresses'] = this.addresses!.toJson();
+    }
     data['_id'] = this.sId;
     data['uuid'] = this.uuid;
     data['role'] = this.role;
@@ -86,6 +97,26 @@ class User {
     data['designation'] = this.designation;
     data['language'] = this.language;
     data['name'] = this.name;
+    data['gender'] = this.gender;
+    return data;
+  }
+}
+
+class Addresses {
+  String? address1;
+  String? address2;
+
+  Addresses({this.address1, this.address2});
+
+  Addresses.fromJson(Map<String, dynamic> json) {
+    address1 = json['address1'];
+    address2 = json['address2'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['address1'] = this.address1;
+    data['address2'] = this.address2;
     return data;
   }
 }

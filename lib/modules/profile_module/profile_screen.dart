@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
@@ -169,15 +170,53 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 28,
-                              backgroundColor: Colors.white,
-                              child: CircleAvatar(
-                                radius: 26,
-                                backgroundImage:
-                                    AssetImage('assets/images/luffy.jpg'),
+                            InkWell(
+                              onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      
+                                      ListTile(
+                                        leading: new Icon(Icons.camera_alt),
+                                        title: new Text(
+                                          'Click from Camera',
+                                          style: kBoldTextStyle(),
+                                        ),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          state.pickImage(ImageSource.camera);
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: new Icon(Icons.photo),
+                                        title: new Text(
+                                          'Select from Gallery',
+                                          style: kBoldTextStyle(),
+                                        ),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          state.pickImage(ImageSource.gallery);
+                                        },
+                                      ),
+                                      
+                                    ],
+                                  );
+                                });
+                              },
+                              child: const CircleAvatar(
+                                radius: 28,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 26,
+                                  backgroundImage:
+                                      AssetImage('assets/images/luffy.jpg'),
+                                ),
                               ),
                             ),
+                        
                             const SizedBox(
                               width: 10,
                             ),
