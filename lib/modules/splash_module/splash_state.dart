@@ -37,14 +37,7 @@ class SplashState extends BaseState {
           },
         );
       } else {
-        Future.delayed(
-          const Duration(seconds: 2),
-          () {
-            navigatorKey.currentState!
-                .pushNamedAndRemoveUntil('/home', (route) => false);
-          },
-        );
-        // validAccessToken();
+        validAccessToken();
       }
     }
   }
@@ -54,8 +47,22 @@ class SplashState extends BaseState {
   validAccessToken() async {
     try {
       await dio.get('/auth/profile');
-      navigatorKey.currentState!
-          .pushNamedAndRemoveUntil('/home', (route) => false);
-    } on DioError catch (e) {}
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          navigatorKey.currentState!
+              .pushNamedAndRemoveUntil('/home', (route) => false);
+        },
+      );
+    } on DioError catch (e) {
+      LocalStorageService().clear(LocalStorageKeys.accessToken);
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          navigatorKey.currentState!
+              .pushNamedAndRemoveUntil('/login', (route) => false);
+        },
+      );
+    }
   }
 }
