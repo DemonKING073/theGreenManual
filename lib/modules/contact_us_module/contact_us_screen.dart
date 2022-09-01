@@ -34,7 +34,7 @@ class ContactUsScreen extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 hintText: "Name",
-                fillColor: Colors.grey[300],
+                fillColor: Colors.grey[100],
                 border: OutlineInputBorder(
                   borderSide: BorderSide(width: 1),
                   borderRadius: BorderRadius.circular(10.0),
@@ -51,7 +51,7 @@ class ContactUsScreen extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 hintText: "Email",
-                fillColor: Colors.grey[300],
+                fillColor: Colors.grey[100],
                 border: OutlineInputBorder(
                   borderSide: BorderSide(width: 1),
                   borderRadius: BorderRadius.circular(10.0),
@@ -69,9 +69,9 @@ class ContactUsScreen extends StatelessWidget {
               decoration: InputDecoration(
                 filled: true,
                 hintText: "Description",
-                fillColor: Colors.grey[300],
+                fillColor: Color(0xFFF5F5F5),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1, color: Color(0xffE0E0E0)),
+                  borderSide: BorderSide(color: Color(0xFFF5F5F5), width: 1),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 focusedBorder: OutlineInputBorder(

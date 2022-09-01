@@ -221,79 +221,79 @@ class ProjectDetailsScreen extends StatelessWidget {
 }
 
 // child:
-//         Container(
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             color: Colors.white,
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.grey.withOpacity(0.2),
-//                 spreadRadius: 2,
-//                 blurRadius: 1,
-//                 offset: const Offset(0, 3), // changes position of shadow
-//               ),
-//             ],
-//           ),
-//           padding: EdgeInsets.symmetric(
-//               horizontal: 20,
-//               vertical: MediaQuery.of(context).size.height * 0.04),
-//           // child: Column(
-//           //   children: [
-//           //     Row(
-//           //       children: [
-//           //         Text(
-//           //           'Assembly/SetUp',
-//           //           style: LBoldTextStyle()
-//           //               .copyWith(fontWeight: FontWeight.w600),
-//           //         ),
-//           //       ],
-//           //     ),
-//           //     kSizedBox(),
-//           //     Text(
-//           //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-//           //       style: kTextStyle(),
-//           //     ),
-//           //     LSizedBox(),
-//           //     SingleChildScrollView(
-//           //       scrollDirection: Axis.horizontal,
-//           //       child: Row(
-//           //         children: [
-//           //           Image.asset(
-//           //             'assets/images/anime1.jpeg',
-//           //             width: MediaQuery.of(context).size.width * 0.4,
-//           //           ),
-//           //           const SizedBox(
-//           //             width: 10,
-//           //           ),
-//           //           Image.asset(
-//           //             'assets/images/anime1.jpeg',
-//           //             width: MediaQuery.of(context).size.width * 0.4,
-//           //           ),
-//           //           const SizedBox(
-//           //             width: 10,
-//           //           ),
-//           //           Image.asset(
-//           //             'assets/images/anime1.jpeg',
-//           //             width: MediaQuery.of(context).size.width * 0.4,
-//           //           ),
-//           //         ],
-//           //       ),
-//           //     ),
-//           //     LSizedBox(),
-//           //     Row(
-//           //       children: [
-//           //         Text(
-//           //           'Assembly/SetUp',
-//           //           style: LBoldTextStyle()
-//           //               .copyWith(fontWeight: FontWeight.w600),
-//           //         ),
-//           //       ],
-//           //     ),
-//           //     kSizedBox(),
-//           //     Text(
-//           //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-//           //       style: kTextStyle(),
-//           //     ),
-//           //   ],
-//           // ),
-//         ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(10),
+        //     color: Colors.white,
+        //     boxShadow: [
+        //       BoxShadow(
+        //         color: Colors.grey.withOpacity(0.2),
+        //         spreadRadius: 2,
+        //         blurRadius: 1,
+        //         offset: const Offset(0, 3), // changes position of shadow
+        //       ),
+        //     ],
+        //   ),
+        //   padding: EdgeInsets.symmetric(
+        //       horizontal: 20,
+        //       vertical: MediaQuery.of(context).size.height * 0.04),
+        //   child: Column(
+        //     children: [
+        //       Row(
+        //         children: [
+        //           Text(
+        //             'Assembly/SetUp',
+        //             style: LBoldTextStyle()
+        //                 .copyWith(fontWeight: FontWeight.w600),
+        //           ),
+        //         ],
+        //       ),
+        //       kSizedBox(),
+        //       Text(
+        //         'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
+        //         style: kTextStyle(),
+        //       ),
+        //       LSizedBox(),
+        //       SingleChildScrollView(
+        //         scrollDirection: Axis.horizontal,
+        //         child: Row(
+        //           children: [
+        //             Image.asset(
+        //               'assets/images/anime1.jpeg',
+        //               width: MediaQuery.of(context).size.width * 0.4,
+        //             ),
+        //             const SizedBox(
+        //               width: 10,
+        //             ),
+        //             Image.asset(
+        //               'assets/images/anime1.jpeg',
+        //               width: MediaQuery.of(context).size.width * 0.4,
+        //             ),
+        //             const SizedBox(
+        //               width: 10,
+        //             ),
+        //             Image.asset(
+        //               'assets/images/anime1.jpeg',
+        //               width: MediaQuery.of(context).size.width * 0.4,
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //       LSizedBox(),
+        //       Row(
+        //         children: [
+        //           Text(
+        //             'Assembly/SetUp',
+        //             style: LBoldTextStyle()
+        //                 .copyWith(fontWeight: FontWeight.w600),
+        //           ),
+        //         ],
+        //       ),
+        //       kSizedBox(),
+        //       Text(
+        //         'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
+        //         style: kTextStyle(),
+        //       ),
+        //     ],
+        //   ),
+        // ),

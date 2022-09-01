@@ -33,7 +33,14 @@ class CreateScreenState extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool submitLoading = false;
+  setSubmitLoading(val) {
+    submitLoading = val;
+    notifyListeners();
+  }
+
   createProjects() async {
+    setSubmitLoading(true);
     var data = {'name': name, 'model': model, 'category': 'Personal'};
     // final token = LocalStorageService().read(LocalStorageKeys.accessToken);
     final token = LocalStorageService().read(LocalStorageKeys.accessToken);
@@ -41,10 +48,11 @@ class CreateScreenState extends ChangeNotifier {
     try {
       await dio.post('/v1/products/personal-product', data: data);
       ToastService().s('Created Successfully');
-      navigatorKey.currentState!
-          .pushNamedAndRemoveUntil('/inventory_screen', (route) => false);
+      // navigatorKey.currentState!
+      //     .pushNamedAndRemoveUntil('/inventory_screen', (route) => false);
     } on DioError catch (e) {
       // ToastService().e(e.message[0] ?? "Error");
     }
+    setSubmitLoading(false);
   }
 }

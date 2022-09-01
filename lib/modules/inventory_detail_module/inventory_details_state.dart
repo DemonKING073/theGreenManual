@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:the_green_manual/apiModels/products.dart';
+import 'package:the_green_manual/apiModels/singleProjectResponse.dart';
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
@@ -42,6 +43,7 @@ class InventoryDetailState extends BaseState {
     try {
       final response = await dio.get("/v1/products/$id");
       singleProductResponse = SingleProduct.fromJson(response.data);
+      // singleProductResponse.data!.product!.sections
       print(response);
       notifyListeners();
     } catch (err) {
@@ -50,9 +52,12 @@ class InventoryDetailState extends BaseState {
     setLoading(false);
   }
 
-  num? selectedSection;
+  
+
+  String? selectedSection;
   onSelectedSectionChanged(val) {
     selectedSection = val;
+    print(selectedSection);
     notifyListeners();
   }
 
@@ -61,6 +66,8 @@ class InventoryDetailState extends BaseState {
     sectionName = val;
     notifyListeners();
   }
+
+  
 
   fetchSingleSection() {}
 

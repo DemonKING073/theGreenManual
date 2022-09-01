@@ -81,7 +81,7 @@ class EditProfileState extends BaseState {
       "language": "Eng",
       "addresses.address1": address1,
       "addresses.address2": address2,
-      "gender": selectedGender![0],
+      "gender": selectedGender! [0],
     };
     print(data);
 

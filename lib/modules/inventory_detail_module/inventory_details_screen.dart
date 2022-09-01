@@ -215,10 +215,10 @@ class InventoryDetailsScreen extends StatelessWidget {
                                 .singleProductResponse!.data!.product!.sections!
                                 .map((e) {
                               counter++;
-                              print(counter);
+                              // print(counter);
                               return InkWell(
                                 onTap: () {
-                                  state.onSelectedSectionChanged(counter);
+                                  state.onSelectedSectionChanged(e.name);
                                   // print(e.sId.);.
                                 },
                                 child: Container(
@@ -230,10 +230,10 @@ class InventoryDetailsScreen extends StatelessWidget {
                                   ),
                                   child: Text(e.name!,
                                       style: kBoldTextStyle().copyWith(
-                                          color: Colors.black
-                                          // state.selectedSection == e.name! ? Colors.black :
-                                          // Colors.grey,
-                                          )),
+                                        color: state.selectedSection == e.name!
+                                            ? Colors.black
+                                            : Colors.grey,
+                                      )),
                                 ),
                               );
                             }).toList(),
@@ -275,16 +275,69 @@ class InventoryDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  LSizedBox(),
+                  // state.singleProductResponse!.data!.product!.sections!
+                  //     .forEach((element) {
+                  //   if (element.name == state.selectedSection) {
+                  //     print(element.content);
+                  //   }
+                  // })
+                  // ignore: unused_local_variable
+
                   // state.singleProductResponse!.data!.product!.sections!.isNotEmpty ?
-                  Expanded(
-                    child: QuillEditor.basic(
-                        controller: controller, readOnly: false),
-                  )
-                  // :
-                  // Container(
-                  //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  //   child: Text(),
+                  // Expanded(
+                  //   child: QuillEditor.basic(
+                  //       controller: controller, readOnly: false),
                   // )
+                  // :
+                  // if (state.singleProductResponse!.data!.product!.sections!
+                  //     .isNotEmpty)
+                    for (var i in state
+                        .singleProductResponse!.data!.product!.sections!)
+                      if (state.selectedSection == i.name)
+                        Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 1,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      i.name!,
+                                      style: LBoldTextStyle().copyWith(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                kSizedBox(),
+                                Text(
+                                  i.content ?? '',
+                                  style: kTextStyle(),
+                                ),
+                                LSizedBox(),
+                              ],
+                            ),
+                          ),
+                        )
+                      // else
+                      //   Expanded(
+                      //     child: QuillEditor.basic(
+                      //         controller: controller, readOnly: false),
+                      //   )
                 ],
               ),
             ),
