@@ -36,18 +36,19 @@ class InventoryScreen extends StatelessWidget {
           : Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: ListView.builder(
-                  itemCount: state.product!.data!.products!.length,
+                  itemCount: state.projectState!.data!.projects!.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
                         navigatorKey.currentState!.pushNamed(
                           "/inventory_details",
-                          arguments: state.product!.data!.products![index].sId,
+                          arguments:
+                              state.projectState!.data!.projects![index].sId,
                         );
                       },
                       child: ProjectTile(
                         projectName:
-                            state.product!.data!.products![index].name!,
+                            state.projectState!.data!.projects![index].name!,
                         // projectName: 'project name',
                       ),
                     );
