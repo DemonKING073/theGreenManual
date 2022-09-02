@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, empty_catches
 
 import 'dart:convert';
 
@@ -56,15 +56,20 @@ class InventoryDetailState extends BaseState {
       print(response.data);
       productDetails = SingleProductResponse.fromJson(response.data);
       notifyListeners();
-      selectedSection = productDetails!.data!.product!.sections!.first.sId;
-      notifyListeners();
-      quillData =
-          jsonDecode(productDetails!.data!.product!.sections!.first.content!);
-      print("yo quill data ho $quillData");
-      controller = QuillController(
-          document: Document.fromJson(quillData),
-          selection: const TextSelection.collapsed(offset: 0));
-      notifyListeners();
+
+      if (productDetails!.data!.product!.sections != null &&
+          productDetails!.data!.product!.sections!.isNotEmpty) {
+        selectedSection = productDetails!.data!.product!.sections!.first.sId;
+        notifyListeners();
+        try {
+          quillData = jsonDecode(
+              productDetails!.data!.product!.sections!.first.content!);
+          controller = QuillController(
+              document: Document.fromJson(quillData),
+              selection: const TextSelection.collapsed(offset: 0));
+          notifyListeners();
+        } catch (er) {}
+      }
     } on DioError catch (err) {
       print(err.response);
     }
