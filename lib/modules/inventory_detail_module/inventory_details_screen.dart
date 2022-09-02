@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 
@@ -113,7 +115,7 @@ class InventoryDetailsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              print(controller.document.toDelta());
+              print(controller.document.toDelta().toString());
             },
             icon: Icon(
               Icons.save,
@@ -218,7 +220,16 @@ class InventoryDetailsScreen extends StatelessWidget {
                               // print(counter);
                               return InkWell(
                                 onTap: () {
-                                  state.onSelectedSectionChanged(e.name);
+                                  state.onSelectedSectionChanged(e.sId);
+                                  // controller.
+                                  var myjson = jsonDecode(e.content!);
+                                  controller = QuillController(
+                                      selection:
+                                          TextSelection.collapsed(offset: 0),
+                                      document: Document.fromJson(myjson));
+                                  print(e.content);
+                                  print(controller.toString());
+
                                   // print(e.sId.);.
                                 },
                                 child: Container(
@@ -230,7 +241,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                                   ),
                                   child: Text(e.name!,
                                       style: kBoldTextStyle().copyWith(
-                                        color: state.selectedSection == e.name!
+                                        color: state.selectedSection == e.sId!
                                             ? Colors.black
                                             : Colors.grey,
                                       )),
@@ -292,52 +303,54 @@ class InventoryDetailsScreen extends StatelessWidget {
                   // :
                   // if (state.singleProductResponse!.data!.product!.sections!
                   //     .isNotEmpty)
-                    for (var i in state
-                        .singleProductResponse!.data!.product!.sections!)
-                      if (state.selectedSection == i.name)
-                        Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 1,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      i.name!,
-                                      style: LBoldTextStyle().copyWith(
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                ),
-                                kSizedBox(),
-                                Text(
-                                  i.content ?? '',
-                                  style: kTextStyle(),
-                                ),
-                                LSizedBox(),
-                              ],
-                            ),
-                          ),
-                        )
-                      // else
-                      //   Expanded(
-                      //     child: QuillEditor.basic(
-                      //         controller: controller, readOnly: false),
-                      //   )
+                  // for (var i
+                  //     in state.singleProductResponse!.data!.product!.sections!)
+                  //   if (state.selectedSection == i.sId)
+                  //     Card(
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(10),
+                  //           color: Colors.white,
+                  //           boxShadow: [
+                  //             BoxShadow(
+                  //               color: Colors.grey.withOpacity(0.2),
+                  //               spreadRadius: 2,
+                  //               blurRadius: 1,
+                  //               offset: const Offset(
+                  //                   0, 3), // changes position of shadow
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         padding: EdgeInsets.symmetric(
+                  //             horizontal: 20, vertical: 10),
+                  //         child: Column(
+                  //           children: [
+                  //             Row(
+                  //               children: [
+                  //                 Text(
+                  //                   i.name!,
+                  //                   style: LBoldTextStyle().copyWith(
+                  //                       fontWeight: FontWeight.w600),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //             kSizedBox(),
+                  //             Text(
+                  //               i.content ?? '',
+                  //               style: kTextStyle(),
+                  //             ),
+                  //             LSizedBox(),
+
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  // else
+
+                  Expanded(
+                    child: QuillEditor.basic(
+                        controller: controller, readOnly: false),
+                  )
                 ],
               ),
             ),
