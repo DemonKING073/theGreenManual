@@ -40,8 +40,10 @@ class InventoryScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        navigatorKey.currentState!
-                            .pushNamed("/inventory_details", arguments: state.product!.data!.products![index].sId,);
+                        navigatorKey.currentState!.pushNamed(
+                          "/inventory_details",
+                          arguments: state.product!.data!.products![index].sId,
+                        );
                       },
                       child: ProjectTile(
                         projectName:
@@ -79,7 +81,45 @@ class ProjectTile extends StatelessWidget {
                 style: kBoldTextStyle(),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    PopupMenuButton<int>(
+                      itemBuilder: (context) => [
+                        // popupmenu item 1
+                        PopupMenuItem(
+                          value: 1,
+                          // row has two child icon and text.
+                          child: Row(
+                            children: [
+                              Icon(Icons.star),
+                              SizedBox(
+                                // sized box with width 10
+                                width: 10,
+                              ),
+                              Text("Get The App")
+                            ],
+                          ),
+                        ),
+                        // popupmenu item 2
+                        PopupMenuItem(
+                          value: 2,
+                          // row has two child icon and text
+                          child: Row(
+                            children: [
+                              Icon(Icons.chrome_reader_mode),
+                              SizedBox(
+                                // sized box with width 10
+                                width: 10,
+                              ),
+                              Text("About")
+                            ],
+                          ),
+                        ),
+                      ],
+                      offset: Offset(0, 100),
+                      color: Colors.grey,
+                      elevation: 2,
+                    );
+                  },
                   icon: const Icon(
                     Icons.more_vert,
                     color: Colors.grey,
