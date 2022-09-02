@@ -23,15 +23,15 @@ class InventoryResponse {
 }
 
 class Data {
-  List<Projects>? projects;
+  List<InventoryItem>? projects;
 
   Data({this.projects});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['projects'] != null) {
-      projects = <Projects>[];
+      projects = <InventoryItem>[];
       json['projects'].forEach((v) {
-        projects!.add(new Projects.fromJson(v));
+        projects!.add(new InventoryItem.fromJson(v));
       });
     }
   }
@@ -45,7 +45,7 @@ class Data {
   }
 }
 
-class Projects {
+class InventoryItem {
   String? sId;
   String? name;
   Product? product;
@@ -53,10 +53,10 @@ class Projects {
   String? createdAt;
   int? iV;
 
-  Projects(
+  InventoryItem(
       {this.sId, this.name, this.product, this.user, this.createdAt, this.iV});
 
-  Projects.fromJson(Map<String, dynamic> json) {
+  InventoryItem.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     product =

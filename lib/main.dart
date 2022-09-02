@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:load/load.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/states/main_state.dart';
@@ -48,57 +49,65 @@ class TheGreenManual extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OKToast(
-      child: ChangeNotifierProvider(
-        create: (_) => MainState(),
-        child: MaterialApp(
-          navigatorKey: navigatorKey,
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/splash',
-          routes: {
-            '/splash': (context) => ChangeNotifierProvider(
-                  create: (_) => SplashState(),
-                  child: const SplashScreen(),
-                ),
-            '/add_manage': (context) => ChangeNotifierProvider(
-                  create: (_) => AddAndManageState(),
-                  child: const AddAndManageScreen(),
-                ),
-            '/anytime_anywhere': (context) => const AnyTimeAnyWhere(),
-            '/private_secure': (context) => ChangeNotifierProvider(
-                  create: (_) => PrivateAndSecureState(),
-                  child: const PrivateAndSecure(),
-                ),
-            '/welcome': (context) => const Welcome(),
-            '/register': (context) => ChangeNotifierProvider(
-                  create: (_) => RegisterState(),
-                  child: const RegisterScreen(),
-                ),
-            '/login': (context) => ChangeNotifierProvider(
-                  create: (_) => LoginState(),
-                  child: const LoginScreen(),
-                ),
-            '/home': (context) => ChangeNotifierProvider(
-                create: (_) => HomeState(context), child: const HomeScreen()),
-            '/terms_condition': (context) => TermsAndCondition(),
-            '/search': (context) => ChangeNotifierProvider(
-                create: (_) => SearchState(), child: const SearchScreen()),
-            '/scanner_screen': (context) => ChangeNotifierProvider(
-                create: (_) => ScannerState(), child: const ScannerScreen()),
-            '/profile_edit': (context) => ChangeNotifierProvider(
-                create: (_) => EditProfileState(),
-                child: const EditProfileScreen()),
-            '/helpAndSupport': (context) => const HelpAndSupportScreen(),
-            '/contactUs': (context) => ChangeNotifierProvider(
-                  create: (_) => ContactUsState(),
-                  child: const ContactUsScreen(),
-                ),
-            '/project_details': (context) => ChangeNotifierProvider(
-                  create: (_) => ProjectDetailsState(context),
-                  child: const ProjectDetailsScreen(),
-                ),
-            '/inventory_details' :(context) => ChangeNotifierProvider(create: (_) => InventoryDetailState(context), child: const InventoryDetailsScreen(),)
-          },
+    return LoadingProvider(
+      themeData: LoadingThemeData(
+        tapDismiss: false,
+      ),
+      child: OKToast(
+        child: ChangeNotifierProvider(
+          create: (_) => MainState(),
+          child: MaterialApp(
+            navigatorKey: navigatorKey,
+            debugShowCheckedModeBanner: false,
+            initialRoute: '/splash',
+            routes: {
+              '/splash': (context) => ChangeNotifierProvider(
+                    create: (_) => SplashState(),
+                    child: const SplashScreen(),
+                  ),
+              '/add_manage': (context) => ChangeNotifierProvider(
+                    create: (_) => AddAndManageState(),
+                    child: const AddAndManageScreen(),
+                  ),
+              '/anytime_anywhere': (context) => const AnyTimeAnyWhere(),
+              '/private_secure': (context) => ChangeNotifierProvider(
+                    create: (_) => PrivateAndSecureState(),
+                    child: const PrivateAndSecure(),
+                  ),
+              '/welcome': (context) => const Welcome(),
+              '/register': (context) => ChangeNotifierProvider(
+                    create: (_) => RegisterState(),
+                    child: const RegisterScreen(),
+                  ),
+              '/login': (context) => ChangeNotifierProvider(
+                    create: (_) => LoginState(),
+                    child: const LoginScreen(),
+                  ),
+              '/home': (context) => ChangeNotifierProvider(
+                  create: (_) => HomeState(context), child: const HomeScreen()),
+              '/terms_condition': (context) => TermsAndCondition(),
+              '/search': (context) => ChangeNotifierProvider(
+                  create: (_) => SearchState(), child: const SearchScreen()),
+              '/scanner_screen': (context) => ChangeNotifierProvider(
+                  create: (_) => ScannerState(), child: const ScannerScreen()),
+              '/profile_edit': (context) => ChangeNotifierProvider(
+                  create: (_) => EditProfileState(),
+                  child: const EditProfileScreen()),
+              '/helpAndSupport': (context) => const HelpAndSupportScreen(),
+              '/contactUs': (context) => ChangeNotifierProvider(
+                    create: (_) => ContactUsState(),
+                    child: const ContactUsScreen(),
+                  ),
+              '/project_details': (context) => ChangeNotifierProvider(
+                    create: (_) => ProjectDetailsState(context),
+                    child: const ProjectDetailsScreen(),
+                  ),
+              '/inventory_details': (context) => ChangeNotifierProvider(
+                    create: (_) => InventoryDetailState(context),
+                    child: const InventoryDetailsScreen(),
+                  )
+            },
+          ),
         ),
       ),
     );

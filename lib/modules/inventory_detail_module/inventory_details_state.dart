@@ -1,27 +1,34 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:the_green_manual/apiModels/products.dart';
-import 'package:the_green_manual/apiModels/singleProjectResponse.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:load/load.dart';
+import 'package:the_green_manual/apiModels/single_product_response.dart';
+
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
+
 import 'package:the_green_manual/core/states/base_state.dart';
-import 'package:the_green_manual/main.dart';
+
+import 'package:the_green_manual/modules/inventory_module/modals/inventory_respones.dart';
 import 'package:the_green_manual/modules/project_details_module/models/project_detail_response.dart';
 
 class InventoryDetailState extends BaseState {
-  // late String name;
+  late InventoryItem item;
 
-  late String id;
+  QuillController controller = QuillController.basic();
 
-  ProductsModel? productsModel;
+  InventoryResponse? inventoryState;
+
+  SingleProductResponse? productDetails;
 
   InventoryDetailState(context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String;
-    id = args;
+    final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
+    item = args;
     notifyListeners();
-
     fetchProjectDetails();
   }
 
@@ -32,42 +39,57 @@ class InventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/projects/?_id=$id");
-      singleProductResponse = SingleProduct.fromJson(response.data);
-      // singleProductResponse.data!.product!.sections
-      print(response);
+      final response = await dio.get("/v1/projects/?_id=${item.sId}");
+      print(response.data);
+      inventoryState = InventoryResponse.fromJson(response.data);
       notifyListeners();
+      fetchProductDetails();
     } catch (err) {
       print(err);
+    }
+  }
+
+  fetchProductDetails() async {
+    try {
+      final response = await dio.get(
+          "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
+      print(response.data);
+      productDetails = SingleProductResponse.fromJson(response.data);
+      notifyListeners();
+      selectedSection = productDetails!.data!.product!.sections!.first.sId;
+      notifyListeners();
+      quillData =
+          jsonDecode(productDetails!.data!.product!.sections!.first.content!);
+      print("yo quill data ho $quillData");
+      controller = QuillController(
+          document: Document.fromJson(quillData),
+          selection: const TextSelection.collapsed(offset: 0));
+      notifyListeners();
+    } on DioError catch (err) {
+      print(err.response);
     }
     setLoading(false);
   }
 
   String? selectedSection;
-  onSelectedSectionChanged(val) {
-    selectedSection = val;
-    print(selectedSection);
-    notifyListeners();
-  }
 
-  String? sectionName;
-  onSectionNameChanged(val) {
-    sectionName = val;
-    notifyListeners();
-  }
+  dynamic quillData;
 
-  fetchSingleSection() {}
+  updateSection() async {
+    var quill = jsonEncode(controller.document.toDelta().toJson());
 
-  createSection() async {
-    var data = {"productId": id, "name": sectionName};
+    var data = {
+      "content": quill.toString(),
+      "comment": DateTime.now().toUtc().toIso8601String(),
+    };
+    showLoadingDialog();
     try {
-      await dio.post('/v1/sections', data: data);
-      fetchProjectDetails();
-      ToastService().s('Created Successfully');
-      navigatorKey.currentState!.pop();
-      print('created successfully');
-    } on DioError catch (e) {
-      print(e.response);
+      await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
+      ToastService().s("Updated successfully!");
+    } on DioError catch (err) {
+      print(err.response);
+      print("condo");
     }
+    hideLoadingDialog();
   }
 }

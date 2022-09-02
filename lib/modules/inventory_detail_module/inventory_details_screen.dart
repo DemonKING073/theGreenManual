@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/common/ui/ui_helpers.dart';
-import 'package:the_green_manual/common/ui/widgets/k_text_form_field.dart';
+
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_state.dart';
 
 import '../../constants/constant.dart';
@@ -16,8 +13,6 @@ class InventoryDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<InventoryDetailState>(context);
-
-    QuillController controller = QuillController.basic();
 
     showCreateSection() async {
       return showDialog(
@@ -62,13 +57,13 @@ class InventoryDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         sHeightSpan,
-                        TextFormField(
-                          onChanged: state.onSectionNameChanged,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: primaryColor))),
-                        ),
+                        // TextFormField(
+                        //   onChanged: state.onSectionNameChanged,
+                        //   decoration: InputDecoration(
+                        //       border: OutlineInputBorder(),
+                        //       focusedBorder: OutlineInputBorder(
+                        //           borderSide: BorderSide(color: primaryColor))),
+                        // ),
                       ],
                     ),
                   ),
@@ -88,7 +83,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                           style: kTextStyle().copyWith(color: primaryColor),
                         ),
                         onPressed: () async {
-                          state.createSection();
+                          // state.createSection();
                         }),
                   ],
                 );
@@ -96,8 +91,6 @@ class InventoryDetailsScreen extends StatelessWidget {
             );
           });
     }
-
-    var counter = 0;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -115,7 +108,11 @@ class InventoryDetailsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              print(controller.document.toDelta().toString());
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.unfocus();
+              }
+              state.updateSection();
             },
             icon: Icon(
               Icons.save,
@@ -144,93 +141,14 @@ class InventoryDetailsScreen extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       child: Row(
                         children: [
-                          // InkWell(
-                          //   onTap: () {},
-                          //   child: Container(
-                          //     padding: const EdgeInsets.symmetric(
-                          //         vertical: 5, horizontal: 10),
-                          //     decoration: BoxDecoration(
-                          //       color: Colors.grey[300],
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //     child: Text('Assembly/Set up',
-                          //         style:
-                          //             kBoldTextStyle().copyWith(color: Colors.black)),
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   width: 10,
-                          // ),
-                          // InkWell(
-                          //   onTap: () {},
-                          //   child: Container(
-                          //     padding: const EdgeInsets.symmetric(
-                          //         vertical: 5, horizontal: 10),
-                          //     decoration: BoxDecoration(
-                          //       color: Colors.grey[300],
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //     child: Text('Section 2',
-                          //         style:
-                          //             kBoldTextStyle().copyWith(color: Colors.black)),
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   width: 10,
-                          // ),
-                          // InkWell(
-                          //   onTap: () {},
-                          //   child: Container(
-                          //     padding: const EdgeInsets.symmetric(
-                          //         vertical: 5, horizontal: 10),
-                          //     decoration: BoxDecoration(
-                          //       color: Colors.grey[300],
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //     child: Text('Section 3',
-                          //         style:
-                          //             kBoldTextStyle().copyWith(color: Colors.black)),
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   width: 10,
-                          // ),
-                          // InkWell(
-                          //   onTap: () {},
-                          //   child: Container(
-                          //     padding: const EdgeInsets.symmetric(
-                          //         vertical: 5, horizontal: 10),
-                          //     decoration: BoxDecoration(
-                          //       color: Colors.grey[300],
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //     child: Text('Section 4',
-                          //         style:
-                          //             kBoldTextStyle().copyWith(color: Colors.black)),
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   width: 10,
-                          // ),
                           Row(
                             children: state
-                                .singleProductResponse!.data!.product!.sections!
+                                .productDetails!.data!.product!.sections!
                                 .map((e) {
-                              counter++;
                               // print(counter);
                               return InkWell(
                                 onTap: () {
-                                  state.onSelectedSectionChanged(e.sId);
-                                  // controller.
-                                  var myjson = jsonDecode(e.content!);
-                                  controller = QuillController(
-                                      selection:
-                                          TextSelection.collapsed(offset: 0),
-                                      document: Document.fromJson(myjson));
-                                  print(e.content);
-                                  print(controller.toString());
-
-                                  // print(e.sId.);.
+                                  // state.onSelectedSectionChanged(e.sId);
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -239,12 +157,14 @@ class InventoryDetailsScreen extends StatelessWidget {
                                     // color: Colors.grey[300],
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: Text(e.name!,
-                                      style: kBoldTextStyle().copyWith(
-                                        color: state.selectedSection == e.sId!
-                                            ? Colors.black
-                                            : Colors.grey,
-                                      )),
+                                  child: Text(
+                                    e.name!,
+                                    style: kBoldTextStyle().copyWith(
+                                      color: state.selectedSection == e.sId!
+                                          ? Colors.black
+                                          : Colors.grey,
+                                    ),
+                                  ),
                                 ),
                               );
                             }).toList(),
@@ -279,7 +199,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         QuillToolbar.basic(
-                          controller: controller,
+                          controller: state.controller,
                           showUndo: false,
                           showRedo: false,
                         ),
@@ -289,7 +209,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                   LSizedBox(),
                   Expanded(
                     child: QuillEditor.basic(
-                        controller: controller, readOnly: false),
+                        controller: state.controller, readOnly: false),
                   )
                 ],
               ),

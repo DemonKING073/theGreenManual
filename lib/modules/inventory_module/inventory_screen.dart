@@ -48,16 +48,15 @@ class InventoryScreen extends StatelessWidget {
                   },
                 ),
                 TextButton(
-                  child: Text(
-                    'Delete',
-                    style: kTextStyle().copyWith(color: primaryColor),
-                  ),
-                  onPressed: () {},
-                ),
-
-                // InkWell(
-                //   onTap: state.isPressed ? null : ,
-                //   child: Text('Delete', style: kTextStyle(),))
+                    onPressed: state.isPressed
+                        ? null
+                        : () async {
+                            await state.deleteProducts(id);
+                          },
+                    child: Text(
+                      'Delete',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    )),
               ],
             );
           });
@@ -85,140 +84,80 @@ class InventoryScreen extends StatelessWidget {
             )
           : Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: ListView.builder(itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    navigatorKey.currentState!.pushNamed(
-                      "/inventory_details",
-                    );
-                  },
-                  // child: ProjectTile(
-                  //   projectName:
-                  //       state.product!.data!.products![index].name!,
-                  //   // projectName: 'project name',
-                  // ),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              state.product!.data!.products![index].name!,
-                              style: kBoldTextStyle(),
+              child: ListView.builder(
+                  itemCount: state.projectState!.data!.projects!.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        navigatorKey.currentState!.pushNamed(
+                          "/inventory_details",
+                          arguments: state.projectState!.data!.projects![index],
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  state.projectState!.data!.projects![index]
+                                      .name!,
+                                  style: kBoldTextStyle(),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: (context) {
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                ListTile(
+                                                  leading:
+                                                      const Icon(Icons.edit),
+                                                  title: const Text('Edit'),
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                    Navigator.pushNamed(context,
+                                                        '/inventory_details');
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading:
+                                                      const Icon(Icons.delete),
+                                                  title: const Text('Delete'),
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                    showDeleteCategory(
+                                                      context,
+                                                      state.projectState!.data!
+                                                          .projects![index].sId,
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    icon: const Icon(
+                                      Icons.more_vert,
+                                      color: Colors.grey,
+                                    ))
+                              ],
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            ListTile(
-                                              leading: new Icon(Icons.edit),
-                                              title: new Text('Edit'),
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                                Navigator.pushNamed(context,
-                                                    '/inventory_details');
-                                              },
-                                            ),
-                                            ListTile(
-                                              leading: new Icon(Icons.delete),
-                                              title: new Text('Delete'),
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                                showDeleteCategory(
-                                                    context,
-                                                    state.product!.data!
-                                                        .products![index].sId);
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                },
-                                icon: const Icon(
-                                  Icons.more_vert,
-                                  color: Colors.grey,
-                                ))
-                          ],
-                        ),
+                          ),
+                          kSizedBox(),
+                        ],
                       ),
-                      kSizedBox(),
-                    ],
-                  ),
-                );
-              }),
+                    );
+                  }),
             ),
     );
   }
 }
-
-// class ProjectTile extends StatelessWidget {
-//   String projectName;
-//   ProjectTile({
-//     super.key,
-//     required this.projectName,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Container(
-//           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-//           decoration: BoxDecoration(
-//               border: Border.all(color: Colors.grey),
-//               borderRadius: BorderRadius.circular(10)),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text(
-//                 projectName,
-//                 style: kBoldTextStyle(),
-//               ),
-//               IconButton(
-//                   onPressed: () {
-//                     showModalBottomSheet(
-//                         context: context,
-//                         builder: (context) {
-//                           return Column(
-//                             mainAxisSize: MainAxisSize.min,
-//                             children: <Widget>[
-//                               ListTile(
-//                                 leading: new Icon(Icons.edit),
-//                                 title: new Text('Edit'),
-//                                 onTap: () {
-//                                   Navigator.pop(context);
-//                                 },
-//                               ),
-//                               ListTile(
-//                                 leading: new Icon(Icons.delete),
-//                                 title: new Text('Delete'),
-//                                 onTap: () {
-//                                   Navigator.pop(context);
-//                                 },
-//                               ),
-//                             ],
-//                           );
-//                         });
-//                   },
-//                   icon: const Icon(
-//                     Icons.more_vert,
-//                     color: Colors.grey,
-//                   ))
-//             ],
-//           ),
-//         ),
-//         kSizedBox(),
-//       ],
-//     );
-//   }
-// }
