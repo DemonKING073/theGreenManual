@@ -72,6 +72,7 @@ class LoginState extends BaseState {
           });
       LocalStorageService()
           .write(LocalStorageKeys.accessToken, response.data['token']);
+      print("lado");
       navigatorKey.currentState!
           .pushNamedAndRemoveUntil("/home", (route) => false);
       // ignore: empty_catches

@@ -46,7 +46,7 @@ class SplashState extends BaseState {
 
   validAccessToken() async {
     try {
-      await dio.get('/auth/profile');
+      await dio.get('/v1/auth/fetch-profile');
       Future.delayed(
         const Duration(seconds: 2),
         () {

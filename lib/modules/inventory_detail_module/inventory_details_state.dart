@@ -19,19 +19,10 @@ class InventoryDetailState extends BaseState {
 
   InventoryDetailState(context) {
     final args = ModalRoute.of(context)!.settings.arguments as String;
-    if (args != null) {
-      print(args);
-      id = args;
-      notifyListeners();
-    }
+    id = args;
+    notifyListeners();
 
     fetchProjectDetails();
-  }
-
-  bool isLoading = false;
-  setLoading(val) {
-    isLoading = val;
-    notifyListeners();
   }
 
   Dio dio = getHttp();
@@ -41,7 +32,7 @@ class InventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/products/$id");
+      final response = await dio.get("/v1/projects/?_id=$id");
       singleProductResponse = SingleProduct.fromJson(response.data);
       // singleProductResponse.data!.product!.sections
       print(response);
@@ -51,8 +42,6 @@ class InventoryDetailState extends BaseState {
     }
     setLoading(false);
   }
-
-  
 
   String? selectedSection;
   onSelectedSectionChanged(val) {
@@ -67,13 +56,10 @@ class InventoryDetailState extends BaseState {
     notifyListeners();
   }
 
-  
-
   fetchSingleSection() {}
 
   createSection() async {
     var data = {"productId": id, "name": sectionName};
-
     try {
       await dio.post('/v1/sections', data: data);
       fetchProjectDetails();
