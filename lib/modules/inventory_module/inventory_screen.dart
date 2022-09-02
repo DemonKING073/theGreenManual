@@ -13,6 +13,59 @@ class InventoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<InventoryState>(context);
+
+    showDeleteCategory(BuildContext context, id) async {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Delete Projects?', style: LBoldTextStyle()),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Are you sure you want to delete project?',
+                            style: kBoldTextStyle(),
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    child: Text(
+                      'Delete',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    ),
+                    onPressed: state.isPressed
+                        ? null
+                        : () async {
+                            // Navigator.pop(context);
+                            await state.deleteProducts(id);
+                          }),
+                // InkWell(
+                //   onTap: state.isPressed ? null : ,
+                //   child: Text('Delete', style: kTextStyle(),))
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -45,10 +98,69 @@ class InventoryScreen extends StatelessWidget {
                           arguments: state.product!.data!.products![index].sId,
                         );
                       },
-                      child: ProjectTile(
-                        projectName:
-                            state.product!.data!.products![index].name!,
-                        // projectName: 'project name',
+                      // child: ProjectTile(
+                      //   projectName:
+                      //       state.product!.data!.products![index].name!,
+                      //   // projectName: 'project name',
+                      // ),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  state.product!.data!.products![index].name!,
+                                  style: kBoldTextStyle(),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: (context) {
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                ListTile(
+                                                  leading: new Icon(Icons.edit),
+                                                  title: new Text('Edit'),
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading:
+                                                      new Icon(Icons.delete),
+                                                  title: new Text('Delete'),
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                    showDeleteCategory(
+                                                        context,
+                                                        state
+                                                            .product!
+                                                            .data!
+                                                            .products![index]
+                                                            .sId);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    icon: const Icon(
+                                      Icons.more_vert,
+                                      color: Colors.grey,
+                                    ))
+                              ],
+                            ),
+                          ),
+                          kSizedBox(),
+                        ],
                       ),
                     );
                   }),
@@ -57,78 +169,64 @@ class InventoryScreen extends StatelessWidget {
   }
 }
 
-class ProjectTile extends StatelessWidget {
-  String projectName;
-  ProjectTile({
-    super.key,
-    required this.projectName,
-  });
+// class ProjectTile extends StatelessWidget {
+//   String projectName;
+//   ProjectTile({
+//     super.key,
+//     required this.projectName,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                projectName,
-                style: kBoldTextStyle(),
-              ),
-              IconButton(
-                  onPressed: () {
-                    PopupMenuButton<int>(
-                      itemBuilder: (context) => [
-                        // popupmenu item 1
-                        PopupMenuItem(
-                          value: 1,
-                          // row has two child icon and text.
-                          child: Row(
-                            children: [
-                              Icon(Icons.star),
-                              SizedBox(
-                                // sized box with width 10
-                                width: 10,
-                              ),
-                              Text("Get The App")
-                            ],
-                          ),
-                        ),
-                        // popupmenu item 2
-                        PopupMenuItem(
-                          value: 2,
-                          // row has two child icon and text
-                          child: Row(
-                            children: [
-                              Icon(Icons.chrome_reader_mode),
-                              SizedBox(
-                                // sized box with width 10
-                                width: 10,
-                              ),
-                              Text("About")
-                            ],
-                          ),
-                        ),
-                      ],
-                      offset: Offset(0, 100),
-                      color: Colors.grey,
-                      elevation: 2,
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.more_vert,
-                    color: Colors.grey,
-                  ))
-            ],
-          ),
-        ),
-        kSizedBox(),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Container(
+//           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//           decoration: BoxDecoration(
+//               border: Border.all(color: Colors.grey),
+//               borderRadius: BorderRadius.circular(10)),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Text(
+//                 projectName,
+//                 style: kBoldTextStyle(),
+//               ),
+//               IconButton(
+//                   onPressed: () {
+//                     showModalBottomSheet(
+//                         context: context,
+//                         builder: (context) {
+//                           return Column(
+//                             mainAxisSize: MainAxisSize.min,
+//                             children: <Widget>[
+//                               ListTile(
+//                                 leading: new Icon(Icons.edit),
+//                                 title: new Text('Edit'),
+//                                 onTap: () {
+//                                   Navigator.pop(context);
+//                                 },
+//                               ),
+//                               ListTile(
+//                                 leading: new Icon(Icons.delete),
+//                                 title: new Text('Delete'),
+//                                 onTap: () {
+//                                   Navigator.pop(context);
+//                                 },
+//                               ),
+//                             ],
+//                           );
+//                         });
+//                   },
+//                   icon: const Icon(
+//                     Icons.more_vert,
+//                     color: Colors.grey,
+//                   ))
+//             ],
+//           ),
+//         ),
+//         kSizedBox(),
+//       ],
+//     );
+//   }
+// }
