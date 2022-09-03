@@ -124,8 +124,14 @@ class InventoryScreen extends StatelessWidget {
                                                   title: const Text('Edit'),
                                                   onTap: () {
                                                     Navigator.pop(context);
-                                                    Navigator.pushNamed(context,
-                                                        '/inventory_details');
+                                                    Navigator.pushNamed(
+                                                      context,
+                                                      '/inventory_details',
+                                                      arguments: state
+                                                          .projectState!
+                                                          .data!
+                                                          .projects![index],
+                                                    );
                                                   },
                                                 ),
                                                 ListTile(

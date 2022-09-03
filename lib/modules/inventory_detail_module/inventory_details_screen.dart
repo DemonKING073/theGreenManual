@@ -57,13 +57,13 @@ class InventoryDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         sHeightSpan,
-                        // TextFormField(
-                        //   onChanged: state.onSectionNameChanged,
-                        //   decoration: InputDecoration(
-                        //       border: OutlineInputBorder(),
-                        //       focusedBorder: OutlineInputBorder(
-                        //           borderSide: BorderSide(color: primaryColor))),
-                        // ),
+                        TextFormField(
+                          onChanged: state.onSectionNameChanged,
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: primaryColor))),
+                        ),
                       ],
                     ),
                   ),
@@ -83,7 +83,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                           style: kTextStyle().copyWith(color: primaryColor),
                         ),
                         onPressed: () async {
-                          // state.createSection();
+                          state.createSection();
                         }),
                   ],
                 );
@@ -102,17 +102,19 @@ class InventoryDetailsScreen extends StatelessWidget {
         ),
         title: Text(
           // 'Text Title',
-          state.singleProductResponse?.data?.product?.name ?? '',
+          state.productDetails?.data?.product?.name ?? '',
           style: LBoldTextStyle(),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              if (!currentFocus.hasPrimaryFocus) {
-                currentFocus.unfocus();
+              if (state.productDetails != null) {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if (!currentFocus.hasPrimaryFocus) {
+                  currentFocus.unfocus();
+                }
+                state.updateSection();
               }
-              state.updateSection();
             },
             icon: Icon(
               Icons.save,
@@ -148,7 +150,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                               // print(counter);
                               return InkWell(
                                 onTap: () {
-                                  // state.onSelectedSectionChanged(e.sId);
+                                  state.onSelectedSectionChanged(e);
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -198,18 +200,27 @@ class InventoryDetailsScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        QuillToolbar.basic(
-                          controller: state.controller,
-                          showUndo: false,
-                          showRedo: false,
-                        ),
+                        if (state.productDetails!.data!.product!.sections!
+                            .isNotEmpty)
+                          QuillToolbar.basic(
+                            controller: state.controller,
+                            showUndo: false,
+                            showRedo: false,
+                          ),
                       ],
                     ),
                   ),
                   LSizedBox(),
                   Expanded(
-                    child: QuillEditor.basic(
-                        controller: state.controller, readOnly: false),
+                    child:
+                        state.productDetails!.data!.product!.sections == null ||
+                                state.productDetails!.data!.product!.sections!
+                                    .isEmpty
+                            ? const Center(
+                                child: Text("Please add section!"),
+                              )
+                            : QuillEditor.basic(
+                                controller: state.controller, readOnly: false),
                   )
                 ],
               ),

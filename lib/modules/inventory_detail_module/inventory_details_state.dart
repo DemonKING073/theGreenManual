@@ -12,9 +12,9 @@ import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/core/states/base_state.dart';
+import 'package:the_green_manual/main.dart';
 
 import 'package:the_green_manual/modules/inventory_module/modals/inventory_respones.dart';
-import 'package:the_green_manual/modules/project_details_module/models/project_detail_response.dart';
 
 class InventoryDetailState extends BaseState {
   late InventoryItem item;
@@ -34,7 +34,7 @@ class InventoryDetailState extends BaseState {
 
   Dio dio = getHttp();
 
-  SingleProduct? singleProductResponse;
+  // SingleProduct? singleProductResponse;
 
   fetchProjectDetails() async {
     setLoading(true);
@@ -96,5 +96,48 @@ class InventoryDetailState extends BaseState {
       print("condo");
     }
     hideLoadingDialog();
+  }
+
+  String sectionName = "";
+
+  onSectionNameChanged(String val) {
+    sectionName = val;
+    notifyListeners();
+  }
+
+  Sections? sectionItem;
+
+  onSelectedSectionChanged(Sections val) {
+    selectedSection = val.sId;
+    sectionItem = val;
+    notifyListeners();
+    controller.clear();
+    if (sectionItem!.content != null || sectionItem!.content!.isNotEmpty) {
+      quillData = jsonDecode(sectionItem!.content!);
+      controller = QuillController(
+          document: Document.fromJson(quillData),
+          selection: const TextSelection.collapsed(offset: 0));
+      notifyListeners();
+    }
+  }
+
+  createSection() async {
+    navigatorKey.currentState!.pop();
+    if (sectionName.isNotEmpty) {
+      try {
+        var data = {
+          "productId": productDetails!.data!.product!.sId,
+          "name": sectionName,
+        };
+        await dio.post("/v1/sections", data: data);
+        setLoading(true);
+        fetchProductDetails();
+        print(data);
+      } catch (err) {
+        print(err);
+      }
+    } else {
+      ToastService().w("Please provide section name!");
+    }
   }
 }

@@ -27,8 +27,9 @@ class HomeState extends ChangeNotifier {
 
   List onNavigation = [
     SearchScanScreen(),
-    ChangeNotifierProvider(
-        create: (_) => ResumeState(), child: const ResumeScreen()),
+    Container(),
+    // ChangeNotifierProvider(
+    //     create: (_) => ResumeState(), child: const ResumeScreen()),
     ChangeNotifierProvider(
         create: (_) => CreateScreenState(), child: const CreateScreen()),
     ChangeNotifierProvider(
