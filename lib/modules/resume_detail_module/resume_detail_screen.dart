@@ -29,13 +29,7 @@ class ResumeDetailScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // if (state.productDetails != null) {
-              //   FocusScopeNode currentFocus = FocusScope.of(context);
-              //   if (!currentFocus.hasPrimaryFocus) {
-              //     currentFocus.unfocus();
-              //   }
-              //   state.updateSection();
-              // }
+              state.onBookMark();
             },
             icon: Icon(
               Icons.bookmark,

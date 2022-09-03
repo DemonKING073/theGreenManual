@@ -8,6 +8,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 
 import 'package:the_green_manual/apiModels/single_product_response.dart';
 import 'package:the_green_manual/core/http/http.dart';
+import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
 
 import 'package:the_green_manual/modules/inventory_module/modals/inventory_respones.dart';
@@ -90,5 +91,34 @@ class ResumeDetailState extends BaseState {
           selection: const TextSelection.collapsed(offset: 0));
       notifyListeners();
     }
+  }
+
+  onBookMark() {
+    print(sectionItem!.sId);
+    print(inventoryState!.data!.projects!.first.sId);
+    var data = {"bookMarkList": []};
+    // LocalStorageService().write(key, value)
+  }
+}
+
+class BookMarkModel {
+  List? bookMarkList;
+}
+
+class BookMarkItemModel {
+  String? itemId;
+  String? sectionId;
+  BookMarkItemModel({this.itemId, this.sectionId});
+
+  BookMarkItemModel.fromJson(Map<String, dynamic> json) {
+    itemId = json['item_id'];
+    sectionId = json['section_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['item_id'] = itemId;
+    data['section_id'] = sectionId;
+    return data;
   }
 }
