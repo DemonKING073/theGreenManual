@@ -5,20 +5,16 @@ import 'package:flutter/material.dart';
 
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
+import 'package:the_green_manual/core/states/base_state.dart';
 import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/inventory_module/modals/inventory_respones.dart';
 
-class InventoryState extends ChangeNotifier {
+class InventoryState extends BaseState {
   Dio dio = getHttp();
   String? id;
   InventoryResponse? projectState;
   InventoryState() {
     fetchProjects();
-  }
-  bool isLoading = false;
-  setLoading(val) {
-    isLoading = val;
-    notifyListeners();
   }
 
   fetchProjects() async {

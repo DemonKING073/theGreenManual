@@ -21,6 +21,8 @@ import 'package:the_green_manual/modules/onbording_modules/private_secure/privat
 import 'package:the_green_manual/modules/project_details_module/project_details_state.dart';
 import 'package:the_green_manual/modules/register_module/register_screen.dart';
 import 'package:the_green_manual/modules/register_module/register_state.dart';
+import 'package:the_green_manual/modules/resume_detail_module/resume_detail_screen.dart';
+import 'package:the_green_manual/modules/resume_detail_module/resume_detail_state.dart';
 import 'package:the_green_manual/modules/splash_module/splash_screen.dart';
 import 'package:the_green_manual/modules/splash_module/splash_state.dart';
 import 'package:the_green_manual/modules/term&conditions/term_condition_screen.dart';
@@ -105,7 +107,11 @@ class TheGreenManual extends StatelessWidget {
               '/inventory_details': (context) => ChangeNotifierProvider(
                     create: (_) => InventoryDetailState(context),
                     child: const InventoryDetailsScreen(),
-                  )
+                  ),
+              '/resume_details': (context) => ChangeNotifierProvider(
+                    create: (_) => ResumeDetailState(context),
+                    child: const ResumeDetailScreen(),
+                  ),
             },
           ),
         ),
