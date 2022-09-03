@@ -91,6 +91,7 @@ class InventoryDetailState extends BaseState {
     try {
       await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
       ToastService().s("Updated successfully!");
+      fetchProductDetails();
     } on DioError catch (err) {
       print(err.response);
       print("condo");
@@ -112,7 +113,7 @@ class InventoryDetailState extends BaseState {
     sectionItem = val;
     notifyListeners();
     controller.clear();
-    if (sectionItem!.content != null || sectionItem!.content!.isNotEmpty) {
+    if (sectionItem!.content != null && sectionItem!.content!.isNotEmpty) {
       quillData = jsonDecode(sectionItem!.content!);
       controller = QuillController(
           document: Document.fromJson(quillData),
