@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/profile_module/profile_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constant.dart';
 
@@ -179,8 +180,9 @@ class ProfileScreen extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           ListTile(
-                                            leading: new Icon(Icons.camera_alt),
-                                            title: new Text(
+                                            leading:
+                                                const Icon(Icons.camera_alt),
+                                            title: Text(
                                               'Click from Camera',
                                               style: kBoldTextStyle(),
                                             ),
@@ -191,8 +193,8 @@ class ProfileScreen extends StatelessWidget {
                                             },
                                           ),
                                           ListTile(
-                                            leading: new Icon(Icons.photo),
-                                            title: new Text(
+                                            leading: const Icon(Icons.photo),
+                                            title: Text(
                                               'Select from Gallery',
                                               style: kBoldTextStyle(),
                                             ),
@@ -340,7 +342,13 @@ class ProfileScreen extends StatelessWidget {
                         profileButtonsWithOutDescription(
                             title: 'About App',
                             icons: Icons.info,
-                            onTap: () {}),
+                            onTap: () async {
+                              Uri url =
+                                  Uri.parse("https://thegreenmanual.com/");
+                              if (await canLaunchUrl(url)) {
+                                launchUrl(url);
+                              }
+                            }),
                       ],
                     ),
                   ),
