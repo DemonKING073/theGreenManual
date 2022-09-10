@@ -93,7 +93,7 @@ class TheGreenManual extends StatelessWidget {
               '/scanner_screen': (context) => ChangeNotifierProvider(
                   create: (_) => ScannerState(), child: const ScannerScreen()),
               '/profile_edit': (context) => ChangeNotifierProvider(
-                  create: (_) => EditProfileState(),
+                  create: (_) => EditProfileState(context),
                   child: const EditProfileScreen()),
               '/helpAndSupport': (context) => const HelpAndSupportScreen(),
               '/contactUs': (context) => ChangeNotifierProvider(

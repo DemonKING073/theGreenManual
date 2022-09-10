@@ -172,39 +172,39 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      
-                                      ListTile(
-                                        leading: new Icon(Icons.camera_alt),
-                                        title: new Text(
-                                          'Click from Camera',
-                                          style: kBoldTextStyle(),
-                                        ),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          state.pickImage(ImageSource.camera);
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading: new Icon(Icons.photo),
-                                        title: new Text(
-                                          'Select from Gallery',
-                                          style: kBoldTextStyle(),
-                                        ),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                          state.pickImage(ImageSource.gallery);
-                                        },
-                                      ),
-                                      
-                                    ],
-                                  );
-                                });
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          ListTile(
+                                            leading: new Icon(Icons.camera_alt),
+                                            title: new Text(
+                                              'Click from Camera',
+                                              style: kBoldTextStyle(),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              state.pickImage(
+                                                  ImageSource.camera);
+                                            },
+                                          ),
+                                          ListTile(
+                                            leading: new Icon(Icons.photo),
+                                            title: new Text(
+                                              'Select from Gallery',
+                                              style: kBoldTextStyle(),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              state.pickImage(
+                                                  ImageSource.gallery);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    });
                               },
                               child: const CircleAvatar(
                                 radius: 28,
@@ -216,7 +216,6 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                        
                             const SizedBox(
                               width: 10,
                             ),
@@ -241,8 +240,10 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         IconButton(
                             onPressed: () async {
-                              await navigatorKey.currentState!
-                                  .pushNamed('/profile_edit');
+                              await navigatorKey.currentState!.pushNamed(
+                                '/profile_edit',
+                                arguments: "edit",
+                              );
                               state.fetchProfile();
                             },
                             icon: const Icon(
@@ -276,7 +277,12 @@ class ProfileScreen extends StatelessWidget {
                           title: 'My Account',
                           description: 'Make Changes to your Account',
                           icons: Icons.person_outline,
-                          onTap: () {},
+                          onTap: () {
+                            navigatorKey.currentState!.pushNamed(
+                              '/profile_edit',
+                              arguments: "view",
+                            );
+                          },
                         ),
                         LSizedBox(),
                         profileButtons(
