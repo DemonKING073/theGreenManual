@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/resume_module/resume_state.dart';
 
@@ -82,14 +83,17 @@ class ProjectTile extends StatelessWidget {
                 projectName,
                 style: kBoldTextStyle(),
               ),
-              IconButton(
-                  onPressed: () {
-                    onTap();
-                  },
-                  icon: const Icon(
-                    Icons.more_vert,
-                    color: Colors.grey,
-                  ))
+              const SizedBox(
+                height: 40,
+              )
+              // IconButton(
+              //     onPressed: () {
+              //       onTap();
+              //     },
+              //     icon: const Icon(
+              //       Icons.more_vert,
+              //       color: Colors.grey,
+              //     ))
             ],
           ),
         ),
