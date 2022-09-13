@@ -92,6 +92,97 @@ class InventoryDetailsScreen extends StatelessWidget {
           });
     }
 
+    showDeleteSectionDialog(BuildContext context, id) async {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Delete Category?', style: LBoldTextStyle()),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Are you sure you want to delete Category?',
+                            style: kBoldTextStyle(),
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    onPressed: state.isPressed
+                        ? null
+                        : () async {
+                            await state.deleteSection(id);
+                          },
+                    child: Text(
+                      'Delete',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    )),
+              ],
+            );
+          });
+    }
+
+    showSectionUpdateDialog(BuildContext context, id) async {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Change Section Name!', style: LBoldTextStyle()),
+              content: TextFormField(
+                // initialValue: overViewState.products!.data!.first.productName,
+                cursorColor: primaryColor,
+                onChanged: state.onSectionNameUpdated,
+                decoration: InputDecoration(
+                  isDense: true,
+                  // hintText: "Enter Name",
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primaryColor),
+                  ),
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    child: Text(
+                      'Update',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    ),
+                    onPressed: () async {
+                      state.updateSectionName(id);
+                      // Navigator.pop(context);
+                    }),
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -149,6 +240,35 @@ class InventoryDetailsScreen extends StatelessWidget {
                                 .map((e) {
                               // print(counter);
                               return InkWell(
+                                onLongPress: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            ListTile(
+                                              leading: const Icon(Icons.edit),
+                                              title: const Text('Edit'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                                showSectionUpdateDialog(
+                                                    context, e.sId);
+                                              },
+                                            ),
+                                            ListTile(
+                                              leading: const Icon(Icons.delete),
+                                              title: const Text('Delete'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                                showDeleteSectionDialog(
+                                                    context, e.sId);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                },
                                 onTap: () {
                                   state.onSelectedSectionChanged(e);
                                 },

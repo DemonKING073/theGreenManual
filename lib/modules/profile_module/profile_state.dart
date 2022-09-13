@@ -42,17 +42,18 @@ class ProfileState extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     String fileName = file.path.split('/').last;
-    // FormData formData = FormData.fromMap({
-    //   "file": await MultipartFile.fromFile(
-    //     file.path,
-    //     filename: fileName,
-    //     contentType: MediaType("image", "jpeg"),
-    //   ),
-    // });
-    var data = {};
+    FormData formData = FormData.fromMap({
+      "picture": await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
+        // contentType: MediaType("image", "jpeg"),
+      ),
+    });
+    // var data = {};
+    print(formData);
     try {
-      var updateResponse = await dio
-          .patch('/v1/inventory/products/dynoeats/image', data: data);
+      var updateResponse =
+          await dio.patch('/v1/auth/update-picture', data: formData);
       fetchProfile();
     } on DioError catch (e) {
       print(e.message);
