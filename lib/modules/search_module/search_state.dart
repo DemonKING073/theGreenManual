@@ -69,12 +69,35 @@ class SearchState extends ChangeNotifier {
   searchProductsByModel() async {
     setLoading(true);
     try {
-      var response = await dio.get(
-          '/v1/products?fields=assignee,name,model&private=true&model[regex]=$keySearchModelNo&model[options]=i');
+      // var response = await dio.get(
+      //     '/v1/products?fields=assignee,name,model&private=true&model[regex]=$keySearchModelNo&model[options]=i');
+      var response = await dio
+          .get('/v1/products?model[regex]=$keySearchName&model[options]=i');
+      searchState = ProductSearchResponse.fromJson(response.data);
+      print(response.data);
+      print('yo yeta ko ho');
 
       notifyListeners();
     } on DioError catch (e) {}
     setLoading(false);
+  }
+
+  String? newSection;
+  onNewSectionChanged(val) {
+    newSection = val;
+    notifyListeners();
+  }
+
+  createSection(id) async {
+    var data = {"name": newSection, "productId": id};
+    try {
+      var res = await dio.post('/v1/projects', data: data);
+      print(res);
+      ToastService().s(res.data['message']);
+    } on DioError catch (e) {
+      print(e.response);
+      ToastService().e(e.response!.data['message']);
+    }
   }
 
   search() {
