@@ -108,58 +108,58 @@ class SearchScreen extends StatelessWidget {
               LSizedBox(),
               const Divider(),
               LSizedBox(),
-              state.isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: primaryColor,
-                      ),
-                    )
-                  : state.product == null ||
-                          state.product!.data!.products!.isEmpty
-                      ? Center(
-                          child: Column(
-                            children: [
-                              Image.asset('assets/icons/Frame.png'),
-                              kSizedBox(),
-                              Text(
-                                'No product to show for',
-                                style:
-                                    kTextStyle().copyWith(color: Colors.grey),
-                              ),
-                              if (state.keySearchName.isNotEmpty)
-                                Text(state.keySearchName,
-                                    style: kTextStyle()
-                                        .copyWith(color: Colors.grey))
-                              else
-                                Text(state.keySearchModelNo,
-                                    style: kTextStyle()
-                                        .copyWith(color: Colors.grey)),
-                            ],
-                          ),
-                        )
-                      : Column(
-                          children: state.product!.data!.products!.map((e) {
-                            return Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 15),
-                                  child: Text(
-                                    e.name!,
-                                    style: kTextStyle()
-                                        .copyWith(color: Colors.grey),
-                                  ),
-                                ),
-                                sHeightSpan,
-                              ],
-                            );
-                          }).toList(),
-                        )
+              // state.isLoading
+              //     ? Center(
+              //         child: CircularProgressIndicator(
+              //           color: primaryColor,
+              //         ),
+              //       )
+              //     : state.product == null ||
+              //             state.product!.data!.products!.isEmpty
+              //         ? Center(
+              //             child: Column(
+              //               children: [
+              //                 Image.asset('assets/icons/Frame.png'),
+              //                 kSizedBox(),
+              //                 Text(
+              //                   'No product to show for',
+              //                   style:
+              //                       kTextStyle().copyWith(color: Colors.grey),
+              //                 ),
+              //                 if (state.keySearchName.isNotEmpty)
+              //                   Text(state.keySearchName,
+              //                       style: kTextStyle()
+              //                           .copyWith(color: Colors.grey))
+              //                 else
+              //                   Text(state.keySearchModelNo,
+              //                       style: kTextStyle()
+              //                           .copyWith(color: Colors.grey)),
+              //               ],
+              //             ),
+              //           )
+              //         : Column(
+              //             children: state.product!.data!.products!.map((e) {
+              //               return Column(
+              //                 children: [
+              //                   Container(
+              //                     width: double.infinity,
+              //                     decoration: BoxDecoration(
+              //                       border: Border.all(color: Colors.grey),
+              //                       borderRadius: BorderRadius.circular(10),
+              //                     ),
+              //                     padding: const EdgeInsets.symmetric(
+              //                         horizontal: 20, vertical: 15),
+              //                     child: Text(
+              //                       e.name!,
+              //                       style: kTextStyle()
+              //                           .copyWith(color: Colors.grey),
+              //                     ),
+              //                   ),
+              //                   sHeightSpan,
+              //                 ],
+              //               );
+              //             }).toList(),
+              //           )
             ],
           ),
         ),

@@ -2,15 +2,16 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:the_green_manual/apiModels/products.dart';
+
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
+import 'package:the_green_manual/modules/search_module/models/product_search_response.dart';
 
 import '../../constants/debouncer.dart';
 
 class SearchState extends ChangeNotifier {
   Dio dio = getHttp();
-  Product? product;
+
   SearchState() {}
   bool isLoading = false;
   setLoading(val) {
@@ -47,14 +48,16 @@ class SearchState extends ChangeNotifier {
 
   bool isSearched = false;
 
+  ProductSearchResponse? searchState;
+
   searchProductsByName() async {
     setLoading(true);
     try {
-      var response = await dio.get(
-          '/v1/products?fields=assignee,name,model&private=true&name[regex]=$keySearchName');
-      product = Product.fromJson(response.data);
-
+      var response = await dio
+          .get('/v1/products?name[regex]=$keySearchName&name[options]=i');
+      searchState = ProductSearchResponse.fromJson(response.data);
       notifyListeners();
+      print(searchState!.data!.products!.first.assignees!.first.name);
     } on DioError catch (e) {}
     setLoading(false);
   }
@@ -64,7 +67,6 @@ class SearchState extends ChangeNotifier {
     try {
       var response = await dio.get(
           '/v1/products?fields=assignee,name,model&private=true&model[regex]=$keySearchModelNo&model[options]=i');
-      product = Product.fromJson(response.data);
 
       notifyListeners();
     } on DioError catch (e) {}
