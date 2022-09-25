@@ -59,7 +59,7 @@ class LoginState extends BaseState {
   getVerification(context) async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
-      // print("yo token ho $token");
+      print("yo token ho $token");
       Dio newDio = Dio();
       final response = await newDio
           .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
