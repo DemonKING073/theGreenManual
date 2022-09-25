@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
@@ -48,17 +49,17 @@ class LoginState extends BaseState {
         final token = await res.user!.getIdToken();
         print(token);
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
-        getVerification();
+        getVerification(context);
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
       }
     }
   }
 
-  getVerification() async {
+  getVerification(context) async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
-      print("yo token ho $token");
+      // print("yo token ho $token");
       Dio newDio = Dio();
       final response = await newDio
           .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
@@ -68,12 +69,52 @@ class LoginState extends BaseState {
               data: {
             "provider": "password",
           });
-      LocalStorageService()
-          .write(LocalStorageKeys.accessToken, response.data['token']);
-      ToastService().s("Login Successfull!");
-      navigatorKey.currentState!
-          .pushNamedAndRemoveUntil("/home", (route) => false);
-      setSubmitLoading(false);
+      if (response.data['message'] ==
+          'Email verification link sent to your email. Verify your email before login') {
+        print('ya aayo');
+        // AlertDialog(
+        //   title: Text(response.data['message']),
+        // );
+
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(response.data['message'], style: LBoldTextStyle()),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    child: Text(
+                      'Ok',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    ),
+                    onPressed: () async {
+                      // await overViewState.updateName();
+                      Navigator.pop(context);
+                      // await overViewState.fetchData();
+                    }),
+              ],
+            );
+          },
+        );
+      } else {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        print(LocalStorageKeys.accessToken);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      }
+
       // ignore: empty_catches
     } on DioError {}
   }

@@ -56,9 +56,13 @@ class SearchState extends ChangeNotifier {
       var response = await dio
           .get('/v1/products?name[regex]=$keySearchName&name[options]=i');
       searchState = ProductSearchResponse.fromJson(response.data);
+      print(response.data);
       notifyListeners();
-      print(searchState!.data!.products!.first.assignees!.first.name);
-    } on DioError catch (e) {}
+      print('successful search');
+      // print(searchState!.data!.products!.first.assignees!.first.name);
+    } on DioError catch (e) {
+      print(e.response);
+    }
     setLoading(false);
   }
 
