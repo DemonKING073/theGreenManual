@@ -94,7 +94,6 @@ class InventoryDetailState extends BaseState {
       fetchProductDetails();
     } on DioError catch (err) {
       print(err.response);
-      print("condo");
     }
     hideLoadingDialog();
   }
@@ -122,6 +121,24 @@ class InventoryDetailState extends BaseState {
     }
   }
 
+  bool isPressed = false;
+  setWaiting(val) {
+    isPressed = val;
+    notifyListeners();
+  }
+
+  deleteSection(id) async {
+    showLoadingDialog();
+    try {
+      navigatorKey.currentState!.pop();
+
+      await dio.delete('/v1/sections/$id');
+      ToastService().s("Section deleted successfully!");
+      fetchProjectDetails();
+    } on DioError {}
+    hideLoadingDialog();
+  }
+
   createSection() async {
     navigatorKey.currentState!.pop();
     if (sectionName.isNotEmpty) {
@@ -140,5 +157,25 @@ class InventoryDetailState extends BaseState {
     } else {
       ToastService().w("Please provide section name!");
     }
+  }
+
+  String? updatedSectionName;
+  onSectionNameUpdated(val) {
+    updatedSectionName = val;
+    notifyListeners();
+  }
+
+  updateSectionName(id) async {
+    navigatorKey.currentState!.pop();
+    showLoadingDialog();
+    var data = {"name": updatedSectionName};
+    try {
+      await dio.patch('/v1/sections/$id', data: data);
+      setLoading(true);
+      fetchProductDetails();
+    } catch (e) {
+      print(e);
+    }
+    hideLoadingDialog();
   }
 }

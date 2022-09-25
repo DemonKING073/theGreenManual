@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+// ignore: depend_on_referenced_packages
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/constants/helper.dart';
@@ -21,7 +23,20 @@ class RegisterScreen extends StatelessWidget {
 
     faceBookLogin() {}
     googleLogin() {}
-    appleLogin() {}
+    appleLogin() async {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      print(credential);
+
+      // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+      // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -108,22 +123,19 @@ class RegisterScreen extends StatelessWidget {
                     TextFormField(
                       onChanged: state.onPasswordChanged,
                       obscureText: state.isPasswordVisible,
-                      
-                        
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
-                                onPressed: state.onVisibilityChanged,
-                                icon: state.isPasswordVisible
-                                    ? Icon(
-                                        Icons.visibility_off,
-                                        color: primaryColor,
-                                      )
-                                    : Icon(
-                                        Icons.visibility,
-                                        color: primaryColor,
-                                      ),
-                              ),
-                        
+                          onPressed: state.onVisibilityChanged,
+                          icon: state.isPasswordVisible
+                              ? Icon(
+                                  Icons.visibility_off,
+                                  color: primaryColor,
+                                )
+                              : Icon(
+                                  Icons.visibility,
+                                  color: primaryColor,
+                                ),
+                        ),
                         hintText: 'Password',
                         isDense: true,
                         filled: true,

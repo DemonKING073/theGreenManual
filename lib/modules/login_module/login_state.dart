@@ -48,13 +48,11 @@ class LoginState extends BaseState {
         final token = await res.user!.getIdToken();
         print(token);
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
-        ToastService().s("Login Successfull!");
         getVerification();
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
       }
     }
-    setSubmitLoading(false);
   }
 
   getVerification() async {
@@ -72,9 +70,10 @@ class LoginState extends BaseState {
           });
       LocalStorageService()
           .write(LocalStorageKeys.accessToken, response.data['token']);
-      print("lado");
+      ToastService().s("Login Successfull!");
       navigatorKey.currentState!
           .pushNamedAndRemoveUntil("/home", (route) => false);
+      setSubmitLoading(false);
       // ignore: empty_catches
     } on DioError {}
   }
