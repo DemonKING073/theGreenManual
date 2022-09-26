@@ -153,7 +153,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   isDense: true,
                   // hintText: "Enter Name",
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),

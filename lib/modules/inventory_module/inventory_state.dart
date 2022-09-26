@@ -22,6 +22,10 @@ class InventoryState extends BaseState {
     try {
       var response = await dio.get('/v1/projects/');
       projectState = InventoryResponse.fromJson(response.data);
+      notifyListeners();
+      projectState!.data!.projects!.forEach((element) {
+        print(element.product!.private);
+      });
     } catch (e) {}
     setLoading(false);
   }

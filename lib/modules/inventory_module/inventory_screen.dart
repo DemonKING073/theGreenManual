@@ -110,51 +110,71 @@ class InventoryScreen extends StatelessWidget {
                                       .name!,
                                   style: kBoldTextStyle(),
                                 ),
-                                IconButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) {
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                ListTile(
-                                                  leading:
-                                                      const Icon(Icons.edit),
-                                                  title: const Text('Edit'),
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                    Navigator.pushNamed(
-                                                      context,
-                                                      '/inventory_details',
-                                                      arguments: state
-                                                          .projectState!
-                                                          .data!
-                                                          .projects![index],
-                                                    );
-                                                  },
-                                                ),
-                                                ListTile(
-                                                  leading:
-                                                      const Icon(Icons.delete),
-                                                  title: const Text('Delete'),
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                    showDeleteCategory(
-                                                      context,
-                                                      state.projectState!.data!
-                                                          .projects![index].sId,
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          });
-                                    },
-                                    icon: const Icon(
-                                      Icons.more_vert,
-                                      color: Colors.grey,
-                                    ))
+                                Row(
+                                  children: [
+                                    if (state
+                                            .projectState!
+                                            .data!
+                                            .projects![index]
+                                            .product!
+                                            .private ==
+                                        true)
+                                      Icon(
+                                        Icons.star,
+                                        color: primaryColor,
+                                      ),
+                                    IconButton(
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                              context: context,
+                                              builder: (context) {
+                                                return Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    ListTile(
+                                                      leading: const Icon(
+                                                          Icons.edit),
+                                                      title: const Text('Edit'),
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.pushNamed(
+                                                          context,
+                                                          '/inventory_details',
+                                                          arguments: state
+                                                              .projectState!
+                                                              .data!
+                                                              .projects![index],
+                                                        );
+                                                      },
+                                                    ),
+                                                    ListTile(
+                                                      leading: const Icon(
+                                                          Icons.delete),
+                                                      title:
+                                                          const Text('Delete'),
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        showDeleteCategory(
+                                                          context,
+                                                          state
+                                                              .projectState!
+                                                              .data!
+                                                              .projects![index]
+                                                              .sId,
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                        icon: const Icon(
+                                          Icons.more_vert,
+                                          color: Colors.grey,
+                                        )),
+                                  ],
+                                )
                               ],
                             ),
                           ),
