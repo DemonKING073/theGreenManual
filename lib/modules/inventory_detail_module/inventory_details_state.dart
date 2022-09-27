@@ -56,8 +56,6 @@ class InventoryDetailState extends BaseState {
       print(response.data);
       productDetails = SingleProductResponse.fromJson(response.data);
       notifyListeners();
-      print("condo ${productDetails!.data!.product!.category}");
-
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {
         selectedSection = productDetails!.data!.product!.sections!.first.sId;
@@ -70,6 +68,17 @@ class InventoryDetailState extends BaseState {
               selection: const TextSelection.collapsed(offset: 0));
           notifyListeners();
         } catch (er) {}
+      }
+      if (productDetails!.data!.product!.sections != null &&
+          productDetails!.data!.product!.sections!.isNotEmpty) {
+        selectedSection = productDetails!.data!.product!.sections?.first.sId;
+        notifyListeners();
+        if (productDetails!.data!.product!.category != "personal") {
+          sectionBody =
+              productDetails!.data!.product!.sections!.first.content ??
+                  "Empty Section!";
+          notifyListeners();
+        }
       }
     } on DioError catch (err) {
       print(err.response);
@@ -113,14 +122,20 @@ class InventoryDetailState extends BaseState {
     sectionItem = val;
     notifyListeners();
     controller.clear();
-    if (sectionItem!.content != null && sectionItem!.content!.isNotEmpty) {
-      quillData = jsonDecode(sectionItem!.content!);
+    if (productDetails!.data!.product!.category == "Personal") {
+      quillData = jsonDecode(sectionItem!.content ?? "");
       controller = QuillController(
           document: Document.fromJson(quillData),
           selection: const TextSelection.collapsed(offset: 0));
       notifyListeners();
+    } else {
+      print("mah yah zu condo ${productDetails!.data!.product!.category} ");
+      sectionBody = val.content ?? "Empty Section!";
+      notifyListeners();
     }
   }
+
+  String sectionBody = "";
 
   bool isPressed = false;
   setWaiting(val) {

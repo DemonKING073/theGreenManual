@@ -140,7 +140,6 @@ class ResumeDetailState extends BaseState {
       sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
     } else {
-      print("Mah yaha xu");
       controller.clear();
       if (sectionItem!.content != null && sectionItem!.content!.isNotEmpty) {
         quillData = jsonDecode(sectionItem!.content!);
@@ -171,7 +170,6 @@ class ResumeDetailState extends BaseState {
               print(finalData);
               isDataSaved = true;
               notifyListeners();
-              print("condo condo radi");
               break;
             }
           }

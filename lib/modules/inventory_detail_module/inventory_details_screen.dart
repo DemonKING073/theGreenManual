@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/common/ui/ui_helpers.dart';
@@ -197,21 +198,22 @@ class InventoryDetailsScreen extends StatelessWidget {
           style: LBoldTextStyle(),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              if (state.productDetails != null) {
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                if (!currentFocus.hasPrimaryFocus) {
-                  currentFocus.unfocus();
+          if (state.productDetails?.data?.product?.category == "Personal")
+            IconButton(
+              onPressed: () {
+                if (state.productDetails != null) {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  state.updateSection();
                 }
-                state.updateSection();
-              }
-            },
-            icon: Icon(
-              Icons.save,
-              color: primaryColor,
-            ),
-          )
+              },
+              icon: Icon(
+                Icons.save,
+                color: primaryColor,
+              ),
+            )
         ],
         centerTitle: true,
       ),
@@ -294,23 +296,25 @@ class InventoryDetailsScreen extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          InkWell(
-                            onTap: () {
-                              showCreateSection();
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
+                          if (state.productDetails!.data!.product!.category ==
+                              "Personal")
+                            InkWell(
+                              onTap: () {
+                                showCreateSection();
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                     ),
@@ -322,26 +326,40 @@ class InventoryDetailsScreen extends StatelessWidget {
                       children: [
                         if (state.productDetails!.data!.product!.sections!
                             .isNotEmpty)
-                          QuillToolbar.basic(
-                            controller: state.controller,
-                            showUndo: false,
-                            showRedo: false,
-                          ),
+                          if (state.productDetails!.data!.product!.category ==
+                              "Personal")
+                            QuillToolbar.basic(
+                              controller: state.controller,
+                              showUndo: false,
+                              showRedo: false,
+                            ),
                       ],
                     ),
                   ),
                   LSizedBox(),
-                  Expanded(
-                    child:
-                        state.productDetails!.data!.product!.sections == null ||
-                                state.productDetails!.data!.product!.sections!
-                                    .isEmpty
-                            ? const Center(
-                                child: Text("Please add section!"),
-                              )
-                            : QuillEditor.basic(
-                                controller: state.controller, readOnly: false),
-                  )
+                  if (state.productDetails!.data!.product!.category ==
+                      "Personal")
+                    Expanded(
+                      child: state.productDetails!.data!.product!.sections ==
+                                  null ||
+                              state.productDetails!.data!.product!.sections!
+                                  .isEmpty
+                          ? const Center(
+                              child: Text("Please add section!"),
+                            )
+                          : QuillEditor.basic(
+                              controller: state.controller, readOnly: false),
+                    )
+                  else
+                    Expanded(
+                      child: state.sectionBody.isEmpty
+                          ? Center(
+                              child: Text(state.sectionBody),
+                            )
+                          : Html(
+                              data: state.sectionBody,
+                            ),
+                    )
                 ],
               ),
             ),
