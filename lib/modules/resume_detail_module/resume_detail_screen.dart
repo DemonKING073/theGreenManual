@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:provider/provider.dart';
+import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/modules/resume_detail_module/resume_detail_state.dart';
 
@@ -37,7 +38,12 @@ class ResumeDetailScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                state.onBookMark();
+                if (state.sectionItem!.content != null &&
+                    state.sectionItem!.content!.isNotEmpty) {
+                  state.onBookMark();
+                } else {
+                  ToastService().w("Empty section cannot be bookmarked");
+                }
               },
               icon: Icon(
                 Icons.bookmark,

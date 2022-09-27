@@ -171,6 +171,7 @@ class ResumeDetailState extends BaseState {
               print(finalData);
               isDataSaved = true;
               notifyListeners();
+              print("condo condo radi");
               break;
             }
           }
