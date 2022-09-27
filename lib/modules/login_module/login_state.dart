@@ -52,7 +52,10 @@ class LoginState extends BaseState {
         getVerification(context);
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
+        setSubmitLoading(false);
       }
+    } else {
+      setSubmitLoading(false);
     }
   }
 

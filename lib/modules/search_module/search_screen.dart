@@ -121,11 +121,15 @@ class SearchScreen extends StatelessWidget {
                             children: [
                               Image.asset('assets/icons/Frame.png'),
                               kSizedBox(),
-                              Text(
-                                'No product to show for',
-                                style:
-                                    kTextStyle().copyWith(color: Colors.grey),
-                              ),
+                              if (state.keySearchModelNo.isNotEmpty &&
+                                  state.keySearchName.isNotEmpty)
+                                Text(
+                                  'No product to show for',
+                                  style:
+                                      kTextStyle().copyWith(color: Colors.grey),
+                                )
+                              else
+                                const Text("No Product to show"),
                               if (state.keySearchName.isNotEmpty)
                                 Text(state.keySearchName,
                                     style: kTextStyle()
@@ -218,7 +222,7 @@ class SearchScreen extends StatelessWidget {
                                                       // hintMaxLines: 2,
                                                       // hintText: "Enter Unit Price",
                                                       border:
-                                                          OutlineInputBorder(),
+                                                          const OutlineInputBorder(),
                                                       focusedBorder:
                                                           OutlineInputBorder(
                                                         borderSide: BorderSide(

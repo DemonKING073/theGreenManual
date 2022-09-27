@@ -272,6 +272,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                                       });
                                 },
                                 onTap: () {
+                                  print(e.content);
                                   state.onSelectedSectionChanged(e);
                                 },
                                 child: Container(
@@ -356,8 +357,10 @@ class InventoryDetailsScreen extends StatelessWidget {
                           ? Center(
                               child: Text(state.sectionBody),
                             )
-                          : Html(
-                              data: state.sectionBody,
+                          : SingleChildScrollView(
+                              child: Html(
+                                data: state.sectionBody,
+                              ),
                             ),
                     )
                 ],

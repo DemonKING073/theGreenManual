@@ -113,16 +113,16 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      validator: (value) {
-                        RegExp regex = RegExp(
-                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-                        if (value == null || value.isEmpty) {
-                          return "Password is required!";
-                        } else if (!regex.hasMatch(value)) {
-                          return "Please provide strong password!";
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   RegExp regex = RegExp(
+                      //       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                      //   if (value == null || value.isEmpty) {
+                      //     return "Password is required!";
+                      //   } else if (!regex.hasMatch(value)) {
+                      //     return "Please provide strong password!";
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     LSizedBox(),
                     // Button(
