@@ -56,6 +56,7 @@ class InventoryDetailState extends BaseState {
       print(response.data);
       productDetails = SingleProductResponse.fromJson(response.data);
       notifyListeners();
+      print("condo ${productDetails!.data!.product!.category}");
 
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {
@@ -151,8 +152,8 @@ class InventoryDetailState extends BaseState {
         setLoading(true);
         fetchProductDetails();
         print(data);
-      } catch (err) {
-        print(err);
+      } on DioError catch (err) {
+        print(err.response);
       }
     } else {
       ToastService().w("Please provide section name!");

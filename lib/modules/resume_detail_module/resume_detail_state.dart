@@ -107,10 +107,17 @@ class ResumeDetailState extends BaseState {
           notifyListeners();
         } catch (er) {}
       }
+
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {
         selectedSection = productDetails!.data!.product!.sections?.first.sId;
         notifyListeners();
+        if (productDetails!.data!.product!.category != "personal") {
+          sectionBody =
+              productDetails!.data!.product!.sections!.first.content ??
+                  "Empty Section!";
+          notifyListeners();
+        }
       }
       serializeAndNavigateToSection();
     } on DioError catch (err) {}
@@ -123,17 +130,25 @@ class ResumeDetailState extends BaseState {
 
   Sections? sectionItem;
 
+  String sectionBody = "";
+
   onSelectedSectionChanged(Sections val) {
     selectedSection = val.sId;
     sectionItem = val;
     notifyListeners();
-    controller.clear();
-    if (sectionItem!.content != null && sectionItem!.content!.isNotEmpty) {
-      quillData = jsonDecode(sectionItem!.content!);
-      controller = QuillController(
-          document: Document.fromJson(quillData),
-          selection: const TextSelection.collapsed(offset: 0));
+    if (productDetails!.data!.product!.category != "Personal") {
+      sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
+    } else {
+      print("Mah yaha xu");
+      controller.clear();
+      if (sectionItem!.content != null && sectionItem!.content!.isNotEmpty) {
+        quillData = jsonDecode(sectionItem!.content!);
+        controller = QuillController(
+            document: Document.fromJson(quillData),
+            selection: const TextSelection.collapsed(offset: 0));
+        notifyListeners();
+      }
     }
   }
 

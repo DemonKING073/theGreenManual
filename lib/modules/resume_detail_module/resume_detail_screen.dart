@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:provider/provider.dart';
 
@@ -13,135 +15,160 @@ class ResumeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<ResumeDetailState>(context);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
+    return Localizations(
+      locale: const Locale('en', 'US'),
+      delegates: const <LocalizationsDelegate<dynamic>>[
+        DefaultWidgetsLocalizations.delegate,
+        DefaultMaterialLocalizations.delegate,
+      ],
+      child: Scaffold(
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        title: Text(
-          // 'Text Title',
-          state.productDetails?.data?.product?.name ?? '',
-          style: LBoldTextStyle(),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              state.onBookMark();
-            },
-            icon: Icon(
-              Icons.bookmark,
-              color: primaryColor,
-            ),
-          )
-        ],
-        centerTitle: true,
-      ),
-      body: state.isLoading
-          ? Center(
-              child: CircularProgressIndicator(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          title: Text(
+            // 'Text Title',
+            state.productDetails?.data?.product?.name ?? '',
+            style: LBoldTextStyle(),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                state.onBookMark();
+              },
+              icon: Icon(
+                Icons.bookmark,
                 color: primaryColor,
               ),
             )
-          : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    color: Colors.grey[100],
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      child: Row(
-                        children: [
-                          Row(
-                            children: state
-                                .productDetails!.data!.product!.sections!
-                                .map((e) {
-                              // print(counter);
-                              return InkWell(
-                                onTap: () {
-                                  state.onSelectedSectionChanged(e);
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    // color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    e.name!,
-                                    style: kBoldTextStyle().copyWith(
-                                      color: state.selectedSection == e.sId!
-                                          ? Colors.black
-                                          : Colors.grey,
+          ],
+          centerTitle: true,
+        ),
+        body: state.isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: primaryColor,
+                ),
+              )
+            : Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      color: Colors.grey[100],
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: state
+                                  .productDetails!.data!.product!.sections!
+                                  .map((e) {
+                                // print(counter);
+                                return InkWell(
+                                  onTap: () {
+                                    state.onSelectedSectionChanged(e);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    decoration: BoxDecoration(
+                                      // color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(
+                                      e.name!,
+                                      style: kBoldTextStyle().copyWith(
+                                        color: state.selectedSection == e.sId!
+                                            ? Colors.black
+                                            : Colors.grey,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // showCreateSection();
-                            },
-                            child: Container(
-                              height: 40,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
+                                );
+                              }).toList(),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            // InkWell(
+                            //   onTap: () {
+                            //     // showCreateSection();
+                            //   },
+                            //   child: Container(
+                            //     height: 40,
+                            //     width: 60,
+                            //     decoration: BoxDecoration(
+                            //       color: primaryColor,
+                            //       borderRadius: BorderRadius.circular(10),
+                            //     ),
+                            //     child: const Icon(
+                            //       Icons.add,
+                            //       color: Colors.white,
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  LSizedBox(),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        if (state.productDetails!.data!.product!.sections!
-                            .isNotEmpty)
-                          QuillToolbar.basic(
-                            controller: state.controller,
-                            showUndo: false,
-                            showRedo: false,
-                          ),
-                      ],
-                    ),
-                  ),
-                  LSizedBox(),
-                  Expanded(
-                    child:
-                        state.productDetails!.data!.product!.sections == null ||
+                    LSizedBox(),
+                    if (state.productDetails!.data!.product!.category ==
+                        "Personal")
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            if (state.productDetails!.data!.product!.sections!
+                                .isNotEmpty)
+                              QuillToolbar.basic(
+                                controller: state.controller,
+                                showUndo: false,
+                                showRedo: false,
+                                locale: const Locale('en'),
+                              ),
+                          ],
+                        ),
+                      ),
+                    LSizedBox(),
+                    if (state.productDetails!.data!.product!.category ==
+                        "Personal")
+                      Expanded(
+                        child: state.productDetails!.data!.product!.sections ==
+                                    null ||
                                 state.productDetails!.data!.product!.sections!
                                     .isEmpty
                             ? const Center(
-                                child: Text("Please add section!"),
+                                child: Text("No Sections!"),
                               )
                             : QuillEditor.basic(
                                 controller: state.controller,
                                 readOnly: true,
+                                keyboardAppearance: Brightness.dark,
+                                locale: const Locale('en'),
                               ),
-                  )
-                ],
+                      )
+                    else
+                      Expanded(
+                        child: state.sectionBody.isEmpty
+                            ? Center(
+                                child: Text(state.sectionBody),
+                              )
+                            : Html(
+                                data: state.sectionBody,
+                              ),
+                      )
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }

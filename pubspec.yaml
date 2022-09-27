@@ -46,6 +46,7 @@ dependencies:
   load: ^1.0.0
   url_launcher: ^6.1.5
   sign_in_with_apple: ^4.1.0
+  flutter_html: ^3.0.0-alpha.5
 
 dev_dependencies:
   flutter_test:
