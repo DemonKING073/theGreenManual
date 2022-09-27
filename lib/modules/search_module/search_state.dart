@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:load/load.dart';
 
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
@@ -78,16 +79,19 @@ class SearchState extends ChangeNotifier {
     notifyListeners();
   }
 
-  createSection(id) async {
-    var data = {"name": newSection, "productId": id};
+  createProject(String hamroId) async {
+    showLoadingDialog();
+    print("machikne");
+    var data = {"name": newSection, "productId": hamroId};
+    print("condo $data");
     try {
       var res = await dio.post('/v1/projects', data: data);
-      print(res);
       ToastService().s(res.data['message']);
     } on DioError catch (e) {
-      print(e.response);
       ToastService().e(e.response!.data['message']);
+      print("error condo $data");
     }
+    hideLoadingDialog();
   }
 
   search() {

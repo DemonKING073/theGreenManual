@@ -253,8 +253,10 @@ class SearchScreen extends StatelessWidget {
                                                             color:
                                                                 primaryColor),
                                                   ),
-                                                  onPressed: () async {
-                                                    state.createSection(e.sId);
+                                                  onPressed: () {
+                                                    state.createProject(
+                                                        e.sId ?? "");
+                                                    print("lado ${e.sId}");
                                                   }),
                                             ],
                                           );
