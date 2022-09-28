@@ -32,7 +32,6 @@ Dio getHttp() {
       return handler.next(response);
     },
     onError: (DioError e, handler) {
-      print("condo");
       if (e.type == DioErrorType.response) {
         if (e.response!.statusCode == 401) {
           //Unauthorized

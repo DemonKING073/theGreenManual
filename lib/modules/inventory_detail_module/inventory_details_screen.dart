@@ -38,6 +38,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                         Center(
                             child: Text(
                           "Enter the section name you want to create",
+                          textAlign: TextAlign.center,
                           style: LBoldTextStyle()
                               .copyWith(fontWeight: FontWeight.w600),
                         )),
