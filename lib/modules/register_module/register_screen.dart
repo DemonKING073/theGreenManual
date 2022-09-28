@@ -172,10 +172,6 @@ class RegisterScreen extends StatelessWidget {
                       },
                     ),
                     LSizedBox(),
-                    // Button(
-                    //   name: 'Create Account',
-                    //   onTap: onBtnTap,
-                    // ),
                     InkWell(
                       onTap: state.submitLoading
                           ? null

@@ -7,6 +7,8 @@ import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
 import 'package:the_green_manual/main.dart';
 
+import '../../constants/constant.dart';
+
 class RegisterState extends BaseState {
   String? name;
   String? password;
@@ -51,7 +53,35 @@ class RegisterState extends BaseState {
       try {
         await firebaseInstance.createUserWithEmailAndPassword(
             email: email!, password: password!);
+
         navigatorKey.currentState!.pushNamed('/login');
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Email verification link send to your email.Please verify email before loging in', style: LBoldTextStyle()),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    child: Text(
+                      'Ok',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    ),
+                    onPressed: () async {
+                      Navigator.pop(context);
+                    }),
+              ],
+            );
+          },
+        );
         ToastService().s("Registration Successfull!");
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");

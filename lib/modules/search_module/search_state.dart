@@ -82,9 +82,7 @@ class SearchState extends ChangeNotifier {
 
   createProject(String hamroId) async {
     showLoadingDialog();
-    print("machikne");
     var data = {"name": newSection, "productId": hamroId};
-    print("condo $data");
     try {
       var res = await dio.post('/v1/projects', data: data);
       navigatorKey.currentState!.pop();
@@ -94,7 +92,6 @@ class SearchState extends ChangeNotifier {
       ToastService().s('Created successfully');
     } on DioError catch (e) {
       ToastService().e(e.response!.data['message']);
-      print("error condo $data");
     }
     hideLoadingDialog();
   }
