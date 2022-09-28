@@ -79,9 +79,14 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       validator: (value) {
+                        RegExp mail = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
                         if (value == null || value.isEmpty) {
                           return "Email is required!";
+                        } else if (!mail.hasMatch(value)) {
+                          return "Please provide valid email!";
                         }
+
                         return null;
                       },
                     ),
@@ -133,6 +138,7 @@ class LoginScreen extends StatelessWidget {
                       onTap: state.submitLoading
                           ? null
                           : () {
+                              FocusScope.of(context).unfocus();
                               state.submitLogin(context);
                             },
                       child: Container(

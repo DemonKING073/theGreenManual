@@ -113,8 +113,13 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       validator: (value) {
+                        RegExp mail = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
                         if (value == null || value.isEmpty) {
                           return "Email is required!";
+                        } else if (!mail.hasMatch(value)) {
+                          return "Please provide valid email!";
                         }
                         return null;
                       },
@@ -148,12 +153,20 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       validator: (value) {
-                        RegExp regex = RegExp(
-                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                        RegExp upperCase = RegExp(r'(?=.*?[A-Z])');
+                        RegExp lowerCase = RegExp(r'(?=.*?[a-z])');
+                        RegExp number = RegExp(r'(?=.*?[0-9])');
+                        RegExp special = RegExp(r'(?=.*?[#?!@$%^&*-])');
                         if (value == null || value.isEmpty) {
                           return "Password is required!";
-                        } else if (!regex.hasMatch(value)) {
-                          return "Please provide strong password!";
+                        } else if (!upperCase.hasMatch(value)) {
+                          return "Please use at least one Upper case letter!";
+                        } else if (!lowerCase.hasMatch(value)) {
+                          return "Please use at least one Lower case letter!";
+                        } else if (!number.hasMatch(value)) {
+                          return "Please use at least one number!";
+                        } else if (!special.hasMatch(value)) {
+                          return "Please use at least one special character!";
                         }
                         return null;
                       },
