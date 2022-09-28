@@ -87,7 +87,7 @@ class InventoryScreen extends StatelessWidget {
                       // onChanged: (){},
                       decoration: InputDecoration(
                           isDense: true,
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: primaryColor))),
                     )
@@ -181,63 +181,69 @@ class InventoryScreen extends StatelessWidget {
                                         color: primaryColor,
                                       ),
                                     IconButton(
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                              context: context,
-                                              builder: (context) {
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: <Widget>[
-                                                    ListTile(
-                                                      leading: const Icon(
-                                                          Icons.edit),
-                                                      title: const Text('Edit'),
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                        showEditCategoryName(
-                                                            context,
-                                                            state
-                                                                .projectState!
-                                                                .data!
-                                                                .projects![
-                                                                    index]
-                                                                .sId);
-                                                        // Navigator.pushNamed(
-                                                        //   context,
-                                                        //   '/inventory_details',
-                                                        //   arguments: state
-                                                        //       .projectState!
-                                                        //       .data!
-                                                        //       .projects![index],
-                                                        // );
-                                                      },
-                                                    ),
-                                                    ListTile(
-                                                      leading: const Icon(
-                                                          Icons.delete),
-                                                      title:
-                                                          const Text('Delete'),
-                                                      onTap: () {
-                                                        Navigator.pop(context);
-                                                        showDeleteCategory(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    leading: const Icon(
+                                                        Icons.text_fields),
+                                                    title: const Text('Rename'),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  ListTile(
+                                                    leading:
+                                                        const Icon(Icons.edit),
+                                                    title: const Text('Edit'),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      showEditCategoryName(
                                                           context,
                                                           state
                                                               .projectState!
                                                               .data!
                                                               .projects![index]
-                                                              .sId,
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              });
-                                        },
-                                        icon: const Icon(
-                                          Icons.more_vert,
-                                          color: Colors.grey,
-                                        )),
+                                                              .sId);
+                                                      // Navigator.pushNamed(
+                                                      //   context,
+                                                      //   '/inventory_details',
+                                                      //   arguments: state
+                                                      //       .projectState!
+                                                      //       .data!
+                                                      //       .projects![index],
+                                                      // );
+                                                    },
+                                                  ),
+                                                  ListTile(
+                                                    leading: const Icon(
+                                                        Icons.delete),
+                                                    title: const Text('Delete'),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      showDeleteCategory(
+                                                        context,
+                                                        state
+                                                            .projectState!
+                                                            .data!
+                                                            .projects![index]
+                                                            .sId,
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                      },
+                                      icon: const Icon(
+                                        Icons.more_vert,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                   ],
                                 )
                               ],

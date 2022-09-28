@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/states/main_state.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
+import 'package:the_green_manual/modules/forgot_password_module/forgot_password_screen.dart';
+import 'package:the_green_manual/modules/forgot_password_module/forgot_password_state.dart';
 import 'package:the_green_manual/modules/home_module/home_screen.dart';
 import 'package:the_green_manual/modules/home_module/home_state.dart';
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_screen.dart';
@@ -111,6 +113,10 @@ class TheGreenManual extends StatelessWidget {
               '/resume_details': (context) => ChangeNotifierProvider(
                     create: (_) => ResumeDetailState(context),
                     child: const ResumeDetailScreen(),
+                  ),
+              '/forgot_password': (context) => ChangeNotifierProvider(
+                    create: (_) => ForgotPasswordState(),
+                    child: const ForgotPasswordScreen(),
                   ),
             },
           ),

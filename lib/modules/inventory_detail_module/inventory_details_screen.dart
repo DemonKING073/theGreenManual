@@ -41,7 +41,6 @@ class InventoryDetailsScreen extends StatelessWidget {
                           style: LBoldTextStyle()
                               .copyWith(fontWeight: FontWeight.w600),
                         )),
-                        
                         mHeightSpan,
                         Row(
                           children: [
@@ -332,6 +331,17 @@ class InventoryDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (state.productDetails != null &&
+                      state.productDetails!.data!.product!.sections != null &&
+                      state.productDetails!.data!.product!.sections!.isEmpty)
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          "No Sections",
+                          style: kTextStyle(),
+                        ),
+                      ),
+                    ),
                   LSizedBox(),
                   if (state.productDetails!.data!.product!.category ==
                       "Personal")
@@ -340,9 +350,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                                   null ||
                               state.productDetails!.data!.product!.sections!
                                   .isEmpty
-                          ? const Center(
-                              child: Text("Please add section!"),
-                            )
+                          ? Container()
                           : QuillEditor.basic(
                               controller: state.controller, readOnly: false),
                     )
@@ -357,7 +365,7 @@ class InventoryDetailsScreen extends StatelessWidget {
                                 data: state.sectionBody,
                               ),
                             ),
-                    )
+                    ),
                 ],
               ),
             ),

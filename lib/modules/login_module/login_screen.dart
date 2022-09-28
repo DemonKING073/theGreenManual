@@ -130,6 +130,28 @@ class LoginScreen extends StatelessWidget {
                       // },
                     ),
                     LSizedBox(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            navigatorKey.currentState!
+                                .pushNamed("/forgot_password");
+                          },
+                          child: const Text(
+                            "Forgot Password",
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Color(0XFF767676),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    sHeightSpan,
+                    sHeightSpan,
                     // Button(
                     //   name: 'Create Account',
                     //   onTap: onBtnTap,
