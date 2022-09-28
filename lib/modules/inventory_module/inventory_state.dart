@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:load/load.dart';
 
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
@@ -15,6 +16,35 @@ class InventoryState extends BaseState {
   InventoryResponse? projectState;
   InventoryState() {
     fetchProjects();
+  }
+
+  String newName = "";
+
+  onNewNameChange(val) {
+    newName = val;
+    notifyListeners();
+  }
+
+  onNameSubmit(id) async {
+    if (newName.isNotEmpty) {
+      showLoadingDialog();
+      try {
+        var data = {
+          "name": newName,
+        };
+        final response = await dio.patch("/v1/projects/$id", data: data);
+        newName = "";
+        notifyListeners();
+        ToastService().s(response.data['status']);
+        navigatorKey.currentState!.pop();
+        fetchProjects();
+      } on DioError catch (err) {
+        print(err.response);
+      }
+      hideLoadingDialog();
+    } else {
+      ToastService().w("Please provide a name!");
+    }
   }
 
   fetchProjects() async {

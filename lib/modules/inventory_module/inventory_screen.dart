@@ -67,7 +67,7 @@ class InventoryScreen extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Edit Projects?', style: LBoldTextStyle()),
+              title: Text('Rename Project?', style: LBoldTextStyle()),
               content: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -75,7 +75,7 @@ class InventoryScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Enter project name?',
+                            'Enter new project name?',
                             style: kBoldTextStyle(),
                             overflow: TextOverflow.fade,
                           ),
@@ -84,7 +84,9 @@ class InventoryScreen extends StatelessWidget {
                     ),
                     kSizedBox(),
                     TextFormField(
-                      // onChanged: (){},
+                      onChanged: (val) {
+                        state.onNewNameChange(val);
+                      },
                       decoration: InputDecoration(
                           isDense: true,
                           border: const OutlineInputBorder(),
@@ -105,15 +107,16 @@ class InventoryScreen extends StatelessWidget {
                   },
                 ),
                 TextButton(
-                    onPressed: state.isPressed
-                        ? null
-                        : () async {
-                            // await state.deleteProducts(id);
-                          },
-                    child: Text(
-                      'Delete',
-                      style: kTextStyle().copyWith(color: primaryColor),
-                    )),
+                  onPressed: state.isPressed
+                      ? null
+                      : () async {
+                          await state.onNameSubmit(id);
+                        },
+                  child: Text(
+                    'Update',
+                    style: kTextStyle().copyWith(color: primaryColor),
+                  ),
+                ),
               ],
             );
           });
@@ -194,14 +197,6 @@ class InventoryScreen extends StatelessWidget {
                                                     title: const Text('Rename'),
                                                     onTap: () {
                                                       Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                  ListTile(
-                                                    leading:
-                                                        const Icon(Icons.edit),
-                                                    title: const Text('Edit'),
-                                                    onTap: () {
-                                                      Navigator.pop(context);
                                                       showEditCategoryName(
                                                           context,
                                                           state
@@ -209,6 +204,40 @@ class InventoryScreen extends StatelessWidget {
                                                               .data!
                                                               .projects![index]
                                                               .sId);
+                                                    },
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(state
+                                                                .projectState!
+                                                                .data!
+                                                                .projects![
+                                                                    index]
+                                                                .product!
+                                                                .private ==
+                                                            true
+                                                        ? Icons.edit
+                                                        : Icons.remove_red_eye),
+                                                    title: Text(state
+                                                                .projectState!
+                                                                .data!
+                                                                .projects![
+                                                                    index]
+                                                                .product!
+                                                                .private ==
+                                                            true
+                                                        ? 'Edit'
+                                                        : "View"),
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      navigatorKey.currentState!
+                                                          .pushNamed(
+                                                        "/inventory_details",
+                                                        arguments: state
+                                                            .projectState!
+                                                            .data!
+                                                            .projects![index],
+                                                      );
+
                                                       // Navigator.pushNamed(
                                                       //   context,
                                                       //   '/inventory_details',
