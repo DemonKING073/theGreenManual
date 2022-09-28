@@ -6,6 +6,7 @@ import 'package:load/load.dart';
 
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
+import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/search_module/models/product_search_response.dart';
 
 import '../../constants/debouncer.dart';
@@ -86,7 +87,11 @@ class SearchState extends ChangeNotifier {
     print("condo $data");
     try {
       var res = await dio.post('/v1/projects', data: data);
-      ToastService().s(res.data['message']);
+      navigatorKey.currentState!.pop();
+      navigatorKey.currentState!
+          .pushNamed('/home', arguments: 'inventory screen');
+      print(res.data);
+      ToastService().s('Created successfully');
     } on DioError catch (e) {
       ToastService().e(e.response!.data['message']);
       print("error condo $data");

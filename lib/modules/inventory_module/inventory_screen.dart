@@ -62,6 +62,63 @@ class InventoryScreen extends StatelessWidget {
           });
     }
 
+    showEditCategoryName(BuildContext context, id) async {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Edit Projects?', style: LBoldTextStyle()),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Enter project name?',
+                            style: kBoldTextStyle(),
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ],
+                    ),
+                    kSizedBox(),
+                    TextFormField(
+                      // onChanged: (){},
+                      decoration: InputDecoration(
+                          isDense: true,
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: primaryColor))),
+                    )
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    onPressed: state.isPressed
+                        ? null
+                        : () async {
+                            // await state.deleteProducts(id);
+                          },
+                    child: Text(
+                      'Delete',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    )),
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -138,14 +195,22 @@ class InventoryScreen extends StatelessWidget {
                                                       title: const Text('Edit'),
                                                       onTap: () {
                                                         Navigator.pop(context);
-                                                        Navigator.pushNamed(
-                                                          context,
-                                                          '/inventory_details',
-                                                          arguments: state
-                                                              .projectState!
-                                                              .data!
-                                                              .projects![index],
-                                                        );
+                                                        showEditCategoryName(
+                                                            context,
+                                                            state
+                                                                .projectState!
+                                                                .data!
+                                                                .projects![
+                                                                    index]
+                                                                .sId);
+                                                        // Navigator.pushNamed(
+                                                        //   context,
+                                                        //   '/inventory_details',
+                                                        //   arguments: state
+                                                        //       .projectState!
+                                                        //       .data!
+                                                        //       .projects![index],
+                                                        // );
                                                       },
                                                     ),
                                                     ListTile(
