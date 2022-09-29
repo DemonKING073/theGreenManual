@@ -21,8 +21,8 @@ class LoginScreen extends StatelessWidget {
     final state = Provider.of<LoginState>(context);
 
     faceBookLogin() {}
-    googleLogin() {}
     appleLogin() {}
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -229,7 +229,7 @@ class LoginScreen extends StatelessWidget {
                     WhiteButton(
                       name: 'Login With Google',
                       onTap: () {
-                        state.googleLogIn();
+                        state.googleLogIn(context);
                       },
                       image: 'assets/images/googleLogo.png',
                     ),
