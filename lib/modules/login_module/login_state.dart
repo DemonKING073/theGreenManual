@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:load/load.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
@@ -14,6 +15,7 @@ class LoginState extends BaseState {
   Dio dio = getHttp();
 
   Future googleLogIn(context) async {
+    showLoadingDialog();
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -38,6 +40,7 @@ class LoginState extends BaseState {
       print(err);
       ToastService().e(err.message ?? "No response from server");
     }
+    hideLoadingDialog();
   }
 
   String? password;

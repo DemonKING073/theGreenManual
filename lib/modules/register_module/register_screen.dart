@@ -17,25 +17,13 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<RegisterState>(context);
 
-    // onBtnTap() {
-    //   state.createAccount();
-    // }
-
     faceBookLogin() {}
-    googleLogin() {}
-    appleLogin() async {
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
-
-      print(credential);
-
-      // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
-      // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+    googleLogin() {
+      // state.googleLogIn(context);
+      print("condo");
     }
+
+    appleLogin() async {}
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -243,7 +231,9 @@ class RegisterScreen extends StatelessWidget {
                     LSizedBox(),
                     WhiteButton(
                       name: 'Login With Google',
-                      onTap: googleLogin,
+                      onTap: () {
+                        state.googleLogIn(context);
+                      },
                       image: 'assets/images/googleLogo.png',
                     ),
                     LSizedBox(),
