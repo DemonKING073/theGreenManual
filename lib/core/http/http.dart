@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
@@ -41,6 +43,11 @@ Dio getHttp() {
                 .pushNamedAndRemoveUntil("/login", (route) => false);
           });
         }
+        if (e.response != null) {
+          final errorState = HamroError.fromJson(e.response?.data);
+          ToastService().e(errorState.message!);
+          print("mah yaha puge");
+        }
       }
       String message = "Something went wrong";
       switch (e.type) {
@@ -56,6 +63,8 @@ Dio getHttp() {
           } else {
             message = "API didn't return JSON";
           }
+
+          print("yo lado error ${e.type}");
 
           break;
         case DioErrorType.receiveTimeout:
@@ -78,4 +87,23 @@ Dio getHttp() {
   ));
 
   return dio;
+}
+
+class HamroError {
+  String? status;
+  String? message;
+
+  HamroError({this.status, this.message});
+
+  HamroError.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    return data;
+  }
 }

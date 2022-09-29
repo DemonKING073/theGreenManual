@@ -215,7 +215,7 @@ class SearchScreen extends StatelessWidget {
                                                   TextFormField(
                                                     cursorColor: primaryColor,
                                                     onChanged: state
-                                                        .onNewSectionChanged,
+                                                        .onProjectNameChange,
                                                     decoration: InputDecoration(
                                                       isDense: true,
 
@@ -256,7 +256,6 @@ class SearchScreen extends StatelessWidget {
                                                   onPressed: () {
                                                     state.createProject(
                                                         e.sId ?? "");
-                                                    print("lado ${e.sId}");
                                                   }),
                                             ],
                                           );

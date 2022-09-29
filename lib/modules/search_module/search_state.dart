@@ -74,26 +74,28 @@ class SearchState extends ChangeNotifier {
     setLoading(false);
   }
 
-  String? newSection;
-  onNewSectionChanged(val) {
-    newSection = val;
+  String? projectName;
+  onProjectNameChange(val) {
+    projectName = val;
     notifyListeners();
   }
 
   createProject(String hamroId) async {
     showLoadingDialog();
-    var data = {"name": newSection, "productId": hamroId};
+    var data = {"name": projectName, "productId": hamroId};
+    print(data);
     try {
       var res = await dio.post('/v1/projects', data: data);
+      hideLoadingDialog();
       navigatorKey.currentState!.pop();
       navigatorKey.currentState!
           .pushNamed('/home', arguments: 'inventory screen');
       print(res.data);
       ToastService().s('Created successfully');
-    } on DioError catch (e) {
-      ToastService().e(e.response!.data['message']);
+    } on DioError catch (err) {
+      // print("yo condo ${err.error}");
+      hideLoadingDialog();
     }
-    hideLoadingDialog();
   }
 
   search() {

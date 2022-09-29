@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:the_green_manual/common/ui/ui_helpers.dart';
 
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constant.dart';
 
@@ -364,6 +365,16 @@ class InventoryDetailsScreen extends StatelessWidget {
                           : SingleChildScrollView(
                               child: Html(
                                 data: state.sectionBody,
+                                onLinkTap:
+                                    (url, context, attributes, element) async {
+                                  Uri hamro = Uri.parse(url.toString());
+                                  if (!await launchUrl(
+                                    hamro,
+                                    mode: LaunchMode.externalApplication,
+                                  )) {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
                               ),
                             ),
                     ),
