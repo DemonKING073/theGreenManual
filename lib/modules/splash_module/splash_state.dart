@@ -14,6 +14,7 @@ class SplashState extends BaseState {
   String? token;
   SplashState() {
     token = LocalStorageService().read(LocalStorageKeys.accessToken);
+    print('yo google login bata aako token ho: $token');
     serializeAndNavigate();
   }
 
@@ -38,6 +39,8 @@ class SplashState extends BaseState {
         );
       } else {
         validAccessToken();
+        // navigatorKey.currentState!
+        //     .pushNamedAndRemoveUntil('/home', (route) => false);
       }
     }
   }

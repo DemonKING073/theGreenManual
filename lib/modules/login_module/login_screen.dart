@@ -228,7 +228,9 @@ class LoginScreen extends StatelessWidget {
                     LSizedBox(),
                     WhiteButton(
                       name: 'Login With Google',
-                      onTap: googleLogin,
+                      onTap: () {
+                        state.googleLogIn();
+                      },
                       image: 'assets/images/googleLogo.png',
                     ),
                     LSizedBox(),
