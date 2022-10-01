@@ -25,6 +25,13 @@ class SearchScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/helpAndSupport');
+              },
+              icon: Icon(Icons.support_agent))
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(

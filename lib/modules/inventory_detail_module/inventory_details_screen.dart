@@ -276,13 +276,16 @@ class InventoryDetailsScreen extends StatelessWidget {
                                       vertical: 5, horizontal: 10),
                                   decoration: BoxDecoration(
                                     // color: Colors.grey[300],
+                                    color: state.selectedSection == e.sId!
+                                          ? primaryColor
+                                          : Colors.grey[100],
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
                                     e.name!,
                                     style: kBoldTextStyle().copyWith(
                                       color: state.selectedSection == e.sId!
-                                          ? Colors.black
+                                          ? Colors.white
                                           : Colors.grey,
                                     ),
                                   ),
