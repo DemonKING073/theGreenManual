@@ -148,9 +148,19 @@ class RegisterState extends BaseState {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text(
-                  'Email verification link send to your email.Please verify email before loging in',
-                  style: LBoldTextStyle()),
+              title: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 35,
+                    backgroundColor: primaryColor.withOpacity(0.2),
+                    child: Icon(Icons.mail, color: primaryColor, size: 40, )),
+                    LSizedBox(),
+                  Text(
+                      'Email verification link send to your email.Please verify email before Login',
+                      style: LBoldTextStyle()),
+                ],
+              ),
+                  
               actions: <Widget>[
                 TextButton(
                   child: Text(
