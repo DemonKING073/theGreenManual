@@ -35,7 +35,7 @@ class LoginState extends BaseState {
       final token = await res.user!.getIdToken();
       print("yo condo ho $token");
       LocalStorageService().write(LocalStorageKeys.accessToken, token);
-      getVerification(context);
+      getVerificationGoogle(context);
     } on FirebaseAuthException catch (err) {
       print(err);
       ToastService().e(err.message ?? "No response from server");
@@ -89,6 +89,62 @@ class LoginState extends BaseState {
     }
   }
 
+  getVerificationGoogle(context) async {
+    try {
+      final token = LocalStorageService().read(LocalStorageKeys.accessToken);
+      Dio newDio = Dio();
+      final response = await newDio
+          .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
+              options: Options(headers: {
+                "Firebase-Token": token,
+              }),
+              data: {
+            "provider": "google",
+          });
+      if (response.data['message'] ==
+          'Email verification link sent to your email. Verify your email before login') {
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(response.data['message'], style: LBoldTextStyle()),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "Cancel",
+                    style: kTextStyle().copyWith(color: Colors.grey),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                    child: Text(
+                      'Ok',
+                      style: kTextStyle().copyWith(color: primaryColor),
+                    ),
+                    onPressed: () async {
+                      // await overViewState.updateName();
+                      Navigator.pop(context);
+                      // await overViewState.fetchData();
+                    }),
+              ],
+            );
+          },
+        );
+      } else {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      }
+
+      // ignore: empty_catches
+    } on DioError catch (err) {}
+  }
+
   getVerification(context) async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
@@ -101,6 +157,8 @@ class LoginState extends BaseState {
               data: {
             "provider": "password",
           });
+      print("____________________________________________");
+      print(response.data);
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
