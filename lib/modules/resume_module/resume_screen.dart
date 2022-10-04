@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/resume_module/resume_state.dart';
 
@@ -35,25 +34,31 @@ class ResumeScreen extends StatelessWidget {
                 color: primaryColor,
               ),
             )
-          : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: ListView.builder(
-                  itemCount: state.projectState!.data!.projects!.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        navigatorKey.currentState!.pushNamed('/resume_details',
-                            arguments:
-                                state.projectState!.data!.projects![index]);
-                      },
-                      child: ProjectTile(
-                        onTap: () {},
-                        projectName:
-                            state.projectState!.data!.projects![index].name!,
-                      ),
-                    );
-                  }),
-            ),
+          : state.projectState?.data?.projects?.isEmpty ?? true
+              ? const Center(
+                  child: Text("No Projects!"),
+                )
+              : Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: ListView.builder(
+                      itemCount: state.projectState!.data!.projects!.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            navigatorKey.currentState!.pushNamed(
+                                '/resume_details',
+                                arguments:
+                                    state.projectState!.data!.projects![index]);
+                          },
+                          child: ProjectTile(
+                            onTap: () {},
+                            projectName: state
+                                .projectState!.data!.projects![index].name!,
+                          ),
+                        );
+                      }),
+                ),
     );
   }
 }

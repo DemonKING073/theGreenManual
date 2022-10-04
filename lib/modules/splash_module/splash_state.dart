@@ -14,7 +14,6 @@ class SplashState extends BaseState {
   String? token;
   SplashState() {
     token = LocalStorageService().read(LocalStorageKeys.accessToken);
-    print('yo google login bata aako token ho: $token');
     serializeAndNavigate();
   }
 

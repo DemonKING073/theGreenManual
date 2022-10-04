@@ -34,17 +34,6 @@ class SearchState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // fetchProducts() async {
-  //   setLoading(true);
-  //   try {
-  //     var response =
-  //         await dio.get('/v1/products?fields=assignee,name,model&private=true');
-  //     product = Product.fromJson(response.data);
-  //     print(response.data);
-  //   } catch (e) {}
-  //   setLoading(false);
-  // }
-
   String keySearchName = "";
   String keySearchModelNo = "";
 
@@ -83,17 +72,14 @@ class SearchState extends ChangeNotifier {
   createProject(String hamroId) async {
     showLoadingDialog();
     var data = {"name": projectName, "productId": hamroId};
-    print(data);
     try {
       var res = await dio.post('/v1/projects', data: data);
       hideLoadingDialog();
       navigatorKey.currentState!.pop();
       navigatorKey.currentState!
           .pushNamed('/home', arguments: 'inventory screen');
-      print(res.data);
       ToastService().s('Created successfully');
     } on DioError catch (err) {
-      // print("yo condo ${err.error}");
       hideLoadingDialog();
     }
   }

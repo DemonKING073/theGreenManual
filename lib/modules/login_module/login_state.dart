@@ -33,11 +33,9 @@ class LoginState extends BaseState {
       final res = await FirebaseAuth.instance.signInWithCredential(credential);
 
       final token = await res.user!.getIdToken();
-      print("yo condo ho $token");
       LocalStorageService().write(LocalStorageKeys.accessToken, token);
       getVerificationGoogle(context);
     } on FirebaseAuthException catch (err) {
-      print(err);
       ToastService().e(err.message ?? "No response from server");
     }
     hideLoadingDialog();
@@ -157,8 +155,6 @@ class LoginState extends BaseState {
               data: {
             "provider": "password",
           });
-      print("____________________________________________");
-      print(response.data);
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(

@@ -18,10 +18,6 @@ class RegisterScreen extends StatelessWidget {
     final state = Provider.of<RegisterState>(context);
 
     faceBookLogin() {}
-    googleLogin() {
-      // state.googleLogIn(context);
-      print("condo");
-    }
 
     appleLogin() async {}
 

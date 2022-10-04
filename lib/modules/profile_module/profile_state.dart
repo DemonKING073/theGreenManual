@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:the_green_manual/apiModels/profile.dart';
 import 'package:the_green_manual/core/http/http.dart';
+import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/themes/app_theme.dart';
 
 class ProfileState extends ChangeNotifier {
@@ -34,7 +35,7 @@ class ProfileState extends ChangeNotifier {
       updateFileImage(galleryImage!);
       fetchProfile();
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      ToastService().e('Failed to pick image: $e');
     }
   }
 
@@ -50,16 +51,11 @@ class ProfileState extends ChangeNotifier {
       ),
     });
     // var data = {};
-    print(formData);
     try {
       var updateResponse =
           await dio.patch('/v1/auth/update-picture', data: formData);
       fetchProfile();
-    } on DioError catch (e) {
-      print(e.message);
-
-      print(e.response);
-    }
+    } on DioError catch (e) {}
     isLoading = false;
     notifyListeners();
   }
@@ -85,11 +81,7 @@ class ProfileState extends ChangeNotifier {
     try {
       var response = await dio.get('/v1/auth/fetch-profile');
       profile = Profile.fromJson(response.data);
-      print(response);
-    } on DioError catch (e) {
-      print(e.response);
-      print('yo error ho..');
-    }
+    } on DioError catch (e) {}
     setLoading(false);
   }
 }

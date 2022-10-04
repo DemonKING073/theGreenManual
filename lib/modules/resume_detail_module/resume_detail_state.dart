@@ -20,6 +20,8 @@ class ResumeDetailState extends BaseState {
 
   QuillController controller = QuillController.basic();
 
+  ScrollController quillScrollController = ScrollController();
+
   InventoryResponse? inventoryState;
 
   SingleProductResponse? productDetails;
@@ -83,9 +85,7 @@ class ResumeDetailState extends BaseState {
       inventoryState = InventoryResponse.fromJson(response.data);
       notifyListeners();
       fetchProductDetails();
-    } catch (err) {
-      print(err);
-    }
+    } catch (err) {}
   }
 
   fetchProductDetails() async {
@@ -167,7 +167,6 @@ class ResumeDetailState extends BaseState {
               notifyListeners();
               final finalData = jsonEncode(bookmarkdata!.toJson()).toString();
               LocalStorageService().write(LocalStorageKeys.bookmark, finalData);
-              print(finalData);
               isDataSaved = true;
               notifyListeners();
               break;

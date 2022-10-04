@@ -236,7 +236,6 @@ class InventoryDetailsScreen extends StatelessWidget {
                             children: state
                                 .productDetails!.data!.product!.sections!
                                 .map((e) {
-                              // print(counter);
                               return InkWell(
                                 onLongPress: () {
                                   showModalBottomSheet(
@@ -268,7 +267,6 @@ class InventoryDetailsScreen extends StatelessWidget {
                                       });
                                 },
                                 onTap: () {
-                                  print(e.content);
                                   state.onSelectedSectionChanged(e);
                                 },
                                 child: Container(
@@ -277,8 +275,8 @@ class InventoryDetailsScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     // color: Colors.grey[300],
                                     color: state.selectedSection == e.sId!
-                                          ? primaryColor
-                                          : Colors.grey[100],
+                                        ? primaryColor
+                                        : Colors.grey[100],
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(

@@ -78,9 +78,7 @@ class EditProfileState extends BaseState {
       var response = await dio.patch('/v1/auth/update-profile', data: data);
       ToastService().s('Successfully Edited');
       fetchProfile();
-    } on DioError catch (e) {
-      print(e.response);
-    }
+    } on DioError catch (e) {}
     setSubmitLoading(false);
   }
 }

@@ -25,10 +25,8 @@ class ForgotPasswordState extends BaseState {
         var data = {
           "email": emailController.text,
         };
-        print(data);
         final response =
             await dio.patch("/v1/auth/forget-password", data: data);
-        print(response.data);
         ToastService().s(response.data['message']);
         navigatorKey.currentState!.pop();
       } catch (err) {}

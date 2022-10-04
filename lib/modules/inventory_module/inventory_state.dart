@@ -38,9 +38,7 @@ class InventoryState extends BaseState {
         ToastService().s(response.data['status']);
         navigatorKey.currentState!.pop();
         fetchProjects();
-      } on DioError catch (err) {
-        print(err.response);
-      }
+      } on DioError catch (err) {}
       hideLoadingDialog();
     } else {
       ToastService().w("Please provide a name!");
@@ -53,9 +51,7 @@ class InventoryState extends BaseState {
       var response = await dio.get('/v1/projects/');
       projectState = InventoryResponse.fromJson(response.data);
       notifyListeners();
-      projectState!.data!.projects!.forEach((element) {
-        print(element.product!.private);
-      });
+      projectState!.data!.projects!.forEach((element) {});
     } catch (e) {}
     setLoading(false);
   }

@@ -40,20 +40,16 @@ class InventoryDetailState extends BaseState {
     setLoading(true);
     try {
       final response = await dio.get("/v1/projects/?_id=${item.sId}");
-      print(response.data);
       inventoryState = InventoryResponse.fromJson(response.data);
       notifyListeners();
       fetchProductDetails();
-    } catch (err) {
-      print(err);
-    }
+    } catch (err) {}
   }
 
   fetchProductDetails() async {
     try {
       final response = await dio.get(
           "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
-      print(response.data);
       productDetails = SingleProductResponse.fromJson(response.data);
       notifyListeners();
       if (productDetails!.data!.product!.sections != null &&
@@ -80,9 +76,7 @@ class InventoryDetailState extends BaseState {
           notifyListeners();
         }
       }
-    } on DioError catch (err) {
-      print(err.response);
-    }
+    } on DioError catch (err) {}
     setLoading(false);
   }
 
@@ -102,9 +96,7 @@ class InventoryDetailState extends BaseState {
       await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
       ToastService().s("Updated successfully!");
       fetchProductDetails();
-    } on DioError catch (err) {
-      print(err.response);
-    }
+    } on DioError catch (err) {}
     hideLoadingDialog();
   }
 
@@ -129,7 +121,6 @@ class InventoryDetailState extends BaseState {
           selection: const TextSelection.collapsed(offset: 0));
       notifyListeners();
     } else {
-      print("mah yah zu condo ${productDetails!.data!.product!.category} ");
       sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
     }
@@ -166,10 +157,7 @@ class InventoryDetailState extends BaseState {
         await dio.post("/v1/sections", data: data);
         setLoading(true);
         fetchProductDetails();
-        print(data);
-      } on DioError catch (err) {
-        print(err.response);
-      }
+      } on DioError catch (err) {}
     } else {
       ToastService().w("Please provide section name!");
     }
@@ -189,9 +177,7 @@ class InventoryDetailState extends BaseState {
       await dio.patch('/v1/sections/$id', data: data);
       setLoading(true);
       fetchProductDetails();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     hideLoadingDialog();
   }
 }

@@ -46,7 +46,6 @@ Dio getHttp() {
         if (e.response != null) {
           final errorState = HamroError.fromJson(e.response?.data);
           ToastService().e(errorState.message!);
-          print("mah yaha puge");
         }
       }
       String message = "Something went wrong";
@@ -63,8 +62,6 @@ Dio getHttp() {
           } else {
             message = "API didn't return JSON";
           }
-
-          print("yo lado error ${e.type}");
 
           break;
         case DioErrorType.receiveTimeout:

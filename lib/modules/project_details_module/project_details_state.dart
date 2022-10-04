@@ -16,19 +16,10 @@ class ProjectDetailsState extends BaseState {
 
   ProjectDetailsState(context) {
     final args = ModalRoute.of(context)!.settings.arguments as String;
-    if (args != null) {
-      print(args);
-      id = args;
-      notifyListeners();
-    }
+    id = args;
+    notifyListeners();
 
     fetchProjectDetails();
-  }
-
-  bool isLoading = false;
-  setLoading(val) {
-    isLoading = val;
-    notifyListeners();
   }
 
   Dio dio = getHttp();
@@ -40,11 +31,8 @@ class ProjectDetailsState extends BaseState {
     try {
       final response = await dio.get("/v1/products/$id");
       singleProductResponse = SingleProduct.fromJson(response.data);
-      print(response);
       notifyListeners();
-    } catch (err) {
-      print(err);
-    }
+    } catch (err) {}
     setLoading(false);
   }
 
@@ -53,9 +41,6 @@ class ProjectDetailsState extends BaseState {
       final response = await dio.post("/v1/sections", data: {
         // "productId": singleProductResponse!.data!.projects!.first.product!.sId,
       });
-      print(response.data);
-    } catch (err) {
-      print(err);
-    }
+    } catch (err) {}
   }
 }
