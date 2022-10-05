@@ -355,7 +355,9 @@ class InventoryDetailsScreen extends StatelessWidget {
                                   .isEmpty
                           ? Container()
                           : QuillEditor.basic(
-                              controller: state.controller, readOnly: false),
+                              controller: state.controller,
+                              readOnly: false,
+                            ),
                     )
                   else
                     Expanded(

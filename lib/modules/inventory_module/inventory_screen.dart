@@ -152,6 +152,10 @@ class InventoryScreen extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: state.projectState!.data!.projects!.length,
                       itemBuilder: (context, index) {
+                        print(
+                            "yoooo ${state.projectState!.data!.projects![index].product?.private}");
+                        print(
+                            "yoooo ${state.projectState!.data!.projects![index].product?.sId}");
                         return InkWell(
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
@@ -179,7 +183,19 @@ class InventoryScreen extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        if (state
+                                        if (state.projectState!.data!
+                                                .projects![index].product ==
+                                            null)
+                                          const Text(
+                                            "[ Product Deleted! ]",
+                                            style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w200,
+                                              color: Colors.red,
+                                            ),
+                                          )
+                                        else if (state
                                                 .projectState!
                                                 .data!
                                                 .projects![index]
@@ -217,51 +233,59 @@ class InventoryScreen extends StatelessWidget {
                                                                   .sId);
                                                         },
                                                       ),
-                                                      ListTile(
-                                                        leading: Icon(state
-                                                                    .projectState!
-                                                                    .data!
-                                                                    .projects![
-                                                                        index]
-                                                                    .product!
-                                                                    .private ==
-                                                                true
-                                                            ? Icons.edit
-                                                            : Icons
-                                                                .remove_red_eye),
-                                                        title: Text(state
-                                                                    .projectState!
-                                                                    .data!
-                                                                    .projects![
-                                                                        index]
-                                                                    .product!
-                                                                    .private ==
-                                                                true
-                                                            ? 'Edit'
-                                                            : "View"),
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          navigatorKey
-                                                              .currentState!
-                                                              .pushNamed(
-                                                            "/inventory_details",
-                                                            arguments: state
-                                                                .projectState!
-                                                                .data!
-                                                                .projects![index],
-                                                          );
+                                                      if (state
+                                                              .projectState!
+                                                              .data!
+                                                              .projects![index]
+                                                              .product !=
+                                                          null)
+                                                        ListTile(
+                                                          leading: Icon(state
+                                                                      .projectState!
+                                                                      .data!
+                                                                      .projects![
+                                                                          index]
+                                                                      .product!
+                                                                      .private ==
+                                                                  true
+                                                              ? Icons.edit
+                                                              : Icons
+                                                                  .remove_red_eye),
+                                                          title: Text(
+                                                            state
+                                                                        .projectState!
+                                                                        .data!
+                                                                        .projects![
+                                                                            index]
+                                                                        .product!
+                                                                        .private ==
+                                                                    true
+                                                                ? 'Edit'
+                                                                : "View",
+                                                          ),
+                                                          onTap: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                            navigatorKey
+                                                                .currentState!
+                                                                .pushNamed(
+                                                              "/inventory_details",
+                                                              arguments: state
+                                                                  .projectState!
+                                                                  .data!
+                                                                  .projects![index],
+                                                            );
 
-                                                          // Navigator.pushNamed(
-                                                          //   context,
-                                                          //   '/inventory_details',
-                                                          //   arguments: state
-                                                          //       .projectState!
-                                                          //       .data!
-                                                          //       .projects![index],
-                                                          // );
-                                                        },
-                                                      ),
+                                                            // Navigator.pushNamed(
+                                                            //   context,
+                                                            //   '/inventory_details',
+                                                            //   arguments: state
+                                                            //       .projectState!
+                                                            //       .data!
+                                                            //       .projects![index],
+                                                            // );
+                                                          },
+                                                        ),
                                                       ListTile(
                                                         leading: const Icon(
                                                             Icons.delete),
