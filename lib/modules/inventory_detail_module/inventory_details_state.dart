@@ -76,7 +76,7 @@ class InventoryDetailState extends BaseState {
           notifyListeners();
         }
       }
-    } on DioError catch (err) {}
+    } on DioError {}
     setLoading(false);
   }
 
@@ -96,15 +96,10 @@ class InventoryDetailState extends BaseState {
     print("----------------------------------------------------->");
     print(data);
     try {
-      final res = await dio.patch("/v1/sections/$selectedSection/add-content",
-          data: data);
-      print("/v1/sections/$selectedSection/add-content");
-      print("----------------------------------------------------->");
-      print("this is product id ${productDetails!.data!.product!.sId}");
-      print(res.data);
+      await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
       ToastService().s("Updated successfully!");
       fetchProductDetails();
-    } on DioError catch (err) {}
+    } on DioError {}
     hideLoadingDialog();
   }
 
@@ -165,7 +160,7 @@ class InventoryDetailState extends BaseState {
         };
         await dio.post("/v1/sections", data: data);
         fetchProductDetails();
-      } on DioError catch (err) {}
+      } on DioError {}
     } else {
       ToastService().w("Please provide section name!");
     }

@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -73,6 +74,20 @@ class ResumeDetailState extends BaseState {
           document: Document.fromJson(quillData),
           selection: const TextSelection.collapsed(offset: 0));
       notifyListeners();
+      for (final element in bookmarkdata!.savedData!) {
+        if (element.id == item.sId) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Timer(
+              const Duration(milliseconds: 50),
+              () {
+                quillScrollController.animateTo(element.position!,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.fastLinearToSlowEaseIn);
+              },
+            );
+          });
+        }
+      }
     }
   }
 
@@ -120,7 +135,7 @@ class ResumeDetailState extends BaseState {
         }
       }
       serializeAndNavigateToSection();
-    } on DioError catch (err) {}
+    } on DioError {}
     setLoading(false);
   }
 
@@ -164,6 +179,7 @@ class ResumeDetailState extends BaseState {
           for (final element in bookmarkdata!.savedData!) {
             if (item.sId == element.id) {
               element.sectionId = selectedSection;
+              element.position = quillScrollController.position.pixels;
               notifyListeners();
               final finalData = jsonEncode(bookmarkdata!.toJson()).toString();
               LocalStorageService().write(LocalStorageKeys.bookmark, finalData);
@@ -177,6 +193,7 @@ class ResumeDetailState extends BaseState {
           bookmarkdata!.savedData!.add(SavedData(
             id: item.sId,
             sectionId: selectedSection,
+            position: quillScrollController.position.pixels,
           ));
           final finalData = jsonEncode(bookmarkdata!.toJson()).toString();
           LocalStorageService().write(LocalStorageKeys.bookmark, finalData);
@@ -190,6 +207,7 @@ class ResumeDetailState extends BaseState {
           SavedData(
             id: item.sId,
             sectionId: selectedSection,
+            position: quillScrollController.position.pixels,
           )
         ],
       );

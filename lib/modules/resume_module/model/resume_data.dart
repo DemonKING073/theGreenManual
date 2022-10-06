@@ -24,18 +24,21 @@ class ResumeData {
 class SavedData {
   String? id;
   String? sectionId;
+  double? position;
 
-  SavedData({this.id, this.sectionId});
+  SavedData({this.id, this.sectionId, this.position});
 
   SavedData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     sectionId = json['section_id'];
+    position = json['position'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['section_id'] = this.sectionId;
+    data['position'] = this.position;
     return data;
   }
 }

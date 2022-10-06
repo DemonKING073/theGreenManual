@@ -46,10 +46,14 @@ class ResumeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            navigatorKey.currentState!.pushNamed(
-                                '/resume_details',
-                                arguments:
-                                    state.projectState!.data!.projects![index]);
+                            if (state.projectState!.data!.projects![index]
+                                    .product !=
+                                null) {
+                              navigatorKey.currentState!.pushNamed(
+                                  '/resume_details',
+                                  arguments: state
+                                      .projectState!.data!.projects![index]);
+                            }
                           },
                           child: ProjectTile(
                             isProductDeleted: state.projectState!.data!

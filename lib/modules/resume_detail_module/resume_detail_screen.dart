@@ -38,6 +38,10 @@ class ResumeDetailScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
+                // state.quillScrollController.animateTo(100,
+                //     duration: const Duration(seconds: 2),
+                //     curve: Curves.fastLinearToSlowEaseIn);
+
                 if (state.sectionItem!.content != null &&
                     state.sectionItem!.content!.isNotEmpty) {
                   state.onBookMark();
@@ -103,45 +107,28 @@ class ResumeDetailScreen extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            // InkWell(
-                            //   onTap: () {
-                            //     // showCreateSection();
-                            //   },
-                            //   child: Container(
-                            //     height: 40,
-                            //     width: 60,
-                            //     decoration: BoxDecoration(
-                            //       color: primaryColor,
-                            //       borderRadius: BorderRadius.circular(10),
-                            //     ),
-                            //     child: const Icon(
-                            //       Icons.add,
-                            //       color: Colors.white,
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
                     ),
                     LSizedBox(),
-                    if (state.productDetails!.data!.product!.category ==
-                        "Personal")
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            if (state.productDetails!.data!.product!.sections!
-                                .isNotEmpty)
-                              QuillToolbar.basic(
-                                controller: state.controller,
-                                showUndo: false,
-                                showRedo: false,
-                                locale: const Locale('en'),
-                              ),
-                          ],
-                        ),
-                      ),
+                    // if (state.productDetails!.data!.product!.category ==
+                    //     "Personal")
+                    //   SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     child: Row(
+                    //       children: [
+                    //         if (state.productDetails!.data!.product!.sections!
+                    //             .isNotEmpty)
+                    //           QuillToolbar.basic(
+                    //             controller: state.controller,
+                    //             showUndo: false,
+                    //             showRedo: false,
+                    //             locale: const Locale('en'),
+                    //           ),
+                    //       ],
+                    //     ),
+                    //   ),
                     LSizedBox(),
                     if (state.productDetails!.data!.product!.category ==
                         "Personal")
@@ -153,23 +140,22 @@ class ResumeDetailScreen extends StatelessWidget {
                             ? const Center(
                                 child: Text("No Sections!"),
                               )
-                            :
-                            // QuillEditor(
-                            //     controller: state.controller,
-                            //     focusNode: FocusNode(),
-                            //     scrollController: state.quillScrollController,
-                            //     scrollable: true,
-                            //     padding: const EdgeInsets.all(2),
-                            //     autoFocus: true,
-                            //     readOnly: true,
-                            //     expands: true,
-                            //   )
-                            QuillEditor.basic(
+                            : QuillEditor(
                                 controller: state.controller,
+                                focusNode: FocusNode(),
+                                scrollController: state.quillScrollController,
+                                scrollable: true,
+                                padding: const EdgeInsets.all(2),
+                                autoFocus: true,
                                 readOnly: true,
-                                keyboardAppearance: Brightness.dark,
-                                locale: const Locale('en'),
+                                expands: true,
                               ),
+                        // QuillEditor.basic(
+                        //     controller: state.controller,
+                        //     readOnly: true,
+                        //     keyboardAppearance: Brightness.dark,
+                        //     locale: const Locale('en'),
+                        //   ),
                       )
                     else
                       Expanded(
