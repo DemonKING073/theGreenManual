@@ -22,6 +22,7 @@ class ResumeDetailState extends BaseState {
   QuillController controller = QuillController.basic();
 
   ScrollController quillScrollController = ScrollController();
+  ScrollController htmlController = ScrollController();
 
   InventoryResponse? inventoryState;
 
@@ -68,24 +69,51 @@ class ResumeDetailState extends BaseState {
     sectionItem = val;
     notifyListeners();
     controller.clear();
-    if (val.content != null && val.content!.isNotEmpty) {
-      quillData = jsonDecode(val.content!);
-      controller = QuillController(
-          document: Document.fromJson(quillData),
-          selection: const TextSelection.collapsed(offset: 0));
-      notifyListeners();
-      for (final element in bookmarkdata!.savedData!) {
-        if (element.id == item.sId) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Timer(
-              const Duration(milliseconds: 50),
-              () {
-                quillScrollController.animateTo(element.position!,
-                    duration: const Duration(seconds: 1),
-                    curve: Curves.fastLinearToSlowEaseIn);
-              },
-            );
-          });
+    if (item.product!.private == true) {
+      if (val.content != null && val.content!.isNotEmpty) {
+        quillData = jsonDecode(val.content!);
+        controller = QuillController(
+            document: Document.fromJson(quillData),
+            selection: const TextSelection.collapsed(offset: 0));
+        notifyListeners();
+        for (final element in bookmarkdata!.savedData!) {
+          if (element.id == item.sId) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Timer(
+                const Duration(milliseconds: 50),
+                () {
+                  if (item.product!.private == true) {
+                    quillScrollController.animateTo(element.position!,
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.fastLinearToSlowEaseIn);
+                  } else {
+                    htmlController.animateTo(element.position!,
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.fastLinearToSlowEaseIn);
+                  }
+                },
+              );
+            });
+          }
+        }
+      }
+    } else {
+      if (val.content != null && val.content!.isNotEmpty) {
+        sectionBody = val.content!;
+        notifyListeners();
+        for (final element in bookmarkdata!.savedData!) {
+          if (element.id == item.sId) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Timer(
+                const Duration(milliseconds: 50),
+                () {
+                  htmlController.animateTo(element.position!,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.fastLinearToSlowEaseIn);
+                },
+              );
+            });
+          }
         }
       }
     }
@@ -179,7 +207,9 @@ class ResumeDetailState extends BaseState {
           for (final element in bookmarkdata!.savedData!) {
             if (item.sId == element.id) {
               element.sectionId = selectedSection;
-              element.position = quillScrollController.position.pixels;
+              element.position = item.product!.private == true
+                  ? quillScrollController.position.pixels
+                  : htmlController.position.pixels;
               notifyListeners();
               final finalData = jsonEncode(bookmarkdata!.toJson()).toString();
               LocalStorageService().write(LocalStorageKeys.bookmark, finalData);
@@ -193,7 +223,9 @@ class ResumeDetailState extends BaseState {
           bookmarkdata!.savedData!.add(SavedData(
             id: item.sId,
             sectionId: selectedSection,
-            position: quillScrollController.position.pixels,
+            position: item.product!.private == true
+                ? quillScrollController.position.pixels
+                : htmlController.position.pixels,
           ));
           final finalData = jsonEncode(bookmarkdata!.toJson()).toString();
           LocalStorageService().write(LocalStorageKeys.bookmark, finalData);
@@ -207,7 +239,9 @@ class ResumeDetailState extends BaseState {
           SavedData(
             id: item.sId,
             sectionId: selectedSection,
-            position: quillScrollController.position.pixels,
+            position: item.product!.private == true
+                ? quillScrollController.position.pixels
+                : htmlController.position.pixels,
           )
         ],
       );

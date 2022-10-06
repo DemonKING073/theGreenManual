@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/modules/resume_detail_module/resume_detail_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constant.dart';
 
@@ -31,22 +32,23 @@ class ResumeDetailScreen extends StatelessWidget {
             color: Colors.black, //change your color here
           ),
           title: Text(
-            // 'Text Title',
             state.productDetails?.data?.product?.name ?? '',
             style: LBoldTextStyle(),
           ),
           actions: [
             IconButton(
               onPressed: () {
-                // state.quillScrollController.animateTo(100,
-                //     duration: const Duration(seconds: 2),
-                //     curve: Curves.fastLinearToSlowEaseIn);
-
-                if (state.sectionItem!.content != null &&
-                    state.sectionItem!.content!.isNotEmpty) {
-                  state.onBookMark();
-                } else {
+                if (state.sectionItem!.content == null ||
+                    (state.sectionItem!.content != null &&
+                        state.sectionItem!.content!.isEmpty) ||
+                    (state.item.product!.private == true &&
+                        state.controller.document
+                            .toPlainText()
+                            .trim()
+                            .isEmpty)) {
                   ToastService().w("Empty section cannot be bookmarked");
+                } else {
+                  state.onBookMark();
                 }
               },
               icon: Icon(
@@ -112,24 +114,6 @@ class ResumeDetailScreen extends StatelessWidget {
                       ),
                     ),
                     LSizedBox(),
-                    // if (state.productDetails!.data!.product!.category ==
-                    //     "Personal")
-                    //   SingleChildScrollView(
-                    //     scrollDirection: Axis.horizontal,
-                    //     child: Row(
-                    //       children: [
-                    //         if (state.productDetails!.data!.product!.sections!
-                    //             .isNotEmpty)
-                    //           QuillToolbar.basic(
-                    //             controller: state.controller,
-                    //             showUndo: false,
-                    //             showRedo: false,
-                    //             locale: const Locale('en'),
-                    //           ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    LSizedBox(),
                     if (state.productDetails!.data!.product!.category ==
                         "Personal")
                       Expanded(
@@ -163,8 +147,21 @@ class ResumeDetailScreen extends StatelessWidget {
                             ? Center(
                                 child: Text(state.sectionBody),
                               )
-                            : Html(
-                                data: state.sectionBody,
+                            : SingleChildScrollView(
+                                controller: state.htmlController,
+                                child: Html(
+                                  data: state.sectionBody,
+                                  onLinkTap: (url, context, attributes,
+                                      element) async {
+                                    Uri hamro = Uri.parse(url.toString());
+                                    if (!await launchUrl(
+                                      hamro,
+                                      mode: LaunchMode.externalApplication,
+                                    )) {
+                                      throw 'Could not launch $url';
+                                    }
+                                  },
+                                ),
                               ),
                       )
                   ],
