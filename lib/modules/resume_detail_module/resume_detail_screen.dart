@@ -144,8 +144,8 @@ class ResumeDetailScreen extends StatelessWidget {
                     else
                       Expanded(
                         child: state.sectionBody.isEmpty
-                            ? Center(
-                                child: Text(state.sectionBody),
+                            ? const Center(
+                                child: Text("No Sections"),
                               )
                             : SingleChildScrollView(
                                 controller: state.htmlController,
@@ -163,7 +163,7 @@ class ResumeDetailScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                      )
+                      ),
                   ],
                 ),
               ),
