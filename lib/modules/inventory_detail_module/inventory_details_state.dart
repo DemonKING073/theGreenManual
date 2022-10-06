@@ -90,10 +90,18 @@ class InventoryDetailState extends BaseState {
     var data = {
       "content": quill.toString(),
       "comment": DateTime.now().toUtc().toIso8601String(),
+      "saveAsPublic": true,
     };
     showLoadingDialog();
+    print("----------------------------------------------------->");
+    print(data);
     try {
-      await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
+      final res = await dio.patch("/v1/sections/$selectedSection/add-content",
+          data: data);
+      print("/v1/sections/$selectedSection/add-content");
+      print("----------------------------------------------------->");
+      print("this is product id ${productDetails!.data!.product!.sId}");
+      print(res.data);
       ToastService().s("Updated successfully!");
       fetchProductDetails();
     } on DioError catch (err) {}
@@ -147,6 +155,7 @@ class InventoryDetailState extends BaseState {
   }
 
   createSection() async {
+    setLoading(true);
     navigatorKey.currentState!.pop();
     if (sectionName.isNotEmpty) {
       try {
@@ -155,7 +164,6 @@ class InventoryDetailState extends BaseState {
           "name": sectionName,
         };
         await dio.post("/v1/sections", data: data);
-        setLoading(true);
         fetchProductDetails();
       } on DioError catch (err) {}
     } else {

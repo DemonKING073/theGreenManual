@@ -146,31 +146,31 @@ class ResumeDetailScreen extends StatelessWidget {
                     if (state.productDetails!.data!.product!.category ==
                         "Personal")
                       Expanded(
-                          child: state.productDetails!.data!.product!
-                                          .sections ==
-                                      null ||
-                                  state.productDetails!.data!.product!.sections!
-                                      .isEmpty
-                              ? const Center(
-                                  child: Text("No Sections!"),
-                                )
-                              : QuillEditor(
-                                  controller: state.controller,
-                                  focusNode: FocusNode(),
-                                  scrollController: state.quillScrollController,
-                                  scrollable: true,
-                                  padding: const EdgeInsets.all(2),
-                                  autoFocus: true,
-                                  readOnly: true,
-                                  expands: true,
-                                )
-                          // QuillEditor.basic(
-                          //     controller: state.controller,
-                          //     readOnly: true,
-                          //     keyboardAppearance: Brightness.dark,
-                          //     locale: const Locale('en'),
-                          //   ),
-                          )
+                        child: state.productDetails!.data!.product!.sections ==
+                                    null ||
+                                state.productDetails!.data!.product!.sections!
+                                    .isEmpty
+                            ? const Center(
+                                child: Text("No Sections!"),
+                              )
+                            :
+                            // QuillEditor(
+                            //     controller: state.controller,
+                            //     focusNode: FocusNode(),
+                            //     scrollController: state.quillScrollController,
+                            //     scrollable: true,
+                            //     padding: const EdgeInsets.all(2),
+                            //     autoFocus: true,
+                            //     readOnly: true,
+                            //     expands: true,
+                            //   )
+                            QuillEditor.basic(
+                                controller: state.controller,
+                                readOnly: true,
+                                keyboardAppearance: Brightness.dark,
+                                locale: const Locale('en'),
+                              ),
+                      )
                     else
                       Expanded(
                         child: state.sectionBody.isEmpty

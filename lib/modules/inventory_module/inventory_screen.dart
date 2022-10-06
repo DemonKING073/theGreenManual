@@ -152,10 +152,10 @@ class InventoryScreen extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: state.projectState!.data!.projects!.length,
                       itemBuilder: (context, index) {
-                        print(
-                            "yoooo ${state.projectState!.data!.projects![index].product?.private}");
-                        print(
-                            "yoooo ${state.projectState!.data!.projects![index].product?.sId}");
+                        // print(
+                        //     "yoooo ${state.projectState!.data!.projects![index].product?.private}");
+                        // print(
+                        //     "yoooo ${state.projectState!.data!.projects![index].product?.sId}");
                         return InkWell(
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(

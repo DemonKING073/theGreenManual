@@ -52,7 +52,21 @@ class ResumeScreen extends StatelessWidget {
                                     state.projectState!.data!.projects![index]);
                           },
                           child: ProjectTile(
+                            isProductDeleted: state.projectState!.data!
+                                        .projects![index].product ==
+                                    null
+                                ? true
+                                : false,
                             onTap: () {},
+                            isPrivate: state.projectState!.data!
+                                        .projects![index].product ==
+                                    null
+                                ? false
+                                : state.projectState!.data!.projects![index]
+                                            .product!.private ==
+                                        true
+                                    ? true
+                                    : false,
                             projectName: state
                                 .projectState!.data!.projects![index].name!,
                           ),
@@ -65,10 +79,14 @@ class ResumeScreen extends StatelessWidget {
 
 class ProjectTile extends StatelessWidget {
   String projectName;
+  bool isProductDeleted;
   Function onTap;
+  bool isPrivate;
   ProjectTile({
     Key? key,
+    required this.isPrivate,
     required this.projectName,
+    required this.isProductDeleted,
     required this.onTap,
   }) : super(key: key);
 
@@ -90,7 +108,22 @@ class ProjectTile extends StatelessWidget {
               ),
               const SizedBox(
                 height: 40,
-              )
+              ),
+              if (isProductDeleted)
+                const Text(
+                  "[ Product Deleted! ]",
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 10,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.red,
+                  ),
+                ),
+              if (isPrivate)
+                Icon(
+                  Icons.star,
+                  color: primaryColor,
+                ),
               // IconButton(
               //     onPressed: () {
               //       onTap();

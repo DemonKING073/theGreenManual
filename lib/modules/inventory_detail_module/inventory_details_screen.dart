@@ -57,9 +57,11 @@ class InventoryDetailsScreen extends StatelessWidget {
                         TextFormField(
                           onChanged: state.onSectionNameChanged,
                           decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: primaryColor))),
+                            border: const OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: primaryColor),
+                            ),
+                          ),
                         ),
                       ],
                     ),
