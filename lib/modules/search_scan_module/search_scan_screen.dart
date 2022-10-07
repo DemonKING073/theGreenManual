@@ -3,6 +3,8 @@ import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/main.dart';
 
 class SearchScanScreen extends StatelessWidget {
+  const SearchScanScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,6 +58,8 @@ class SearchScanScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   navigatorKey.currentState!.pushNamed('/scanner_screen');
+                  // navigatorKey.currentState!.pushNamed('/scanner_result',
+                  //     arguments: "63357ac627d15e411b663aed");
                 },
                 child: Container(
                   decoration: BoxDecoration(

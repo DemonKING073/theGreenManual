@@ -30,7 +30,7 @@ class SearchScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/helpAndSupport');
               },
-              icon: Icon(Icons.support_agent))
+              icon: const Icon(Icons.support_agent))
         ],
       ),
       body: SingleChildScrollView(
