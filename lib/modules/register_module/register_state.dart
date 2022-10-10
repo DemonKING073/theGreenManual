@@ -11,6 +11,7 @@ import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/core/states/base_state.dart';
 import 'package:the_green_manual/main.dart';
+import 'package:the_green_manual/modules/login_module/login_screen.dart';
 
 import '../../constants/constant.dart';
 
@@ -135,7 +136,6 @@ class RegisterState extends BaseState {
 
   getVerification(context) async {
     try {
-      print("Machikne randi");
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
       Dio newDio = Dio();
       final response = await newDio
@@ -146,7 +146,6 @@ class RegisterState extends BaseState {
               data: {
             "provider": "password",
           });
-      print("mah yaha puge randi");
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
@@ -170,9 +169,11 @@ class RegisterState extends BaseState {
                       style: kTextStyle().copyWith(color: primaryColor),
                     ),
                     onPressed: () async {
-                      // await overViewState.updateName();
+                      setSubmitLoading(false);
                       Navigator.pop(context);
-                      // await overViewState.fetchData();
+                      if (canPop(context)) {
+                        navigatorKey.currentState!.pop();
+                      }
                     }),
               ],
             );
@@ -206,7 +207,6 @@ class RegisterState extends BaseState {
         final res = await firebaseInstance.createUserWithEmailAndPassword(
             email: email!, password: password!);
         final token = await res.user!.getIdToken();
-        print("yo token ho $token");
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
         getVerification(context);
       } on FirebaseAuthException catch (e) {
