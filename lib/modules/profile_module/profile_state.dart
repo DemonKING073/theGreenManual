@@ -3,13 +3,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:the_green_manual/apiModels/profile.dart';
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
-import 'package:the_green_manual/themes/app_theme.dart';
 
 class ProfileState extends ChangeNotifier {
   ProfileState() {
@@ -29,33 +26,33 @@ class ProfileState extends ChangeNotifier {
       if (image == null) return null;
       final imageTemporary = File(image.path);
       galleryImage = imageTemporary;
-
       notifyListeners();
-      // cropImage();
-      updateFileImage(galleryImage!);
+      updateFileImage(imageTemporary);
       fetchProfile();
     } on PlatformException catch (e) {
       ToastService().e('Failed to pick image: $e');
     }
   }
 
-  Future updateFileImage(File file) async {
+  Future updateFileImage(image) async {
     isLoading = true;
     notifyListeners();
-    String fileName = file.path.split('/').last;
+    String fileName = image.path.split('/').last;
     FormData formData = FormData.fromMap({
-      "picture": await MultipartFile.fromFile(
-        file.path,
-        filename: fileName,
+      "image": await MultipartFile.fromFile(
+        image.path,
         // contentType: MediaType("image", "jpeg"),
       ),
     });
+    print(formData);
     // var data = {};
     try {
       var updateResponse =
           await dio.patch('/v1/auth/update-picture', data: formData);
       fetchProfile();
-    } on DioError catch (e) {}
+    } on DioError catch (e) {
+      print(e.response);
+    }
     isLoading = false;
     notifyListeners();
   }
