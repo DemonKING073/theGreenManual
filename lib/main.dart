@@ -25,6 +25,8 @@ import 'package:the_green_manual/modules/register_module/register_screen.dart';
 import 'package:the_green_manual/modules/register_module/register_state.dart';
 import 'package:the_green_manual/modules/resume_detail_module/resume_detail_screen.dart';
 import 'package:the_green_manual/modules/resume_detail_module/resume_detail_state.dart';
+import 'package:the_green_manual/modules/scanner_result_module/scanner_result_screen.dart';
+import 'package:the_green_manual/modules/scanner_result_module/scanner_result_state.dart';
 import 'package:the_green_manual/modules/splash_module/splash_screen.dart';
 import 'package:the_green_manual/modules/splash_module/splash_state.dart';
 import 'package:the_green_manual/modules/term&conditions/term_condition_screen.dart';
@@ -117,6 +119,10 @@ class TheGreenManual extends StatelessWidget {
               '/forgot_password': (context) => ChangeNotifierProvider(
                     create: (_) => ForgotPasswordState(),
                     child: const ForgotPasswordScreen(),
+                  ),
+              '/scanner_result': (context) => ChangeNotifierProvider(
+                    create: (_) => ScannerResultState(context),
+                    child: const ScannerResultScreen(),
                   ),
             },
           ),

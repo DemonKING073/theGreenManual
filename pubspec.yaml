@@ -48,6 +48,7 @@ dependencies:
   sign_in_with_apple: ^4.1.0
   flutter_html: ^3.0.0-alpha.5
   google_sign_in: ^5.4.2
+  validators: ^3.0.0
 
 dev_dependencies:
   flutter_test:

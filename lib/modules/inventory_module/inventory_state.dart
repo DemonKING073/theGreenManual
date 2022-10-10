@@ -51,7 +51,6 @@ class InventoryState extends BaseState {
       var response = await dio.get('/v1/projects/');
       projectState = InventoryResponse.fromJson(response.data);
       notifyListeners();
-      projectState!.data!.projects!.forEach((element) {});
     } catch (e) {}
     setLoading(false);
   }
@@ -66,11 +65,9 @@ class InventoryState extends BaseState {
     setLoading(true);
     try {
       navigatorKey.currentState!.pop();
-      print("this is ff id $id");
-
-      // await dio.delete('/v1/projects/$id');
-      // ToastService().s("Project deleted successfully!");
-      // fetchProjects();
+      await dio.delete('/v1/projects/$id');
+      ToastService().s("Project deleted successfully!");
+      fetchProjects();
     } on DioError {}
     setWaiting(false);
   }

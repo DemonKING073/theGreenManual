@@ -140,7 +140,7 @@ class RegisterScreen extends StatelessWidget {
                         RegExp upperCase = RegExp(r'(?=.*?[A-Z])');
                         RegExp lowerCase = RegExp(r'(?=.*?[a-z])');
                         RegExp number = RegExp(r'(?=.*?[0-9])');
-                        RegExp special = RegExp(r'(?=.*?[#?!@$%^&*-])');
+                        RegExp special = RegExp(r'^[a-zA-Z0-9]+$');
                         if (value == null || value.isEmpty) {
                           return "Password is required!";
                         } else if (!upperCase.hasMatch(value)) {
@@ -149,7 +149,7 @@ class RegisterScreen extends StatelessWidget {
                           return "Please use at least one Lower case letter!";
                         } else if (!number.hasMatch(value)) {
                           return "Please use at least one number!";
-                        } else if (!special.hasMatch(value)) {
+                        } else if (special.hasMatch(value)) {
                           return "Please use at least one special character!";
                         }
                         return null;
@@ -160,6 +160,7 @@ class RegisterScreen extends StatelessWidget {
                       onTap: state.submitLoading
                           ? null
                           : () {
+                              FocusScope.of(context).unfocus();
                               state.createAccount(context);
                             },
                       child: Container(

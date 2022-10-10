@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:load/load.dart';
+import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/local_storage_services.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/core/states/base_state.dart';
 import 'package:the_green_manual/main.dart';
+import 'package:the_green_manual/modules/login_module/login_screen.dart';
 
 import '../../constants/constant.dart';
 
@@ -167,9 +169,11 @@ class RegisterState extends BaseState {
                       style: kTextStyle().copyWith(color: primaryColor),
                     ),
                     onPressed: () async {
-                      // await overViewState.updateName();
+                      setSubmitLoading(false);
                       Navigator.pop(context);
-                      // await overViewState.fetchData();
+                      if (canPop(context)) {
+                        navigatorKey.currentState!.pop();
+                      }
                     }),
               ],
             );
@@ -185,7 +189,13 @@ class RegisterState extends BaseState {
       }
 
       // ignore: empty_catches
-    } on DioError catch (err) {}
+    } on DioError catch (err) {
+      if (err.response != null) {
+        final errorState = HamroError.fromJson(err.response?.data);
+        ToastService().e(errorState.message!);
+      }
+      setSubmitLoading(false);
+    }
   }
 
   createAccount(context) async {
@@ -194,56 +204,15 @@ class RegisterState extends BaseState {
     setSubmitLoading(true);
     if (formKey.currentState!.validate()) {
       try {
-        await firebaseInstance.createUserWithEmailAndPassword(
+        final res = await firebaseInstance.createUserWithEmailAndPassword(
             email: email!, password: password!);
-
-        navigatorKey.currentState!.pushNamed('/login');
-        return showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Column(
-                children: [
-                  CircleAvatar(
-                      radius: 35,
-                      backgroundColor: primaryColor.withOpacity(0.2),
-                      child: Icon(
-                        Icons.mail,
-                        color: primaryColor,
-                        size: 40,
-                      )),
-                  LSizedBox(),
-                  Text(
-                      'Email verification link send to your email.Please verify email before Login',
-                      style: LBoldTextStyle()),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    "Cancel",
-                    style: kTextStyle().copyWith(color: Colors.grey),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                    child: Text(
-                      'Ok',
-                      style: kTextStyle().copyWith(color: primaryColor),
-                    ),
-                    onPressed: () async {
-                      Navigator.pop(context);
-                    }),
-              ],
-            );
-          },
-        );
+        final token = await res.user!.getIdToken();
+        LocalStorageService().write(LocalStorageKeys.accessToken, token);
+        getVerification(context);
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
+        setSubmitLoading(false);
       }
     }
-    setSubmitLoading(false);
   }
 }
