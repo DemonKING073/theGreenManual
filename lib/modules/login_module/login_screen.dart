@@ -220,15 +220,6 @@ class LoginScreen extends StatelessWidget {
                     LSizedBox(),
                     const Divider(thickness: 2),
                     LSizedBox(),
-                    InkWell(
-                      onTap: () {
-                        navigatorKey.currentState!.pushNamed("/client_home");
-                      },
-                      child: const Center(
-                        child: Text('Login as Client'),
-                      ),
-                    ),
-                    LSizedBox(),
                     WhiteButton(
                       name: 'Login With Facebook',
                       onTap: faceBookLogin,

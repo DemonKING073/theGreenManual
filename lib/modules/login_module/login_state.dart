@@ -31,6 +31,8 @@ class LoginState extends BaseState {
 
       // Once signed in, return the UserCredential
       final res = await FirebaseAuth.instance.signInWithCredential(credential);
+      print("==========================================================");
+      print(res);
 
       final token = await res.user!.getIdToken();
       LocalStorageService().write(LocalStorageKeys.accessToken, token);
@@ -99,6 +101,10 @@ class LoginState extends BaseState {
               data: {
             "provider": "google",
           });
+      print(
+          '-------------------------------------------------------------------');
+      print('yo token ho fghgfh:    $token');
+      print(response.data['data']['role']);
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
@@ -130,12 +136,19 @@ class LoginState extends BaseState {
             );
           },
         );
-      } else {
+      } else if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'client') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
       }
 
@@ -156,6 +169,7 @@ class LoginState extends BaseState {
               data: {
             "provider": "password",
           });
+      print(response);
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
@@ -187,12 +201,19 @@ class LoginState extends BaseState {
             );
           },
         );
-      } else {
+      } else if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'client') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
       }
 

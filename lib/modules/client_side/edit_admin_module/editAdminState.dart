@@ -6,7 +6,15 @@ import '../../../apiModels/profile.dart';
 import '../../../core/http/http.dart';
 import '../../../core/services/toast_service.dart';
 
-class EditAdminState extends BaseState{
+class EditAdminState extends BaseState {
+  EditAdminState(context) {
+    fetchProfile();
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+    if (args == "edit") {
+      isEditable = true;
+      notifyListeners();
+    }
+  }
   List gender = ['Male', 'Female', 'Others'];
   String? selectedGender;
   onGenderChanged(val) {

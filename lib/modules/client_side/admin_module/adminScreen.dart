@@ -5,6 +5,7 @@ import 'package:the_green_manual/modules/client_side/admin_module/adminState.dar
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/constant.dart';
+import '../../../core/services/local_storage_services.dart';
 import '../../../main.dart';
 
 class AdminScreen extends StatelessWidget {
@@ -115,10 +116,10 @@ class AdminScreen extends StatelessWidget {
                         onPressed: () async {
                           Navigator.pop(context);
 
-                          // LocalStorageService()
-                          //     .clear(LocalStorageKeys.accessToken);
-                          // navigatorKey.currentState!.pushNamedAndRemoveUntil(
-                          //     "/login", (route) => false);
+                          LocalStorageService()
+                              .clear(LocalStorageKeys.accessToken);
+                          navigatorKey.currentState!.pushNamedAndRemoveUntil(
+                              "/login", (route) => false);
                         }),
                   ],
                 );
@@ -277,7 +278,7 @@ class AdminScreen extends StatelessWidget {
                           icons: Icons.person_outline,
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
-                              '/edit_admin_screen',
+                              '/edit_admin',
                               arguments: "view",
                             );
                           },
@@ -308,7 +309,11 @@ class AdminScreen extends StatelessWidget {
                     style: kBoldTextStyle(),
                   ),
                   LSizedBox(),
-                  
+                  profileButtons(
+                      title: 'About App',
+                      description: '',
+                      icons: Icons.question_mark_outlined,
+                      onTap: () {}),
                 ],
               ),
             ),

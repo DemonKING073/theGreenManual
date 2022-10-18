@@ -9,6 +9,7 @@ import 'package:the_green_manual/modules/client_side/admin_module/adminScreen.da
 import 'package:the_green_manual/modules/client_side/admin_module/adminState.dart';
 import 'package:the_green_manual/modules/client_side/clientHome/client_home.dart';
 import 'package:the_green_manual/modules/client_side/clientHome/client_home_state.dart';
+import 'package:the_green_manual/modules/client_side/edit_admin_module/editAdminState.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
 import 'package:the_green_manual/modules/forgot_password_module/forgot_password_screen.dart';
@@ -44,6 +45,8 @@ import 'package:the_green_manual/modules/help_support_module/help_support_screen
 import 'package:the_green_manual/modules/project_details_module/project_details_screen.dart';
 import 'package:the_green_manual/modules/scanner_module/scanner_screen.dart';
 import 'package:the_green_manual/modules/scanner_module/scanner_state.dart';
+
+import 'modules/client_side/edit_admin_module/editAdminScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -132,8 +135,8 @@ class TheGreenManual extends StatelessWidget {
                   create: (_) => ClientHomeState(),
                   child: const ClientHomeScreen()),
               '/edit_admin': (context) => ChangeNotifierProvider(
-                    create: (_) => AdminState(),
-                    child: const AdminScreen(),
+                    create: (_) => EditAdminState(context),
+                    child: const EditAdminScreen(),
                   ),
             },
           ),

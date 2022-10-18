@@ -6,7 +6,7 @@ import 'package:the_green_manual/modules/client_side/clientInventory/clientInven
 import 'package:the_green_manual/modules/client_side/clientInventory/clientInventoryState.dart';
 
 class ClientHomeState extends ChangeNotifier {
-  int selectedIndex = 1;
+  int selectedIndex = 0;
   void onItemTapped(int index) {
     selectedIndex = index;
     notifyListeners();

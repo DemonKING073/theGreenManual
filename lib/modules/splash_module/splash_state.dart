@@ -48,14 +48,25 @@ class SplashState extends BaseState {
 
   validAccessToken() async {
     try {
-      await dio.get('/v1/auth/fetch-profile');
-      Future.delayed(
-        const Duration(seconds: 2),
-        () {
-          navigatorKey.currentState!
-              .pushNamedAndRemoveUntil('/home', (route) => false);
-        },
-      );
+      var response = await dio.get('/v1/auth/fetch-profile');
+      print(response.data['data']['user']['role']);
+      if (response.data['data']['user']['role'] == 'client') {
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/client_home', (route) => false);
+          },
+        );
+      } else {
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/home', (route) => false);
+          },
+        );
+      }
     } on DioError catch (e) {
       LocalStorageService().clear(LocalStorageKeys.accessToken);
       Future.delayed(
