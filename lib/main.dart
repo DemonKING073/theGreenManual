@@ -5,6 +5,10 @@ import 'package:load/load.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/states/main_state.dart';
+import 'package:the_green_manual/modules/client_side/admin_module/adminScreen.dart';
+import 'package:the_green_manual/modules/client_side/admin_module/adminState.dart';
+import 'package:the_green_manual/modules/client_side/clientHome/client_home.dart';
+import 'package:the_green_manual/modules/client_side/clientHome/client_home_state.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
 import 'package:the_green_manual/modules/forgot_password_module/forgot_password_screen.dart';
@@ -123,6 +127,13 @@ class TheGreenManual extends StatelessWidget {
               '/scanner_result': (context) => ChangeNotifierProvider(
                     create: (_) => ScannerResultState(context),
                     child: const ScannerResultScreen(),
+                  ),
+              '/client_home': (context) => ChangeNotifierProvider(
+                  create: (_) => ClientHomeState(),
+                  child: const ClientHomeScreen()),
+              '/edit_admin': (context) => ChangeNotifierProvider(
+                    create: (_) => AdminState(),
+                    child: const AdminScreen(),
                   ),
             },
           ),
