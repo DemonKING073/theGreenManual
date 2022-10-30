@@ -119,6 +119,13 @@ class LoginState extends BaseState {
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'subclient') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
+        setSubmitLoading(false);
       }
 
       // ignore: empty_catches
@@ -178,6 +185,13 @@ class LoginState extends BaseState {
             .pushNamedAndRemoveUntil("/home", (route) => false);
         setSubmitLoading(false);
       } else if (response.data['data']['role'] == 'client') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
+        setSubmitLoading(false);
+      }else if (response.data['data']['role'] == 'subclient') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");
