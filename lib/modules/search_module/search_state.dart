@@ -74,6 +74,7 @@ class SearchState extends ChangeNotifier {
     var data = {"name": projectName, "productId": hamroId};
     try {
       var res = await dio.post('/v1/projects', data: data);
+      print(res);
       hideLoadingDialog();
       navigatorKey.currentState!.pop();
       navigatorKey.currentState!

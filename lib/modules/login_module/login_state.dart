@@ -105,38 +105,7 @@ class LoginState extends BaseState {
           '-------------------------------------------------------------------');
       print('yo token ho fghgfh:    $token');
       print(response.data['data']['role']);
-      if (response.data['message'] ==
-          'Email verification link sent to your email. Verify your email before login') {
-        return showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(response.data['message'], style: LBoldTextStyle()),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    "Cancel",
-                    style: kTextStyle().copyWith(color: Colors.grey),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                    child: Text(
-                      'Ok',
-                      style: kTextStyle().copyWith(color: primaryColor),
-                    ),
-                    onPressed: () async {
-                      // await overViewState.updateName();
-                      Navigator.pop(context);
-                      // await overViewState.fetchData();
-                    }),
-              ],
-            );
-          },
-        );
-      } else if (response.data['data']['role'] == 'customer') {
+      if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");

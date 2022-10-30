@@ -44,8 +44,13 @@ class AnyTimeAnyWhere extends StatelessWidget {
                   )),
               LSizedBox(),
               LSizedBox(),
-              const Text('SKIP',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: const Text('SKIP',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
+              ),
             ],
           ),
         ),

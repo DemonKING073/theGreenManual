@@ -47,6 +47,7 @@ class SplashState extends BaseState {
   bool isError = false;
 
   validAccessToken() async {
+    print(token);
     try {
       var response = await dio.get('/v1/auth/fetch-profile');
       print(response.data['data']['user']['role']);
@@ -58,7 +59,7 @@ class SplashState extends BaseState {
                 .pushNamedAndRemoveUntil('/client_home', (route) => false);
           },
         );
-      } else {
+      } else if (response.data['data']['user']['role'] == 'customer') {
         Future.delayed(
           const Duration(seconds: 2),
           () {

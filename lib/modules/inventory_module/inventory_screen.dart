@@ -309,10 +309,11 @@ class InventoryScreen extends StatelessWidget {
                                                   );
                                                 });
                                           },
-                                          icon: const Icon(
-                                            Icons.more_vert,
-                                            color: Colors.grey,
-                                          ),
+                                          // icon: Icon(
+                                          //   Icons.more_vert,
+                                          //   color: Colors.grey,
+                                          // ),
+                                          icon: ImageIcon(AssetImage('assets/icons/edit.png')),
                                         ),
                                       ],
                                     )

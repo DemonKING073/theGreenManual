@@ -1,7 +1,6 @@
 // ignore_for_file: empty_catches
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:load/load.dart';
 
 import 'package:the_green_manual/core/http/http.dart';
@@ -49,6 +48,7 @@ class InventoryState extends BaseState {
     setLoading(true);
     try {
       var response = await dio.get('/v1/projects/');
+      print(response);
       projectState = InventoryResponse.fromJson(response.data);
       notifyListeners();
     } catch (e) {}

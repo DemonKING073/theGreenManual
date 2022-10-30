@@ -157,7 +157,7 @@ class ClientInventoryScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
-                              "/inventory_details",
+                              "/client_inventory_details",
                               arguments:
                                   state.projectState!.data!.projects![index],
                             );

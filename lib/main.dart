@@ -9,6 +9,8 @@ import 'package:the_green_manual/modules/client_side/admin_module/adminScreen.da
 import 'package:the_green_manual/modules/client_side/admin_module/adminState.dart';
 import 'package:the_green_manual/modules/client_side/clientHome/client_home.dart';
 import 'package:the_green_manual/modules/client_side/clientHome/client_home_state.dart';
+import 'package:the_green_manual/modules/client_side/clientInventoryDetails/ClientInventoryDetailState.dart';
+import 'package:the_green_manual/modules/client_side/clientInventoryDetails/clientInventoryDetails.dart';
 import 'package:the_green_manual/modules/client_side/edit_admin_module/editAdminState.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
@@ -138,6 +140,9 @@ class TheGreenManual extends StatelessWidget {
                     create: (_) => EditAdminState(context),
                     child: const EditAdminScreen(),
                   ),
+                  '/client_inventory_details' : (context) => ChangeNotifierProvider(
+                    create: (_) => ClientInventoryDetailState(context),
+                    child: const ClientInventoryDetailScreen())
             },
           ),
         ),

@@ -46,7 +46,8 @@ class CreateScreenState extends ChangeNotifier {
     final token = LocalStorageService().read(LocalStorageKeys.accessToken);
 
     try {
-      await dio.post('/v1/products/personal-product', data: data);
+      var res = await dio.post('/v1/products/personal-product', data: data);
+      print(res);
       ToastService().s('Created Successfully');
       // navigatorKey.currentState!
       //     .pushNamedAndRemoveUntil('/inventory_screen', (route) => false);
