@@ -89,6 +89,7 @@ class Sections {
   String? creator;
   String? comment;
   String? content;
+  String? draftContent;
   String? lastUpdated;
 
   Sections(
@@ -97,6 +98,7 @@ class Sections {
       this.product,
       this.creator,
       this.comment,
+      this.draftContent,
       this.content,
       this.lastUpdated});
 
@@ -106,6 +108,7 @@ class Sections {
     product = json['product'];
     creator = json['creator'];
     comment = json['comment'];
+    draftContent = json['draftContent'];
     content = json['content'];
     lastUpdated = json['lastUpdated'];
   }
@@ -116,6 +119,7 @@ class Sections {
     data['name'] = this.name;
     data['product'] = this.product;
     data['creator'] = this.creator;
+    data['draftContent'] = this.draftContent;
     data['comment'] = this.comment;
     data['content'] = this.content;
     data['lastUpdated'] = this.lastUpdated;

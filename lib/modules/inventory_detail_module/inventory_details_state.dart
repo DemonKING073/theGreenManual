@@ -51,6 +51,7 @@ class InventoryDetailState extends BaseState {
       final response = await dio.get(
           "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
       productDetails = SingleProductResponse.fromJson(response.data);
+      print(response);
       notifyListeners();
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {

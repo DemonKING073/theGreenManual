@@ -12,7 +12,7 @@ import '../../../core/services/toast_service.dart';
 import '../../../main.dart';
 import '../../inventory_module/modals/inventory_respones.dart';
 
-class ClientInventoryDetailState extends BaseState{
+class ClientInventoryDetailState extends BaseState {
   late InventoryItem item;
 
   QuillController controller = QuillController.basic();
@@ -46,7 +46,9 @@ class ClientInventoryDetailState extends BaseState{
     try {
       final response = await dio.get(
           "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
+      print(response);
       productDetails = SingleProductResponse.fromJson(response.data);
+      print('condo jasto $response');
       notifyListeners();
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {
@@ -54,7 +56,7 @@ class ClientInventoryDetailState extends BaseState{
         notifyListeners();
         try {
           quillData = jsonDecode(
-              productDetails!.data!.product!.sections!.first.content!);
+              productDetails!.data!.product!.sections!.first.draftContent!);
           controller = QuillController(
               document: Document.fromJson(quillData),
               selection: const TextSelection.collapsed(offset: 0));
@@ -67,7 +69,7 @@ class ClientInventoryDetailState extends BaseState{
         notifyListeners();
         if (productDetails!.data!.product!.category != "personal") {
           sectionBody =
-              productDetails!.data!.product!.sections!.first.content ??
+              productDetails!.data!.product!.sections!.first.draftContent ??
                   "Empty Section!";
           notifyListeners();
         }
@@ -114,13 +116,13 @@ class ClientInventoryDetailState extends BaseState{
     notifyListeners();
     controller.clear();
     if (productDetails!.data!.product!.category == "Personal") {
-      quillData = jsonDecode(sectionItem!.content ?? "");
+      quillData = jsonDecode(sectionItem!.draftContent ?? "");
       controller = QuillController(
           document: Document.fromJson(quillData),
           selection: const TextSelection.collapsed(offset: 0));
       notifyListeners();
     } else {
-      sectionBody = val.content ?? "Empty Section!";
+      sectionBody = val.draftContent ?? "Empty Section!";
       notifyListeners();
     }
   }

@@ -267,7 +267,7 @@ class ClientInventoryScreen extends StatelessWidget {
                                                             navigatorKey
                                                                 .currentState!
                                                                 .pushNamed(
-                                                              "/inventory_details",
+                                                              "/client_inventory_details",
                                                               arguments: state
                                                                   .projectState!
                                                                   .data!
