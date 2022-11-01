@@ -78,6 +78,7 @@ class LoginState extends BaseState {
         final res = await firebaseInstance.signInWithEmailAndPassword(
             email: email!, password: password!);
         final token = await res.user!.getIdToken();
+        print("\$ ${res.user!.getIdToken()}");
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
         getVerification(context);
       } on FirebaseAuthException catch (e) {
@@ -135,7 +136,6 @@ class LoginState extends BaseState {
   getVerification(context) async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
-      print("this is before $token");
       Dio newDio = Dio();
       final response = await newDio
           .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
@@ -191,7 +191,7 @@ class LoginState extends BaseState {
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
-      }else if (response.data['data']['role'] == 'subclient') {
+      } else if (response.data['data']['role'] == 'subclient') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");

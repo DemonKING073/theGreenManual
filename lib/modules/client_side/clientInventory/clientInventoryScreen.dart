@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/modules/client_side/clientInventory/clientInventoryState.dart';
@@ -140,7 +142,7 @@ class ClientInventoryScreen extends StatelessWidget {
                 color: primaryColor,
               ),
             )
-          : state.projectState?.data?.projects?.isEmpty ?? true
+          : state.projectState?.data?.products?.isEmpty ?? true
               ? const Center(
                   child: Text("No Items"),
                 )
@@ -148,7 +150,7 @@ class ClientInventoryScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: ListView.builder(
-                      itemCount: state.projectState!.data!.projects!.length,
+                      itemCount: state.projectState!.data!.products!.length,
                       itemBuilder: (context, index) {
                         // print(
                         //     "yoooo ${state.projectState!.data!.projects![index].product?.private}");
@@ -158,8 +160,8 @@ class ClientInventoryScreen extends StatelessWidget {
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
                               "/client_inventory_details",
-                              arguments:
-                                  state.projectState!.data!.projects![index],
+                              // arguments:
+                              // state.projectState!.data!.products![index],
                             );
                           },
                           child: Column(
@@ -175,14 +177,14 @@ class ClientInventoryScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      state.projectState!.data!.projects![index]
+                                      state.projectState!.data!.products![index]
                                           .name!,
                                       style: kBoldTextStyle(),
                                     ),
                                     Row(
                                       children: [
                                         if (state.projectState!.data!
-                                                .projects![index].product ==
+                                                .products![index] ==
                                             null)
                                           const Text(
                                             "[ Product Deleted! ]",
@@ -193,12 +195,8 @@ class ClientInventoryScreen extends StatelessWidget {
                                               color: Colors.red,
                                             ),
                                           )
-                                        else if (state
-                                                .projectState!
-                                                .data!
-                                                .projects![index]
-                                                .product!
-                                                .private ==
+                                        else if (state.projectState!.data!
+                                                .products![index].private ==
                                             true)
                                           Icon(
                                             Icons.star,
@@ -219,31 +217,30 @@ class ClientInventoryScreen extends StatelessWidget {
                                                         title: const Text(
                                                             'Rename'),
                                                         onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          showEditCategoryName(
-                                                              context,
-                                                              state
-                                                                  .projectState!
-                                                                  .data!
-                                                                  .projects![
-                                                                      index]
-                                                                  .sId);
+                                                          // Navigator.pop(
+                                                          //     context);
+                                                          // showEditCategoryName(
+                                                          //     context,
+                                                          //     state
+                                                          //         .projectState!
+                                                          //         .data!
+                                                          //         .products![
+                                                          //             index]
+                                                          //         .sId);
                                                         },
                                                       ),
                                                       if (state
-                                                              .projectState!
-                                                              .data!
-                                                              .projects![index]
-                                                              .product !=
+                                                                  .projectState!
+                                                                  .data!
+                                                                  .products![
+                                                              index] !=
                                                           null)
                                                         ListTile(
                                                           leading: Icon(state
                                                                       .projectState!
                                                                       .data!
-                                                                      .projects![
+                                                                      .products![
                                                                           index]
-                                                                      .product!
                                                                       .private ==
                                                                   true
                                                               ? Icons.edit
@@ -253,26 +250,25 @@ class ClientInventoryScreen extends StatelessWidget {
                                                             state
                                                                         .projectState!
                                                                         .data!
-                                                                        .projects![
+                                                                        .products![
                                                                             index]
-                                                                        .product!
                                                                         .private ==
                                                                     true
                                                                 ? 'Edit'
                                                                 : "View",
                                                           ),
                                                           onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                            navigatorKey
-                                                                .currentState!
-                                                                .pushNamed(
-                                                              "/client_inventory_details",
-                                                              arguments: state
-                                                                  .projectState!
-                                                                  .data!
-                                                                  .projects![index],
-                                                            );
+                                                            // Navigator.pop(
+                                                            //     context);
+                                                            // navigatorKey
+                                                            //     .currentState!
+                                                            //     .pushNamed(
+                                                            //   "/client_inventory_details",
+                                                            //   arguments: state
+                                                            //       .projectState!
+                                                            //       .data!
+                                                            //       .products![index],
+                                                            // );
 
                                                             // Navigator.pushNamed(
                                                             //   context,
@@ -290,17 +286,17 @@ class ClientInventoryScreen extends StatelessWidget {
                                                         title: const Text(
                                                             'Delete'),
                                                         onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          showDeleteCategory(
-                                                            context,
-                                                            state
-                                                                .projectState!
-                                                                .data!
-                                                                .projects![
-                                                                    index]
-                                                                .sId,
-                                                          );
+                                                          // Navigator.pop(
+                                                          //     context);
+                                                          // showDeleteCategory(
+                                                          //   context,
+                                                          //   state
+                                                          //       .projectState!
+                                                          //       .data!
+                                                          //       .products![
+                                                          //           index]
+                                                          //       .sId,
+                                                          // );
                                                         },
                                                       ),
                                                     ],

@@ -50,6 +50,7 @@ class InventoryDetailState extends BaseState {
     try {
       final response = await dio.get(
           "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
+      print("this is data ${response.data}");
       productDetails = SingleProductResponse.fromJson(response.data);
       print(response);
       notifyListeners();

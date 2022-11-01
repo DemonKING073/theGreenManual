@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:load/load.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
+import 'package:the_green_manual/modules/client_side/clientInventory/modal/client_inventory_response.dart';
 
 import '../../../core/http/http.dart';
 import '../../../core/services/toast_service.dart';
 import '../../../main.dart';
-import '../../inventory_module/modals/inventory_respones.dart';
 
 class ClientInventoryState extends BaseState {
   ClientInventoryState() {
@@ -15,7 +15,7 @@ class ClientInventoryState extends BaseState {
 
   Dio dio = getHttp();
   String? id;
-  InventoryResponse? projectState;
+  ClientInventoryResponse? projectState;
   String newName = "";
 
   onNewNameChange(val) {
@@ -46,8 +46,10 @@ class ClientInventoryState extends BaseState {
   fetchProjects() async {
     setLoading(true);
     try {
-      var response = await dio.get('/v1/projects/');
-      projectState = InventoryResponse.fromJson(response.data);
+      var response = await dio.get('/v1/products');
+      projectState = ClientInventoryResponse.fromJson(response.data);
+      print("mah yaa xu ${response.data}");
+
       notifyListeners();
     } catch (e) {}
     setLoading(false);

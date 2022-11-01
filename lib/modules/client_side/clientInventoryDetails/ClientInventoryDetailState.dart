@@ -22,10 +22,10 @@ class ClientInventoryDetailState extends BaseState {
   SingleProductResponse? productDetails;
 
   ClientInventoryDetailState(context) {
-    final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
-    item = args;
+    // final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
+    // item = args;
     notifyListeners();
-    fetchProjectDetails();
+    // fetchProjectDetails();
   }
 
   Dio dio = getHttp();

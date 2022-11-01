@@ -45,13 +45,16 @@ class InventoryState extends BaseState {
   }
 
   fetchProjects() async {
+    print("mah yaha xu");
     setLoading(true);
     try {
       var response = await dio.get('/v1/projects/');
       print(response);
       projectState = InventoryResponse.fromJson(response.data);
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     setLoading(false);
   }
 
