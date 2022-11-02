@@ -160,8 +160,8 @@ class ClientInventoryScreen extends StatelessWidget {
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
                               "/client_inventory_details",
-                              // arguments:
-                              // state.projectState!.data!.products![index],
+                              arguments: state
+                                  .projectState!.data!.products![index].sId,
                             );
                           },
                           child: Column(
@@ -267,16 +267,18 @@ class ClientInventoryScreen extends StatelessWidget {
                                                             //   arguments: state
                                                             //       .projectState!
                                                             //       .data!
-                                                            //       .products![index],
+                                                            //       .products![
+                                                            //           index]
+                                                            //       .sId,
                                                             // );
 
                                                             // Navigator.pushNamed(
                                                             //   context,
-                                                            //   '/inventory_details',
+                                                            //   '/client_inventory_details',
                                                             //   arguments: state
                                                             //       .projectState!
                                                             //       .data!
-                                                            //       .projects![index],
+                                                            //       .products![index].sId,
                                                             // );
                                                           },
                                                         ),

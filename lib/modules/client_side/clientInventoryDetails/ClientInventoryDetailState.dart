@@ -13,7 +13,8 @@ import '../../../main.dart';
 import '../../inventory_module/modals/inventory_respones.dart';
 
 class ClientInventoryDetailState extends BaseState {
-  late InventoryItem item;
+  // late InventoryItem item;
+  String? item;
 
   QuillController controller = QuillController.basic();
 
@@ -22,10 +23,12 @@ class ClientInventoryDetailState extends BaseState {
   SingleProductResponse? productDetails;
 
   ClientInventoryDetailState(context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
-    // item = args;
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+    print('yo args ho $args');
+    item = args;
     notifyListeners();
-    // fetchProjectDetails();
+    fetchProjectDetails();
+    fetchProductDetails();
   }
 
   Dio dio = getHttp();
@@ -35,8 +38,9 @@ class ClientInventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/projects/?_id=${item.sId}");
+      final response = await dio.get("/v1/projects/?_id=${item}");
       inventoryState = InventoryResponse.fromJson(response.data);
+      print(response);
       notifyListeners();
       fetchProductDetails();
     } catch (err) {}
@@ -45,7 +49,7 @@ class ClientInventoryDetailState extends BaseState {
   fetchProductDetails() async {
     try {
       final response = await dio.get(
-          "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
+          "/v1/products/${item}");
       print(response);
       productDetails = SingleProductResponse.fromJson(response.data);
       print('condo jasto $response');
@@ -56,7 +60,7 @@ class ClientInventoryDetailState extends BaseState {
         notifyListeners();
         try {
           quillData = jsonDecode(
-              productDetails!.data!.product!.sections!.first.draftContent!);
+              productDetails!.data!.product!.sections!.first.content!);
           controller = QuillController(
               document: Document.fromJson(quillData),
               selection: const TextSelection.collapsed(offset: 0));
@@ -69,7 +73,7 @@ class ClientInventoryDetailState extends BaseState {
         notifyListeners();
         if (productDetails!.data!.product!.category != "personal") {
           sectionBody =
-              productDetails!.data!.product!.sections!.first.draftContent ??
+              productDetails!.data!.product!.sections!.first.content ??
                   "Empty Section!";
           notifyListeners();
         }
@@ -116,13 +120,13 @@ class ClientInventoryDetailState extends BaseState {
     notifyListeners();
     controller.clear();
     if (productDetails!.data!.product!.category == "Personal") {
-      quillData = jsonDecode(sectionItem!.draftContent ?? "");
+      quillData = jsonDecode(sectionItem!.content ?? "");
       controller = QuillController(
           document: Document.fromJson(quillData),
           selection: const TextSelection.collapsed(offset: 0));
       notifyListeners();
     } else {
-      sectionBody = val.draftContent ?? "Empty Section!";
+      sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
     }
   }

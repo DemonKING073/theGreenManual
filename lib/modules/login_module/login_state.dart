@@ -80,6 +80,8 @@ class LoginState extends BaseState {
         final token = await res.user!.getIdToken();
         print("\$ ${res.user!.getIdToken()}");
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
+        print('yo aarko token ho: $token');
+
         getVerification(context);
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
@@ -146,6 +148,7 @@ class LoginState extends BaseState {
             "provider": "password",
           });
       print(response);
+      print('condo jasto token: $token');
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
