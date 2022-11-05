@@ -220,12 +220,12 @@ class RegisterScreen extends StatelessWidget {
                     LSizedBox(),
                     const Divider(thickness: 2),
                     LSizedBox(),
-                    WhiteButton(
-                      name: 'Login With Facebook',
-                      onTap: faceBookLogin,
-                      image: 'assets/images/facebookLogo.png',
-                    ),
-                    LSizedBox(),
+                    // WhiteButton(
+                    //   name: 'Login With Facebook',
+                    //   onTap: faceBookLogin,
+                    //   image: 'assets/images/facebookLogo.png',
+                    // ),
+                    // LSizedBox(),
                     WhiteButton(
                       name: 'Login With Google',
                       onTap: () {

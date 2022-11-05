@@ -62,6 +62,7 @@ class ClientInventoryState extends BaseState {
   }
 
   deleteProducts(id) async {
+    print(id);
     setLoading(true);
     try {
       navigatorKey.currentState!.pop();

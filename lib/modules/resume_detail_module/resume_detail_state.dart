@@ -232,7 +232,9 @@ class ResumeDetailState extends BaseState {
           isDataSaved = true;
           notifyListeners();
         }
-      } catch (err) {}
+      } catch (err) {
+        print(err);
+      }
     } else if (savedData == null) {
       final hamroData = ResumeData(
         savedData: [

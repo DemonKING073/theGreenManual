@@ -275,17 +275,17 @@ class ProfileScreen extends StatelessWidget {
                         horizontal: 15, vertical: 10),
                     child: Column(
                       children: [
-                        profileButtons(
-                          title: 'My Account',
-                          description: 'Make Changes to your Account',
-                          icons: Icons.person_outline,
-                          onTap: () {
-                            navigatorKey.currentState!.pushNamed(
-                              '/profile_edit',
-                              arguments: "view",
-                            );
-                          },
-                        ),
+                        // profileButtons(
+                        //   title: 'My Account',
+                        //   description: 'Make Changes to your Account',
+                        //   icons: Icons.person_outline,
+                        //   onTap: () {
+                        //     navigatorKey.currentState!.pushNamed(
+                        //       '/profile_edit',
+                        //       arguments: "view",
+                        //     );
+                        //   },
+                        // ),
                         LSizedBox(),
                         profileButtons(
                             title: 'Language',

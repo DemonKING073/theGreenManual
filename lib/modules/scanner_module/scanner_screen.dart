@@ -50,39 +50,48 @@ class _QRScanScreenState extends State<ScannerScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: primaryColor,
+          title: Text(
+            'SCAN',
+            style: LBoldTextStyle().copyWith(color: Colors.white),
+          ),
+          centerTitle: true,
+        ),
+        backgroundColor: primaryColor,
         body: Stack(
           children: [
             buildQrView(context),
-            Positioned.fill(
-              top: 20,
-              left: 20,
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: InkWell(
-                  onTap: () {
-                    if (canPop(context) == true) {
-                      navigatorKey.currentState!.pop();
-                    }
-                  },
-                  child: const SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: Center(
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned.fill(
+            //   top: 20,
+            //   left: 20,
+            //   child: Align(
+            //     alignment: Alignment.topLeft,
+            //     child: InkWell(
+            //       onTap: () {
+            //         if (canPop(context) == true) {
+            //           navigatorKey.currentState!.pop();
+            //         }
+            //       },
+            //       child: const SizedBox(
+            //         height: 40,
+            //         width: 40,
+            //         child: Center(
+            //           child: Icon(
+            //             Icons.arrow_back,
+            //             color: Colors.white,
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Positioned.fill(
               top: MediaQuery.of(context).size.height * .28,
               child: const Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "Place Qr In Scanner",
+                  "Place QR In The Scanner",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -127,9 +136,11 @@ class _QRScanScreenState extends State<ScannerScreen> {
     return QRView(
       cameraFacing: CameraFacing.back,
       key: qrKey,
+      
       onQRViewCreated: onQrViewCreated,
       overlay: QrScannerOverlayShape(
         overlayColor: Colors.black.withOpacity(0.8),
+        
         borderColor: primaryColor,
         borderRadius: 10,
         borderWidth: 4,

@@ -240,7 +240,7 @@ class AdminScreen extends StatelessWidget {
                         IconButton(
                             onPressed: () async {
                               await navigatorKey.currentState!.pushNamed(
-                                '/edit_admin_screen',
+                                '/edit_admin',
                                 arguments: "edit",
                               );
                               state.fetchProfile();
@@ -272,17 +272,17 @@ class AdminScreen extends StatelessWidget {
                         horizontal: 15, vertical: 10),
                     child: Column(
                       children: [
-                        profileButtons(
-                          title: 'My Account',
-                          description: 'Make Changes to your Account',
-                          icons: Icons.person_outline,
-                          onTap: () {
-                            navigatorKey.currentState!.pushNamed(
-                              '/edit_admin',
-                              arguments: "view",
-                            );
-                          },
-                        ),
+                        // profileButtons(
+                        //   title: 'My Account',
+                        //   description: 'Make Changes to your Account',
+                        //   icons: Icons.person_outline,
+                        //   onTap: () {
+                        //     navigatorKey.currentState!.pushNamed(
+                        //       '/edit_admin',
+                        //       arguments: "view",
+                        //     );
+                        //   },
+                        // ),
                         LSizedBox(),
                         profileButtons(
                             title: 'Language',

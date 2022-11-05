@@ -37,11 +37,19 @@ class SearchScanScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                            radius: 25,
-                            backgroundColor: primaryColor,
-                            child: Image.asset('assets/icons/search.png')),
-                        kSizedBox(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 80,
+                              child: Image.asset(
+                                "assets/icons/search.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(
                           'Search',
                           style: LBoldTextStyle(),
@@ -67,8 +75,8 @@ class SearchScanScreen extends StatelessWidget {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
+                        color: Colors.grey.withOpacity(0.2),
+                        blurRadius: 3,
                         offset: const Offset(4, 8), // Shadow position
                       ),
                     ],
@@ -78,19 +86,33 @@ class SearchScanScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 25,
-                          backgroundColor: primaryColor,
-                          // child: Image.asset(
-                          //   'assets/icons/Search.png',
-                          // )
-                          child: const Icon(
-                            Icons.fit_screen_sharp,
-                            color: Colors.white,
-                            size: 28,
-                          ),
+                        // CircleAvatar(
+                        //   radius: 25,
+                        //   backgroundColor: primaryColor,
+                        //   // child: Image.asset(
+                        //   //   'assets/icons/Search.png',
+                        //   // )
+                        //   child: const Icon(
+                        //     Icons.fit_screen_sharp,
+                        //     color: Colors.white,
+                        //     size: 28,
+                        //   ),
+                        // ),
+                        // Image.asset('assets/icons/scan.png'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 80,
+                              child: Image.asset(
+                                "assets/icons/scan.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
                         ),
-                        kSizedBox(),
+                        // kSizedBox(),
                         Text(
                           'Scan',
                           style: LBoldTextStyle(),

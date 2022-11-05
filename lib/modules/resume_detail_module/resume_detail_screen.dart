@@ -38,7 +38,7 @@ class ResumeDetailScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                if (state.sectionItem!.content == null ||
+                if (state.sectionItem?.content == null ||
                     (state.sectionItem!.content != null &&
                         state.sectionItem!.content!.isEmpty) ||
                     (state.item.product!.private == true &&

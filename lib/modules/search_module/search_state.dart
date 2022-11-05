@@ -69,9 +69,9 @@ class SearchState extends ChangeNotifier {
     notifyListeners();
   }
 
-  createProject(String hamroId) async {
+  createProject(String hamroId, String hamroName) async {
     showLoadingDialog();
-    var data = {"name": projectName, "productId": hamroId};
+    var data = {"name": hamroName, "productId": hamroId};
     try {
       var res = await dio.post('/v1/projects', data: data);
       print(res);

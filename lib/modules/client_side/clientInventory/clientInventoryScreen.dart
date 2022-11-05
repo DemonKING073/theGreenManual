@@ -217,16 +217,16 @@ class ClientInventoryScreen extends StatelessWidget {
                                                         title: const Text(
                                                             'Rename'),
                                                         onTap: () {
-                                                          // Navigator.pop(
-                                                          //     context);
-                                                          // showEditCategoryName(
-                                                          //     context,
-                                                          //     state
-                                                          //         .projectState!
-                                                          //         .data!
-                                                          //         .products![
-                                                          //             index]
-                                                          //         .sId);
+                                                          Navigator.pop(
+                                                              context);
+                                                          showEditCategoryName(
+                                                              context,
+                                                              state
+                                                                  .projectState!
+                                                                  .data!
+                                                                  .products![
+                                                                      index]
+                                                                  .sId);
                                                         },
                                                       ),
                                                       if (state
@@ -288,17 +288,17 @@ class ClientInventoryScreen extends StatelessWidget {
                                                         title: const Text(
                                                             'Delete'),
                                                         onTap: () {
-                                                          // Navigator.pop(
-                                                          //     context);
-                                                          // showDeleteCategory(
-                                                          //   context,
-                                                          //   state
-                                                          //       .projectState!
-                                                          //       .data!
-                                                          //       .products![
-                                                          //           index]
-                                                          //       .sId,
-                                                          // );
+                                                          Navigator.pop(
+                                                              context);
+                                                          showDeleteCategory(
+                                                            context,
+                                                            state
+                                                                .projectState!
+                                                                .data!
+                                                                .products![
+                                                                    index]
+                                                                .sId,
+                                                          );
                                                         },
                                                       ),
                                                     ],
