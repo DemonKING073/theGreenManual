@@ -9,7 +9,27 @@ class SearchScanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color.fromARGB(255, 249, 247, 247),
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          title: Text(
+            'Home',
+            style: LBoldTextStyle(),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/helpAndSupport');
+                },
+                icon: ImageIcon(AssetImage('assets/icons/mic.png')))
+          ],
+        ),
         body: Container(
+          color: Color.fromARGB(255, 249, 247, 247),
           padding: EdgeInsets.symmetric(
               vertical: 10,
               horizontal: MediaQuery.of(context).size.width * 0.15),
@@ -41,7 +61,7 @@ class SearchScanScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: 100,
+                              width: 110,
                               height: 80,
                               child: Image.asset(
                                 "assets/icons/search.png",
@@ -55,9 +75,8 @@ class SearchScanScreen extends StatelessWidget {
                           style: LBoldTextStyle(),
                         ),
                         kSizedBox(),
-                        const Text('We help develop company'),
-                        const Text('websites to be more'),
-                        const Text('professional and attractive')
+                        const Text('Search your product'),
+                        const Text('manual by product name'),
                       ],
                     ),
                   ),
@@ -103,7 +122,7 @@ class SearchScanScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: 100,
+                              width: 110,
                               height: 80,
                               child: Image.asset(
                                 "assets/icons/scan.png",
@@ -118,9 +137,9 @@ class SearchScanScreen extends StatelessWidget {
                           style: LBoldTextStyle(),
                         ),
                         kSizedBox(),
-                        const Text('We help develop company'),
-                        const Text('websites to be more'),
-                        const Text('professional and attractive')
+                        const Text('Search your product manual by'),
+                        const Text('scanning the qr code provided'),
+                        const Text('by the manufacturer')
                       ],
                     ),
                   ),

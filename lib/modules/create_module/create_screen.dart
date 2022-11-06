@@ -21,17 +21,17 @@ class CreateScreen extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        // leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         title: Text(
           'Create',
           style: LBoldTextStyle(),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: ImageIcon(AssetImage('assets/icons/mic.png')))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: ImageIcon(AssetImage('assets/icons/mic.png')))
+        // ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),

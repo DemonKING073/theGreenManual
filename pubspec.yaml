@@ -49,6 +49,7 @@ dependencies:
   flutter_html: ^3.0.0-alpha.5
   google_sign_in: ^5.4.2
   validators: ^3.0.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:

@@ -25,12 +25,19 @@ class SearchScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         Navigator.pushNamed(context, '/helpAndSupport');
+        //       },
+        //       icon: const Icon(Icons.support_agent))
+        // ],
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/helpAndSupport');
               },
-              icon: const Icon(Icons.support_agent))
+              icon: ImageIcon(AssetImage('assets/icons/mic.png')))
         ],
       ),
       body: SingleChildScrollView(
@@ -169,21 +176,21 @@ class SearchScreen extends StatelessWidget {
                                   //               crossAxisAlignment:
                                   //                   CrossAxisAlignment.start,
                                   //               children: [
-                                                  // Row(
-                                                  //   mainAxisAlignment:
-                                                  //       MainAxisAlignment
-                                                  //           .center,
-                                                  //   children: [
-                                                  //     SizedBox(
-                                                  //       width: 100,
-                                                  //       height: 80,
-                                                  //       child: Image.asset(
-                                                  //         "assets/icons/plus.png",
-                                                  //         fit: BoxFit.cover,
-                                                  //       ),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment
+                                  //           .center,
+                                  //   children: [
+                                  //     SizedBox(
+                                  //       width: 100,
+                                  //       height: 80,
+                                  //       child: Image.asset(
+                                  //         "assets/icons/plus.png",
+                                  //         fit: BoxFit.cover,
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   //                 Row(
                                   //                   mainAxisAlignment:
                                   //                       MainAxisAlignment

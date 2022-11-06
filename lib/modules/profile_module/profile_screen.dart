@@ -139,18 +139,18 @@ class ProfileScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+        // leading:
+        //     IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
         title: Text(
           'Profile',
           style: LBoldTextStyle(),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
+        // ],
       ),
       body: state.isLoading
           ? Center(
