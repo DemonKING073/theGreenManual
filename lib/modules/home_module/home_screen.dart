@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/modules/home_module/home_state.dart';
@@ -19,25 +20,32 @@ class HomeScreen extends StatelessWidget {
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/Home.png')),
+            // icon: ImageIcon(AssetImage('assets/icons/home.svg')),
+            icon: SvgPicture.asset('assets/icons/home.svg'),
             label: 'Home',
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/resume.png')),
+            // icon: ImageIcon(AssetImage('assets/icons/resume.png')),
+            icon: SvgPicture.asset('assets/icons/resume.svg'),
+
             label: 'Resume',
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/create.png')),
+            // icon: ImageIcon(AssetImage('assets/icons/create.png')),
+            icon: SvgPicture.asset('assets/icons/create.svg'),
+
 
             label: 'Create',
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/inventory.png')),
+            // icon: ImageIcon(AssetImage('assets/icons/inventory.png')),
+            icon: SvgPicture.asset('assets/icons/inventory.svg'),
+
 
             label: 'Inventory',
             // backgroundColor: Colors.black

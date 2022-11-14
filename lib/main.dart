@@ -20,6 +20,8 @@ import 'package:the_green_manual/modules/home_module/home_screen.dart';
 import 'package:the_green_manual/modules/home_module/home_state.dart';
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_screen.dart';
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_state.dart';
+import 'package:the_green_manual/modules/inventory_detail_module/section_List_module/section_list.dart';
+import 'package:the_green_manual/modules/inventory_detail_module/section_List_module/section_list_state.dart';
 import 'package:the_green_manual/modules/login_module/login_screen.dart';
 import 'package:the_green_manual/modules/login_module/login_state.dart';
 import 'package:the_green_manual/modules/onbording_modules/add_and_manage/add_and_manage_screen.dart';
@@ -142,7 +144,10 @@ class TheGreenManual extends StatelessWidget {
                   ),
                   '/client_inventory_details' : (context) => ChangeNotifierProvider(
                     create: (_) => ClientInventoryDetailState(context),
-                    child: const ClientInventoryDetailScreen())
+                    child: const ClientInventoryDetailScreen()),
+                    '/section_list' : (context) => ChangeNotifierProvider(
+                      create: (_) => SectionListState(context),
+                      child: SectionList()),
             },
           ),
         ),

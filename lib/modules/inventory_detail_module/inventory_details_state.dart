@@ -24,10 +24,25 @@ class InventoryDetailState extends BaseState {
   InventoryResponse? inventoryState;
 
   SingleProductResponse? productDetails;
+  String? sId;
+  Sections? section;
 
   InventoryDetailState(context) {
-    final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
-    item = args;
+    // final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
+    // item = args;
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    if (args['id'] != null) {
+      sId = args['id'];
+    }
+    if (args['section_name'] != null) {
+      sectionName = args['section_name'];
+    }
+    if (args['section'] != null) {
+      section = args['section'];
+    }
+    print('yo lado section ho : $section');
+    onSelectedSectionChanged(args['section']);
+
     notifyListeners();
     fetchProjectDetails();
   }
@@ -39,7 +54,7 @@ class InventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/projects/?_id=${item.sId}");
+      final response = await dio.get("/v1/projects/?_id=${sId}");
       inventoryState = InventoryResponse.fromJson(response.data);
       notifyListeners();
       fetchProductDetails();
@@ -115,11 +130,13 @@ class InventoryDetailState extends BaseState {
   Sections? sectionItem;
 
   onSelectedSectionChanged(Sections val) {
+    print('yo value ho: $val');
+    showLoadingDialog();
     selectedSection = val.sId;
     sectionItem = val;
     notifyListeners();
     controller.clear();
-    if (productDetails!.data!.product!.category == "Personal") {
+    if (productDetails?.data?.product?.category == "Personal") {
       quillData = jsonDecode(sectionItem!.content ?? "");
       controller = QuillController(
           document: Document.fromJson(quillData),
@@ -129,6 +146,7 @@ class InventoryDetailState extends BaseState {
       sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
     }
+    hideLoadingDialog();
   }
 
   String sectionBody = "";

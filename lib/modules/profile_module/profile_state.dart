@@ -28,7 +28,7 @@ class ProfileState extends ChangeNotifier {
       galleryImage = imageTemporary;
       notifyListeners();
       updateFileImage(imageTemporary);
-      fetchProfile();
+      // fetchProfile();
     } on PlatformException catch (e) {
       ToastService().e('Failed to pick image: $e');
     }
@@ -38,17 +38,19 @@ class ProfileState extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     String fileName = image.path.split('/').last;
-    FormData formData = FormData.fromMap({
-      "image": await MultipartFile.fromFile(
-        image.path,
-        // contentType: MediaType("image", "jpeg"),
-      ),
-    });
-    print(formData);
+    // FormData formData = FormData.fromMap({
+    //   "image": await MultipartFile.fromFile(
+    //     image.path,
+    //     // contentType: MediaType("image", "jpeg"),
+    //   ),
+    // });
+    FormData data =
+        FormData.fromMap({"image": await MultipartFile.fromFile(image!.path)});
+    print(data);
     // var data = {};
     try {
       var updateResponse =
-          await dio.patch('/v1/auth/update-picture', data: formData);
+          await dio.patch('/v1/auth/update-picture', data: data);
       fetchProfile();
     } on DioError catch (e) {
       print(e.response);

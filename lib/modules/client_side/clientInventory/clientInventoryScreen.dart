@@ -202,114 +202,114 @@ class ClientInventoryScreen extends StatelessWidget {
                                             Icons.star,
                                             color: primaryColor,
                                           ),
-                                        IconButton(
-                                          onPressed: () {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                builder: (context) {
-                                                  return Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: <Widget>[
-                                                      ListTile(
-                                                        leading: const Icon(
-                                                            Icons.text_fields),
-                                                        title: const Text(
-                                                            'Rename'),
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          showEditCategoryName(
-                                                              context,
-                                                              state
-                                                                  .projectState!
-                                                                  .data!
-                                                                  .products![
-                                                                      index]
-                                                                  .sId);
-                                                        },
-                                                      ),
-                                                      if (state
-                                                                  .projectState!
-                                                                  .data!
-                                                                  .products![
-                                                              index] !=
-                                                          null)
-                                                        ListTile(
-                                                          leading: Icon(state
-                                                                      .projectState!
-                                                                      .data!
-                                                                      .products![
-                                                                          index]
-                                                                      .private ==
-                                                                  true
-                                                              ? Icons.edit
-                                                              : Icons
-                                                                  .remove_red_eye),
-                                                          title: Text(
-                                                            state
-                                                                        .projectState!
-                                                                        .data!
-                                                                        .products![
-                                                                            index]
-                                                                        .private ==
-                                                                    true
-                                                                ? 'Edit'
-                                                                : "View",
-                                                          ),
-                                                          onTap: () {
-                                                            // Navigator.pop(
-                                                            //     context);
-                                                            // navigatorKey
-                                                            //     .currentState!
-                                                            //     .pushNamed(
-                                                            //   "/client_inventory_details",
-                                                            //   arguments: state
-                                                            //       .projectState!
-                                                            //       .data!
-                                                            //       .products![
-                                                            //           index]
-                                                            //       .sId,
-                                                            // );
+                                        // IconButton(
+                                        //   onPressed: () {
+                                        //     showModalBottomSheet(
+                                        //         context: context,
+                                        //         builder: (context) {
+                                        //           return Column(
+                                        //             mainAxisSize:
+                                        //                 MainAxisSize.min,
+                                        //             children: <Widget>[
+                                        //               ListTile(
+                                        //                 leading: const Icon(
+                                        //                     Icons.text_fields),
+                                        //                 title: const Text(
+                                        //                     'Rename'),
+                                        //                 onTap: () {
+                                        //                   Navigator.pop(
+                                        //                       context);
+                                        //                   showEditCategoryName(
+                                        //                       context,
+                                        //                       state
+                                        //                           .projectState!
+                                        //                           .data!
+                                        //                           .products![
+                                        //                               index]
+                                        //                           .sId);
+                                        //                 },
+                                        //               ),
+                                        //               if (state
+                                        //                           .projectState!
+                                        //                           .data!
+                                        //                           .products![
+                                        //                       index] !=
+                                        //                   null)
+                                        //                 ListTile(
+                                        //                   leading: Icon(state
+                                        //                               .projectState!
+                                        //                               .data!
+                                        //                               .products![
+                                        //                                   index]
+                                        //                               .private ==
+                                        //                           true
+                                        //                       ? Icons.edit
+                                        //                       : Icons
+                                        //                           .remove_red_eye),
+                                        //                   title: Text(
+                                        //                     state
+                                        //                                 .projectState!
+                                        //                                 .data!
+                                        //                                 .products![
+                                        //                                     index]
+                                        //                                 .private ==
+                                        //                             true
+                                        //                         ? 'Edit'
+                                        //                         : "View",
+                                        //                   ),
+                                        //                   onTap: () {
+                                        //                     // Navigator.pop(
+                                        //                     //     context);
+                                        //                     // navigatorKey
+                                        //                     //     .currentState!
+                                        //                     //     .pushNamed(
+                                        //                     //   "/client_inventory_details",
+                                        //                     //   arguments: state
+                                        //                     //       .projectState!
+                                        //                     //       .data!
+                                        //                     //       .products![
+                                        //                     //           index]
+                                        //                     //       .sId,
+                                        //                     // );
 
-                                                            // Navigator.pushNamed(
-                                                            //   context,
-                                                            //   '/client_inventory_details',
-                                                            //   arguments: state
-                                                            //       .projectState!
-                                                            //       .data!
-                                                            //       .products![index].sId,
-                                                            // );
-                                                          },
-                                                        ),
-                                                      ListTile(
-                                                        leading: const Icon(
-                                                            Icons.delete),
-                                                        title: const Text(
-                                                            'Delete'),
-                                                        onTap: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          showDeleteCategory(
-                                                            context,
-                                                            state
-                                                                .projectState!
-                                                                .data!
-                                                                .products![
-                                                                    index]
-                                                                .sId,
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
-                                          },
-                                          icon: const Icon(
-                                            Icons.more_vert,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
+                                        //                     // Navigator.pushNamed(
+                                        //                     //   context,
+                                        //                     //   '/client_inventory_details',
+                                        //                     //   arguments: state
+                                        //                     //       .projectState!
+                                        //                     //       .data!
+                                        //                     //       .products![index].sId,
+                                        //                     // );
+                                        //                   },
+                                        //                 ),
+                                        //               ListTile(
+                                        //                 leading: const Icon(
+                                        //                     Icons.delete),
+                                        //                 title: const Text(
+                                        //                     'Delete'),
+                                        //                 onTap: () {
+                                        //                   Navigator.pop(
+                                        //                       context);
+                                        //                   showDeleteCategory(
+                                        //                     context,
+                                        //                     state
+                                        //                         .projectState!
+                                        //                         .data!
+                                        //                         .products![
+                                        //                             index]
+                                        //                         .sId,
+                                        //                   );
+                                        //                 },
+                                        //               ),
+                                        //             ],
+                                        //           );
+                                        //         });
+                                        //   },
+                                        //   // icon: const Icon(
+                                        //   //   Icons.more_vert,
+                                        //   //   color: Colors.grey,
+                                        //   // ),
+                                        // ),
                                       ],
                                     )
                                   ],
