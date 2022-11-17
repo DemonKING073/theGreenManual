@@ -23,20 +23,20 @@ class HomeScreen extends StatelessWidget {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             // icon: ImageIcon(AssetImage('assets/icons/home.svg')),
-            icon: SvgPicture.asset('assets/icons/home.svg'),
+            icon: SvgPicture.asset('assets/icons/home.svg', color: homeState.selectedIndex == 0 ? primaryColor : Colors.grey,),
             label: 'Home',
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
             // icon: ImageIcon(AssetImage('assets/icons/resume.png')),
-            icon: SvgPicture.asset('assets/icons/resume.svg'),
+            icon: SvgPicture.asset('assets/icons/resume.svg', color: homeState.selectedIndex == 1 ? primaryColor : Colors.grey,),
 
             label: 'Resume',
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
             // icon: ImageIcon(AssetImage('assets/icons/create.png')),
-            icon: SvgPicture.asset('assets/icons/create.svg'),
+            icon: SvgPicture.asset('assets/icons/create.svg', color: homeState.selectedIndex == 2 ? primaryColor : Colors.grey,),
 
 
             label: 'Create',
@@ -44,14 +44,14 @@ class HomeScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             // icon: ImageIcon(AssetImage('assets/icons/inventory.png')),
-            icon: SvgPicture.asset('assets/icons/inventory.svg'),
+            icon: SvgPicture.asset('assets/icons/inventory.svg', color: homeState.selectedIndex == 3 ? primaryColor : Colors.grey,),
 
 
             label: 'Inventory',
             // backgroundColor: Colors.black
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('assets/icons/profile.2.png')),
+            icon: ImageIcon(AssetImage('assets/icons/profile.2.png',)),
 
             label: 'Profile',
             // backgroundColor: Colors.black

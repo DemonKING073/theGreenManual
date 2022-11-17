@@ -1,0 +1,9 @@
+{
+    "status":"success",
+    "data":{
+        "signedURL":{
+            "signedURL":"https://bcn-bucket.s3.ap-south-1.amazonaws.com/contents/file.json?Content-Type=application%2Fjson&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4TUU7IXG5NHBFI6G%2F20221117%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20221117T111202Z&X-Amz-Expires=360&X-Amz-Signature=782a98045a0f9b7a376b695b256a866577166c3c292e54e2feb3609724fad550&X-Amz-SignedHeaders=host%3Bx-amz-acl&x-amz-acl=public-read",
+            "filepath":"contents/file.json"
+            }
+        }
+}

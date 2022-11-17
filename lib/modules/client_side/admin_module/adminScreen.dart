@@ -314,6 +314,15 @@ class AdminScreen extends StatelessWidget {
                       description: '',
                       icons: Icons.question_mark_outlined,
                       onTap: () {}),
+                  profileButtonsWithOutDescription(
+                      title: 'About App',
+                      icons: Icons.info,
+                      onTap: () async {
+                        Uri url = Uri.parse("https://thegreenmanual.com/");
+                        if (await canLaunchUrl(url)) {
+                          launchUrl(url);
+                        }
+                      }),
                 ],
               ),
             ),

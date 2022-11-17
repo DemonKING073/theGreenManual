@@ -59,6 +59,19 @@ class CreateScreen extends StatelessWidget {
                 ),
                 LSizedBox(),
                 LSizedBox(),
+                Row(
+                  children: [
+                    Text(
+                      'Select Files',
+                      style: kBoldTextStyle(),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          state.pickFile();
+                        },
+                        child: Text('select'))
+                  ],
+                )
                 // ButtonWithIcon(
                 //   onTap: () {},
                 //   icon: Icons.edit_outlined,
@@ -75,58 +88,54 @@ class CreateScreen extends StatelessWidget {
             //   name: 'Create',
             // ),
             InkWell(
-                      onTap: state.submitLoading
-                          ? null
-                          : () async {
-                              await state.createProjects();
-                                  navigatorKey.currentState!
-                    .pushNamed('/home', arguments: 'home_display');
-                            },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: state.submitLoading
-                              ? LinearGradient(
-                                  colors: [
-                                      primaryColor.withOpacity(0.5),
-                                      const Color(0xff7ACCA9).withOpacity(0.5)
-                                    ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter)
-                              : LinearGradient(
-                                  colors: [
-                                      primaryColor,
-                                      const Color(0xff7ACCA9)
-                                    ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                        ),
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Create',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            mWidthSpan,
-                            if (state.submitLoading)
-                              const SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white),
-                                ),
-                              ),
-                          ],
+              onTap: state.submitLoading
+                  ? null
+                  : () async {
+                      await state.createProjects();
+                      navigatorKey.currentState!
+                          .pushNamed('/home', arguments: 'home_display');
+                    },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: state.submitLoading
+                      ? LinearGradient(
+                          colors: [
+                              primaryColor.withOpacity(0.5),
+                              const Color(0xff7ACCA9).withOpacity(0.5)
+                            ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)
+                      : LinearGradient(
+                          colors: [primaryColor, const Color(0xff7ACCA9)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                ),
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Create',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    mWidthSpan,
+                    if (state.submitLoading)
+                      const SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.white),
                         ),
                       ),
-                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -127,8 +127,14 @@ class ProjectTile extends StatelessWidget {
                       ),
                     ),
                   if (isPrivate)
-                    Icon(
-                      Icons.star,
+                    // Icon(
+                    //   Icons.star,
+                    //   color: primaryColor,
+                    // ),
+                    ImageIcon(
+                      AssetImage(
+                        'assets/images/personal.png',
+                      ),
                       color: primaryColor,
                     ),
                   IconButton(

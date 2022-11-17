@@ -67,7 +67,7 @@ class InventoryScreen extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Nick Name!', style: LBoldTextStyle()),
+              title: Text('Add Nickname!', style: LBoldTextStyle()),
               content: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -75,7 +75,7 @@ class InventoryScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Enter nick name',
+                            'Add a Nickname',
                             style: kBoldTextStyle(),
                             overflow: TextOverflow.fade,
                           ),
@@ -209,10 +209,11 @@ class InventoryScreen extends StatelessWidget {
                                                 .product!
                                                 .private ==
                                             true)
-                                          Icon(
-                                            Icons.star,
-                                            color: primaryColor,
-                                          ),
+                                          // Icon(
+                                          //   Icons.star,
+                                          //   color: primaryColor,
+                                          // ),
+                                          ImageIcon(AssetImage('assets/images/personal.png', ), color: primaryColor,),
                                         IconButton(
                                           onPressed: () {
                                             showModalBottomSheet(
@@ -226,7 +227,7 @@ class InventoryScreen extends StatelessWidget {
                                                         leading: const Icon(
                                                             Icons.text_fields),
                                                         title: const Text(
-                                                            'Rename'),
+                                                            'Add Nickname'),
                                                         onTap: () {
                                                           Navigator.pop(
                                                               context);
@@ -333,7 +334,7 @@ class InventoryScreen extends StatelessWidget {
                                           //   color: Colors.grey,
                                           // ),
                                           icon: ImageIcon(AssetImage(
-                                              'assets/icons/edit.png')),
+                                              'assets/icons/edit.png'), color: Colors.grey[800],),
                                         ),
                                       ],
                                     )
