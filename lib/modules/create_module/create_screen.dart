@@ -60,12 +60,14 @@ class CreateScreen extends StatelessWidget {
                 LSizedBox(),
                 LSizedBox(),
                 Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Select Files',
                       style: kBoldTextStyle(),
                     ),
                     ElevatedButton(
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(primaryColor)),
                         onPressed: () {
                           state.pickFile();
                         },
