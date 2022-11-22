@@ -140,13 +140,14 @@ class LoginState extends BaseState {
       }
 
       // ignore: empty_catches
-    } on DioError catch (err) {}
+    } on DioError catch (err) {
+      ToastService().e(err.message);
+    }
   }
 
   getVerification(context) async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
-      print("this is before $token");
       Dio newDio = Dio();
       final response = await newDio
           .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
@@ -156,6 +157,7 @@ class LoginState extends BaseState {
               data: {
             "provider": "password",
           });
+      print("this is resposne ${response.data}");
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
@@ -197,6 +199,8 @@ class LoginState extends BaseState {
       }
 
       // ignore: empty_catches
-    } on DioError catch (err) {}
+    } on DioError catch (err) {
+      ToastService().w(err.message);
+    }
   }
 }

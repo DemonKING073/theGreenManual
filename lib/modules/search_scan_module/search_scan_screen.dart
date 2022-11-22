@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/main.dart';
 
@@ -20,88 +21,183 @@ class SearchScanScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/search');
                 },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
-                        offset: const Offset(4, 8), // Shadow position
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 4,
+                            offset: const Offset(2, 1), // Shadow position
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                            radius: 25,
-                            backgroundColor: primaryColor,
-                            child: Image.asset('assets/icons/search.png')),
-                        kSizedBox(),
-                        Text(
-                          'Search',
-                          style: LBoldTextStyle(),
+                      height: MediaQuery.of(context).size.height * 0.28,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            mHeightSpan,
+                            SizedBox(
+                              width: 120,
+                              child: Image.asset(
+                                'assets/icons/search.png',
+                                fit: BoxFit.contain,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ],
                         ),
-                        kSizedBox(),
-                        const Text('We help develop company'),
-                        const Text('websites to be more'),
-                        const Text('professional and attractive')
-                      ],
+                      ),
                     ),
-                  ),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * .12,
+                            ),
+                            const Text(
+                              'Search',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
+                            kSizedBox(),
+                            const Text(
+                              'Search your product',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
+                                color: Color(0xFF6B6B6B),
+                              ),
+                            ),
+                            const Text(
+                              'manual ',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF6B6B6B),
+                                fontSize: 10,
+                              ),
+                            ),
+                            const Text(
+                              'by product name',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF6B6B6B),
+                                fontSize: 10,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               InkWell(
                 onTap: () {
                   navigatorKey.currentState!.pushNamed('/scanner_screen');
-                  // navigatorKey.currentState!.pushNamed('/scanner_result',
-                  //     arguments: "63357ac627d15e411b663aed");
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
-                        offset: const Offset(4, 8), // Shadow position
-                      ),
-                    ],
-                  ),
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 25,
-                          backgroundColor: primaryColor,
-                          // child: Image.asset(
-                          //   'assets/icons/Search.png',
-                          // )
-                          child: const Icon(
-                            Icons.fit_screen_sharp,
-                            color: Colors.white,
-                            size: 28,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 4,
+                            offset: const Offset(2, 1), // Shadow position
                           ),
+                        ],
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.28,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            mHeightSpan,
+                            SizedBox(
+                              width: 120,
+                              child: Image.asset(
+                                'assets/icons/scan.png',
+                                fit: BoxFit.contain,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ],
                         ),
-                        kSizedBox(),
-                        Text(
-                          'Scan',
-                          style: LBoldTextStyle(),
-                        ),
-                        kSizedBox(),
-                        const Text('We help develop company'),
-                        const Text('websites to be more'),
-                        const Text('professional and attractive')
-                      ],
+                      ),
                     ),
-                  ),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * .12,
+                            ),
+                            const Text(
+                              'Scan',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
+                            kSizedBox(),
+                            const Text(
+                              'Search your product',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
+                                color: Color(0xFF6B6B6B),
+                              ),
+                            ),
+                            const Text(
+                              'manual by scanning the ',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF6B6B6B),
+                                fontSize: 10,
+                              ),
+                            ),
+                            const Text(
+                              'qr code provided by the',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF6B6B6B),
+                                fontSize: 10,
+                              ),
+                            ),
+                            const Text(
+                              'manufacturer',
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF6B6B6B),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               )
             ],
