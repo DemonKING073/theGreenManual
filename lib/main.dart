@@ -48,7 +48,6 @@ import 'package:the_green_manual/modules/help_support_module/help_support_screen
 
 import 'package:the_green_manual/modules/project_details_module/project_details_screen.dart';
 import 'package:the_green_manual/modules/scanner_module/scanner_screen.dart';
-import 'package:the_green_manual/modules/scanner_module/scanner_state.dart';
 
 import 'modules/client_side/edit_admin_module/editAdminScreen.dart';
 
@@ -105,8 +104,7 @@ class TheGreenManual extends StatelessWidget {
               '/terms_condition': (context) => TermsAndCondition(),
               '/search': (context) => ChangeNotifierProvider(
                   create: (_) => SearchState(), child: const SearchScreen()),
-              '/scanner_screen': (context) => ChangeNotifierProvider(
-                  create: (_) => ScannerState(), child: const ScannerScreen()),
+              '/scanner_screen': (context) => const ScannerScreen(),
               '/profile_edit': (context) => ChangeNotifierProvider(
                   create: (_) => EditProfileState(context),
                   child: const EditProfileScreen()),
@@ -142,12 +140,12 @@ class TheGreenManual extends StatelessWidget {
                     create: (_) => EditAdminState(context),
                     child: const EditAdminScreen(),
                   ),
-                  '/client_inventory_details' : (context) => ChangeNotifierProvider(
-                    create: (_) => ClientInventoryDetailState(context),
-                    child: const ClientInventoryDetailScreen()),
-                    '/section_list' : (context) => ChangeNotifierProvider(
-                      create: (_) => SectionListState(context),
-                      child: SectionList()),
+              '/client_inventory_details': (context) => ChangeNotifierProvider(
+                  create: (_) => ClientInventoryDetailState(context),
+                  child: const ClientInventoryDetailScreen()),
+              '/section_list': (context) => ChangeNotifierProvider(
+                  create: (_) => SectionListState(context),
+                  child: const SectionList()),
             },
           ),
         ),

@@ -1,13 +1,15 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
 
-import 'package:provider/provider.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:scan/scan.dart';
+import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/constants/constant.dart';
 
 import 'package:the_green_manual/core/services/toast_service.dart';
+
 import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/modules/scanner_module/scanner_state.dart';
 import 'package:validators/validators.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -22,13 +24,9 @@ class _QRScanScreenState extends State<ScannerScreen> {
 
   bool isFlashon = false;
 
-  Barcode? barcode;
+  ScanController scanController = ScanController();
 
-  QRViewController? qrController;
-  static bool canPop(BuildContext context) {
-    final NavigatorState? navigator = Navigator.maybeOf(context);
-    return navigator != null && navigator.canPop();
-  }
+  ScanController qrController = ScanController();
 
   // @override
   // void reassemble() async {
@@ -43,8 +41,6 @@ class _QRScanScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ScannerState>(context);
-
     FocusScope.of(context).unfocus();
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
@@ -61,41 +57,34 @@ class _QRScanScreenState extends State<ScannerScreen> {
         backgroundColor: primaryColor,
         body: Stack(
           children: [
-            buildQrView(context),
-            // Positioned.fill(
-            //   top: 20,
-            //   left: 20,
-            //   child: Align(
-            //     alignment: Alignment.topLeft,
-            //     child: InkWell(
-            //       onTap: () {
-            //         if (canPop(context) == true) {
-            //           navigatorKey.currentState!.pop();
-            //         }
-            //       },
-            //       child: const SizedBox(
-            //         height: 40,
-            //         width: 40,
-            //         child: Center(
-            //           child: Icon(
-            //             Icons.arrow_back,
-            //             color: Colors.white,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            ScanView(
+              controller: qrController,
+              scanAreaScale: .7,
+              scanLineColor: Colors.green.shade400,
+              onCapture: (data) {
+                qrController.pause();
+                // do something
+                if (isMongoId(data)) {
+                  // ToastService().s("Found");
+                  navigatorKey.currentState!
+                      .popAndPushNamed("/scanner_result", arguments: data);
+                } else {
+                  ToastService().w("Product not found!");
+                  qrController.resume();
+                }
+              },
+            ),
             Positioned.fill(
-              top: MediaQuery.of(context).size.height * .28,
+              top: MediaQuery.of(context).size.height * .22,
               child: const Align(
                 alignment: Alignment.topCenter,
                 child: Text(
                   "Place QR In The Scanner",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: Colors.white,
+                    fontFamily: "Inter",
                   ),
                 ),
               ),
@@ -105,21 +94,53 @@ class _QRScanScreenState extends State<ScannerScreen> {
               // left: 30,
               child: Align(
                 alignment: Alignment.centerRight,
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (!isFlashon == true) {
-                        qrController!.toggleFlash();
-                      } else {
-                        qrController!.toggleFlash();
-                      }
-                      isFlashon = !isFlashon;
-                    });
-                  },
-                  icon: Icon(
-                    isFlashon == true ? Icons.flash_on : Icons.flash_off,
-                    color: Colors.grey,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        qrController.toggleTorchMode();
+                      },
+                      icon: Icon(
+                        isFlashon == true ? Icons.flash_on : Icons.flash_off,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    sHeightSpan,
+                    IconButton(
+                      onPressed: () async {
+                        qrController.pause();
+                        // List<Media>? res = await ImagesPicker.pick();
+                        FilePickerResult? result =
+                            await FilePicker.platform.pickFiles();
+                        if (result != null) {
+                          final file = File(result.files.single.path!);
+                          String? str = await Scan.parse(file.path);
+                          if (str == null) {
+                            ToastService().w("Qr not found!");
+                            qrController.resume();
+                            return;
+                          }
+                          if (isMongoId(str)) {
+                            // ToastService().s("Found");
+                            navigatorKey.currentState!.popAndPushNamed(
+                                "/scanner_result",
+                                arguments: str);
+                          } else {
+                            ToastService().w("Product not found!");
+                            qrController.resume();
+                          }
+                        } else {
+                          // User canceled the picker
+                          ToastService().w("Cancelled by the user!");
+                        }
+                      },
+                      icon: const Icon(
+                        Icons.image,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -129,48 +150,8 @@ class _QRScanScreenState extends State<ScannerScreen> {
     );
   }
 
-  Widget buildQrView(BuildContext context) {
-    if (qrController != null && mounted) {
-      qrController!.resumeCamera();
-    }
-    return QRView(
-      cameraFacing: CameraFacing.back,
-      key: qrKey,
-      
-      onQRViewCreated: onQrViewCreated,
-      overlay: QrScannerOverlayShape(
-        overlayColor: Colors.black.withOpacity(0.8),
-        
-        borderColor: primaryColor,
-        borderRadius: 10,
-        borderWidth: 4,
-        cutOutSize: MediaQuery.of(context).size.width * 0.6,
-      ),
-    );
-  }
-
-  void onQrViewCreated(QRViewController controller) {
-    setState(() => qrController = controller);
-
-    controller.scannedDataStream.listen((event) {
-      setState(() {
-        barcode = event;
-        qrController!.pauseCamera();
-        if (isMongoId(barcode!.code!)) {
-          // ToastService().s("Found");
-          navigatorKey.currentState!
-              .popAndPushNamed("/scanner_result", arguments: barcode!.code);
-        } else {
-          ToastService().w("Product not found!");
-          qrController!.resumeCamera();
-        }
-      });
-    });
-  }
-
   @override
   void dispose() {
-    qrController?.dispose();
     super.dispose();
   }
 }

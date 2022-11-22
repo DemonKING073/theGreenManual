@@ -42,7 +42,7 @@ class ScannerResultState extends BaseState {
   createProject() async {
     showLoadingDialog();
     var data = {
-      "name": projectName,
+      "name": productState!.data!.product!.name,
       "productId": productState!.data!.product!.sId
     };
     try {
@@ -52,7 +52,9 @@ class ScannerResultState extends BaseState {
       navigatorKey.currentState!
           .pushNamed('/home', arguments: 'inventory screen');
       ToastService().s('Created successfully');
-    } on DioError {}
+    } on DioError catch (err) {
+      ToastService().e(err.response.toString());
+    }
     hideLoadingDialog();
   }
 }
