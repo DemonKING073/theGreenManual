@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_green_manual/common/ui/ui_helpers.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/main.dart';
 
@@ -11,7 +12,7 @@ class SearchScanScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color.fromARGB(255, 249, 247, 247),
+          backgroundColor: const Color.fromARGB(255, 249, 247, 247),
           iconTheme: const IconThemeData(
             color: Colors.black, //change your color here
           ),
@@ -25,11 +26,11 @@ class SearchScanScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, '/helpAndSupport');
                 },
-                icon: ImageIcon(AssetImage('assets/icons/mic.png')))
+                icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
           ],
         ),
         body: Container(
-          color: Color.fromARGB(255, 249, 247, 247),
+          color: const Color.fromARGB(255, 249, 247, 247),
           padding: EdgeInsets.symmetric(
               vertical: 10,
               horizontal: MediaQuery.of(context).size.width * 0.15),
@@ -40,109 +41,185 @@ class SearchScanScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/search');
                 },
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 4,
-                        offset: const Offset(4, 8), // Shadow position
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 3,
+                            offset: const Offset(1, 1), // Shadow position
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .06,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 110,
+                                height: 80,
+                                child: Image.asset(
+                                  "assets/icons/scan.png",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Align(
+                        child: Column(
                           children: [
                             SizedBox(
-                              width: 110,
-                              height: 80,
-                              child: Image.asset(
-                                "assets/icons/search.png",
-                                fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * .14,
+                            ),
+                            const Text(
+                              "Search",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF111029),
+                              ),
+                            ),
+                            sHeightSpan,
+                            const Text(
+                              "Search your product ",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff6B6B6B),
+                              ),
+                            ),
+                            const Text(
+                              "manual by",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff6B6B6B),
+                              ),
+                            ),
+                            const Text(
+                              "product name.",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff6B6B6B),
                               ),
                             ),
                           ],
                         ),
-                        Text(
-                          'Search',
-                          style: LBoldTextStyle(),
-                        ),
-                        kSizedBox(),
-                        const Text('Search your product'),
-                        const Text('manual by product name'),
-                      ],
-                    ),
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               InkWell(
                 onTap: () {
                   navigatorKey.currentState!.pushNamed('/scanner_screen');
-                  // navigatorKey.currentState!.pushNamed('/scanner_result',
-                  //     arguments: "63357ac627d15e411b663aed");
+                  // Navigator.pushNamed(context, '/search');
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        blurRadius: 3,
-                        offset: const Offset(4, 8), // Shadow position
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 3,
+                            offset: const Offset(1, 1), // Shadow position
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // CircleAvatar(
-                        //   radius: 25,
-                        //   backgroundColor: primaryColor,
-                        //   // child: Image.asset(
-                        //   //   'assets/icons/Search.png',
-                        //   // )
-                        //   child: const Icon(
-                        //     Icons.fit_screen_sharp,
-                        //     color: Colors.white,
-                        //     size: 28,
-                        //   ),
-                        // ),
-                        // Image.asset('assets/icons/scan.png'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * .06,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 110,
+                                height: 80,
+                                child: Image.asset(
+                                  "assets/icons/scan.png",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned.fill(
+                      child: Align(
+                        child: Column(
                           children: [
                             SizedBox(
-                              width: 110,
-                              height: 80,
-                              child: Image.asset(
-                                "assets/icons/scan.png",
-                                fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * .14,
+                            ),
+                            const Text(
+                              "Scan",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF111029),
+                              ),
+                            ),
+                            sHeightSpan,
+                            const Text(
+                              "Search your product manual",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff6B6B6B),
+                              ),
+                            ),
+                            const Text(
+                              "by scanning the qr code",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff6B6B6B),
+                              ),
+                            ),
+                            const Text(
+                              "provided by the manufacturer.",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff6B6B6B),
                               ),
                             ),
                           ],
                         ),
-                        // kSizedBox(),
-                        Text(
-                          'Scan',
-                          style: LBoldTextStyle(),
-                        ),
-                        kSizedBox(),
-                        const Text('Search your product manual by'),
-                        const Text('scanning the qr code provided'),
-                        const Text('by the manufacturer')
-                      ],
-                    ),
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               )
             ],
