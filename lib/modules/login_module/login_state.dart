@@ -31,6 +31,8 @@ class LoginState extends BaseState {
 
       // Once signed in, return the UserCredential
       final res = await FirebaseAuth.instance.signInWithCredential(credential);
+      print("==========================================================");
+      print(res);
 
       final token = await res.user!.getIdToken();
       LocalStorageService().write(LocalStorageKeys.accessToken, token);
@@ -76,7 +78,10 @@ class LoginState extends BaseState {
         final res = await firebaseInstance.signInWithEmailAndPassword(
             email: email!, password: password!);
         final token = await res.user!.getIdToken();
+        print("\$ ${res.user!.getIdToken()}");
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
+        print('yo aarko token ho: $token');
+
         getVerification(context);
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
@@ -99,43 +104,30 @@ class LoginState extends BaseState {
               data: {
             "provider": "google",
           });
-      if (response.data['message'] ==
-          'Email verification link sent to your email. Verify your email before login') {
-        return showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(response.data['message'], style: LBoldTextStyle()),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    "Cancel",
-                    style: kTextStyle().copyWith(color: Colors.grey),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                    child: Text(
-                      'Ok',
-                      style: kTextStyle().copyWith(color: primaryColor),
-                    ),
-                    onPressed: () async {
-                      // await overViewState.updateName();
-                      Navigator.pop(context);
-                      // await overViewState.fetchData();
-                    }),
-              ],
-            );
-          },
-        );
-      } else {
+      print(
+          '-------------------------------------------------------------------');
+      print('yo token ho fghgfh:    $token');
+      print(response.data['data']['role']);
+      if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'client') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'subclient') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
       }
 
@@ -146,7 +138,6 @@ class LoginState extends BaseState {
   getVerification(context) async {
     try {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
-      print("this is before $token");
       Dio newDio = Dio();
       final response = await newDio
           .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
@@ -156,6 +147,8 @@ class LoginState extends BaseState {
               data: {
             "provider": "password",
           });
+      print(response);
+      print('condo jasto token: $token');
       if (response.data['message'] ==
           'Email verification link sent to your email. Verify your email before login') {
         return showDialog(
@@ -187,12 +180,26 @@ class LoginState extends BaseState {
             );
           },
         );
-      } else {
+      } else if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'client') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'subclient') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
       }
 

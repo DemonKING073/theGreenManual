@@ -5,6 +5,13 @@ import 'package:load/load.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/core/states/main_state.dart';
+import 'package:the_green_manual/modules/client_side/admin_module/adminScreen.dart';
+import 'package:the_green_manual/modules/client_side/admin_module/adminState.dart';
+import 'package:the_green_manual/modules/client_side/clientHome/client_home.dart';
+import 'package:the_green_manual/modules/client_side/clientHome/client_home_state.dart';
+import 'package:the_green_manual/modules/client_side/clientInventoryDetails/ClientInventoryDetailState.dart';
+import 'package:the_green_manual/modules/client_side/clientInventoryDetails/clientInventoryDetails.dart';
+import 'package:the_green_manual/modules/client_side/edit_admin_module/editAdminState.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
 import 'package:the_green_manual/modules/forgot_password_module/forgot_password_screen.dart';
@@ -13,6 +20,8 @@ import 'package:the_green_manual/modules/home_module/home_screen.dart';
 import 'package:the_green_manual/modules/home_module/home_state.dart';
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_screen.dart';
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_state.dart';
+import 'package:the_green_manual/modules/inventory_detail_module/section_List_module/section_list.dart';
+import 'package:the_green_manual/modules/inventory_detail_module/section_List_module/section_list_state.dart';
 import 'package:the_green_manual/modules/login_module/login_screen.dart';
 import 'package:the_green_manual/modules/login_module/login_state.dart';
 import 'package:the_green_manual/modules/onbording_modules/add_and_manage/add_and_manage_screen.dart';
@@ -40,6 +49,8 @@ import 'package:the_green_manual/modules/help_support_module/help_support_screen
 import 'package:the_green_manual/modules/project_details_module/project_details_screen.dart';
 import 'package:the_green_manual/modules/scanner_module/scanner_screen.dart';
 import 'package:the_green_manual/modules/scanner_module/scanner_state.dart';
+
+import 'modules/client_side/edit_admin_module/editAdminScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -124,6 +135,19 @@ class TheGreenManual extends StatelessWidget {
                     create: (_) => ScannerResultState(context),
                     child: const ScannerResultScreen(),
                   ),
+              '/client_home': (context) => ChangeNotifierProvider(
+                  create: (_) => ClientHomeState(),
+                  child: const ClientHomeScreen()),
+              '/edit_admin': (context) => ChangeNotifierProvider(
+                    create: (_) => EditAdminState(context),
+                    child: const EditAdminScreen(),
+                  ),
+                  '/client_inventory_details' : (context) => ChangeNotifierProvider(
+                    create: (_) => ClientInventoryDetailState(context),
+                    child: const ClientInventoryDetailScreen()),
+                    '/section_list' : (context) => ChangeNotifierProvider(
+                      create: (_) => SectionListState(context),
+                      child: SectionList()),
             },
           ),
         ),

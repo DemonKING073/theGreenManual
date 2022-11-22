@@ -42,40 +42,41 @@ class ResumeScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: ListView.builder(
-                      itemCount: state.projectState!.data!.projects!.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            if (state.projectState!.data!.projects![index]
-                                    .product !=
-                                null) {
-                              navigatorKey.currentState!.pushNamed(
-                                  '/resume_details',
-                                  arguments: state
-                                      .projectState!.data!.projects![index]);
-                            }
-                          },
-                          child: ProjectTile(
-                            isProductDeleted: state.projectState!.data!
-                                        .projects![index].product ==
-                                    null
-                                ? true
-                                : false,
-                            onTap: () {},
-                            isPrivate: state.projectState!.data!
-                                        .projects![index].product ==
-                                    null
-                                ? false
-                                : state.projectState!.data!.projects![index]
-                                            .product!.private ==
-                                        true
-                                    ? true
-                                    : false,
-                            projectName: state
-                                .projectState!.data!.projects![index].name!,
-                          ),
-                        );
-                      }),
+                    itemCount: state.projectState!.data!.projects!.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          if (state.projectState!.data!.projects![index]
+                                  .product !=
+                              null) {
+                            navigatorKey.currentState!.pushNamed(
+                                '/resume_details',
+                                arguments:
+                                    state.projectState!.data!.projects![index]);
+                          }
+                        },
+                        child: ProjectTile(
+                          isProductDeleted: state.projectState!.data!
+                                      .projects![index].product ==
+                                  null
+                              ? true
+                              : false,
+                          onTap: () {},
+                          isPrivate: state.projectState!.data!.projects![index]
+                                      .product ==
+                                  null
+                              ? false
+                              : state.projectState!.data!.projects![index]
+                                          .product!.private ==
+                                      true
+                                  ? true
+                                  : false,
+                          projectName:
+                              state.projectState!.data!.projects![index].name!,
+                        ),
+                      );
+                    },
+                  ),
                 ),
     );
   }
@@ -113,29 +114,41 @@ class ProjectTile extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              if (isProductDeleted)
-                const Text(
-                  "[ Product Deleted! ]",
-                  style: TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w200,
-                    color: Colors.red,
-                  ),
-                ),
-              if (isPrivate)
-                Icon(
-                  Icons.star,
-                  color: primaryColor,
-                ),
-              // IconButton(
-              //     onPressed: () {
-              //       onTap();
-              //     },
-              //     icon: const Icon(
-              //       Icons.more_vert,
-              //       color: Colors.grey,
-              //     ))
+              Row(
+                children: [
+                  if (isProductDeleted)
+                    const Text(
+                      "[ Product Deleted! ]",
+                      style: TextStyle(
+                        fontFamily: "Poppins",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w200,
+                        color: Colors.red,
+                      ),
+                    ),
+                  if (isPrivate)
+                    // Icon(
+                    //   Icons.star,
+                    //   color: primaryColor,
+                    // ),
+                    ImageIcon(
+                      AssetImage(
+                        'assets/images/personal.png',
+                      ),
+                      color: primaryColor,
+                    ),
+                  IconButton(
+                    onPressed: () {
+                      onTap();
+                    },
+                    // icon: const Icon(
+                    //   Icons.more_vert,
+                    //   color: Colors.grey,
+                    // )
+                    icon: ImageIcon(AssetImage('assets/icons/edit.png')),
+                  )
+                ],
+              )
             ],
           ),
         ),

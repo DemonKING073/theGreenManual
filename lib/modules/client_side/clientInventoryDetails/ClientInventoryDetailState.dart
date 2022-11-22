@@ -1,50 +1,34 @@
-// ignore_for_file: avoid_print, empty_catches
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:load/load.dart';
-import 'package:the_green_manual/apiModels/single_product_response.dart';
-
-import 'package:the_green_manual/core/http/http.dart';
-import 'package:the_green_manual/core/services/toast_service.dart';
-
 import 'package:the_green_manual/core/states/base_state.dart';
-import 'package:the_green_manual/main.dart';
 
-import 'package:the_green_manual/modules/inventory_module/modals/inventory_respones.dart';
+import '../../../apiModels/single_product_response.dart';
+import '../../../core/http/http.dart';
+import '../../../core/services/toast_service.dart';
+import '../../../main.dart';
+import '../../inventory_module/modals/inventory_respones.dart';
 
-class InventoryDetailState extends BaseState {
-  late InventoryItem item;
+class ClientInventoryDetailState extends BaseState {
+  // late InventoryItem item;
+  String? item;
 
   QuillController controller = QuillController.basic();
 
   InventoryResponse? inventoryState;
 
   SingleProductResponse? productDetails;
-  String? sId;
-  Sections? section;
 
-  InventoryDetailState(context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
-    // item = args;
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    if (args['id'] != null) {
-      sId = args['id'];
-    }
-    if (args['section_name'] != null) {
-      sectionName = args['section_name'];
-    }
-    if (args['section'] != null) {
-      section = args['section'];
-    }
-    print('yo lado section ho : $section');
-    onSelectedSectionChanged(args['section']);
-
+  ClientInventoryDetailState(context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+    print('yo args ho $args');
+    item = args;
     notifyListeners();
     fetchProjectDetails();
+    fetchProductDetails();
   }
 
   Dio dio = getHttp();
@@ -54,8 +38,9 @@ class InventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/projects/?_id=${sId}");
+      final response = await dio.get("/v1/projects/?_id=${item}");
       inventoryState = InventoryResponse.fromJson(response.data);
+      print(response);
       notifyListeners();
       fetchProductDetails();
     } catch (err) {}
@@ -64,10 +49,10 @@ class InventoryDetailState extends BaseState {
   fetchProductDetails() async {
     try {
       final response = await dio.get(
-          "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
-      print("this is data ${response.data}");
-      productDetails = SingleProductResponse.fromJson(response.data);
+          "/v1/products/${item}");
       print(response);
+      productDetails = SingleProductResponse.fromJson(response.data);
+      print('condo jasto $response');
       notifyListeners();
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {
@@ -130,13 +115,11 @@ class InventoryDetailState extends BaseState {
   Sections? sectionItem;
 
   onSelectedSectionChanged(Sections val) {
-    print('yo value ho: $val');
-    showLoadingDialog();
     selectedSection = val.sId;
     sectionItem = val;
     notifyListeners();
     controller.clear();
-    if (productDetails?.data?.product?.category == "Personal") {
+    if (productDetails!.data!.product!.category == "Personal") {
       quillData = jsonDecode(sectionItem!.content ?? "");
       controller = QuillController(
           document: Document.fromJson(quillData),
@@ -146,7 +129,6 @@ class InventoryDetailState extends BaseState {
       sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
     }
-    hideLoadingDialog();
   }
 
   String sectionBody = "";

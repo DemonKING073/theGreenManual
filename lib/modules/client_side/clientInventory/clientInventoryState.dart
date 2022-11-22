@@ -1,22 +1,21 @@
-// ignore_for_file: empty_catches
-
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:load/load.dart';
-
-import 'package:the_green_manual/core/http/http.dart';
-import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
-import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/modules/inventory_module/modals/inventory_respones.dart';
+import 'package:the_green_manual/modules/client_side/clientInventory/modal/client_inventory_response.dart';
 
-class InventoryState extends BaseState {
-  Dio dio = getHttp();
-  String? id;
-  InventoryResponse? projectState;
-  InventoryState() {
+import '../../../core/http/http.dart';
+import '../../../core/services/toast_service.dart';
+import '../../../main.dart';
+
+class ClientInventoryState extends BaseState {
+  ClientInventoryState() {
     fetchProjects();
   }
 
+  Dio dio = getHttp();
+  String? id;
+  ClientInventoryResponse? projectState;
   String newName = "";
 
   onNewNameChange(val) {
@@ -45,16 +44,14 @@ class InventoryState extends BaseState {
   }
 
   fetchProjects() async {
-    print("mah yaha xu");
     setLoading(true);
     try {
-      var response = await dio.get('/v1/projects/');
-      print(response);
-      projectState = InventoryResponse.fromJson(response.data);
+      var response = await dio.get('/v1/products');
+      projectState = ClientInventoryResponse.fromJson(response.data);
+      print("mah yaa xu ${response.data}");
+
       notifyListeners();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     setLoading(false);
   }
 
@@ -65,6 +62,7 @@ class InventoryState extends BaseState {
   }
 
   deleteProducts(id) async {
+    print(id);
     setLoading(true);
     try {
       navigatorKey.currentState!.pop();

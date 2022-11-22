@@ -67,7 +67,7 @@ class InventoryScreen extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Rename Project?', style: LBoldTextStyle()),
+              title: Text('Add Nickname!', style: LBoldTextStyle()),
               content: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -75,7 +75,7 @@ class InventoryScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            'Enter new project name?',
+                            'Add a Nickname',
                             style: kBoldTextStyle(),
                             overflow: TextOverflow.fade,
                           ),
@@ -157,9 +157,16 @@ class InventoryScreen extends StatelessWidget {
                         // print(
                         //     "yoooo ${state.projectState!.data!.projects![index].product?.sId}");
                         return InkWell(
+                          // onTap: () {
+                          //   navigatorKey.currentState!.pushNamed(
+                          //     "/inventory_details",
+                          //     arguments:
+                          //         state.projectState!.data!.projects![index],
+                          //   );
+                          // },
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
-                              "/inventory_details",
+                              "/section_list",
                               arguments:
                                   state.projectState!.data!.projects![index],
                             );
@@ -202,10 +209,11 @@ class InventoryScreen extends StatelessWidget {
                                                 .product!
                                                 .private ==
                                             true)
-                                          Icon(
-                                            Icons.star,
-                                            color: primaryColor,
-                                          ),
+                                          // Icon(
+                                          //   Icons.star,
+                                          //   color: primaryColor,
+                                          // ),
+                                          ImageIcon(AssetImage('assets/images/personal.png', ), color: primaryColor,),
                                         IconButton(
                                           onPressed: () {
                                             showModalBottomSheet(
@@ -219,7 +227,7 @@ class InventoryScreen extends StatelessWidget {
                                                         leading: const Icon(
                                                             Icons.text_fields),
                                                         title: const Text(
-                                                            'Rename'),
+                                                            'Add Nickname'),
                                                         onTap: () {
                                                           Navigator.pop(
                                                               context);
@@ -263,27 +271,39 @@ class InventoryScreen extends StatelessWidget {
                                                                 ? 'Edit'
                                                                 : "View",
                                                           ),
+                                                          // onTap: () {
+                                                          //   Navigator.pop(
+                                                          //       context);
+                                                          //   navigatorKey
+                                                          //       .currentState!
+                                                          //       .pushNamed(
+                                                          //     "/inventory_details",
+                                                          //     arguments: state
+                                                          //         .projectState!
+                                                          //         .data!
+                                                          //         .projects![index],
+                                                          //   );
                                                           onTap: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                            navigatorKey
-                                                                .currentState!
-                                                                .pushNamed(
-                                                              "/inventory_details",
+                                                          //   Navigator.pop(
+                                                          //       context);
+                                                          //   navigatorKey
+                                                          //       .currentState!
+                                                          //       .pushNamed(
+                                                          //     "/section_list",
+                                                          //     arguments: state
+                                                          //         .projectState!
+                                                          //         .data!
+                                                          //         .projects![index],
+                                                          //   );
+
+                                                            Navigator.pushNamed(
+                                                              context,
+                                                              '/inventory_details',
                                                               arguments: state
                                                                   .projectState!
                                                                   .data!
                                                                   .projects![index],
                                                             );
-
-                                                            // Navigator.pushNamed(
-                                                            //   context,
-                                                            //   '/inventory_details',
-                                                            //   arguments: state
-                                                            //       .projectState!
-                                                            //       .data!
-                                                            //       .projects![index],
-                                                            // );
                                                           },
                                                         ),
                                                       ListTile(
@@ -309,10 +329,12 @@ class InventoryScreen extends StatelessWidget {
                                                   );
                                                 });
                                           },
-                                          icon: const Icon(
-                                            Icons.more_vert,
-                                            color: Colors.grey,
-                                          ),
+                                          // icon: Icon(
+                                          //   Icons.more_vert,
+                                          //   color: Colors.grey,
+                                          // ),
+                                          icon: ImageIcon(AssetImage(
+                                              'assets/icons/edit.png'), color: Colors.grey[800],),
                                         ),
                                       ],
                                     )
