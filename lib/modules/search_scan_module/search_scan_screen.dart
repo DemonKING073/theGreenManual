@@ -10,7 +10,27 @@ class SearchScanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color.fromARGB(255, 249, 247, 247),
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          title: Text(
+            'Home',
+            style: LBoldTextStyle(),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/helpAndSupport');
+                },
+                icon: ImageIcon(AssetImage('assets/icons/mic.png')))
+          ],
+        ),
         body: Container(
+          color: Color.fromARGB(255, 249, 247, 247),
           padding: EdgeInsets.symmetric(
               vertical: 10,
               horizontal: MediaQuery.of(context).size.width * 0.15),

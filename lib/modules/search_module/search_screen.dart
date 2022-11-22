@@ -25,12 +25,19 @@ class SearchScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         Navigator.pushNamed(context, '/helpAndSupport');
+        //       },
+        //       icon: const Icon(Icons.support_agent))
+        // ],
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/helpAndSupport');
               },
-              icon: const Icon(Icons.support_agent))
+              icon: ImageIcon(AssetImage('assets/icons/mic.png')))
         ],
       ),
       body: SingleChildScrollView(
@@ -154,120 +161,124 @@ class SearchScreen extends StatelessWidget {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            // title: Text(
-                                            //     'Enter the section name you want to create',
-                                            //     style: LTextStyle()),
-                                            content: SingleChildScrollView(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 100,
-                                                        height: 80,
-                                                        child: Image.asset(
-                                                          "assets/icons/plus.png",
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: const [
-                                                      Text(
-                                                        "Enter the  name of ",
-                                                        style: TextStyle(
-                                                          fontFamily: "Poppins",
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: const [
-                                                      Text(
-                                                        "your project.",
-                                                        style: TextStyle(
-                                                          fontFamily: "Poppins",
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  mHeightSpan,
-                                                  Text(
-                                                    'Project Name',
-                                                    style: kBoldTextStyle(),
-                                                  ),
-                                                  kSizedBox(),
-                                                  TextFormField(
-                                                    cursorColor: primaryColor,
-                                                    onChanged: state
-                                                        .onProjectNameChange,
-                                                    decoration: InputDecoration(
-                                                      isDense: true,
-
-                                                      // hintMaxLines: 2,
-                                                      // hintText: "Enter Unit Price",
-                                                      border:
-                                                          const OutlineInputBorder(),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                primaryColor),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: Text(
-                                                  "Cancel",
-                                                  style: kTextStyle().copyWith(
-                                                      color: Colors.grey),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              TextButton(
-                                                  child: Text(
-                                                    'Add',
-                                                    style: kTextStyle()
-                                                        .copyWith(
-                                                            color:
-                                                                primaryColor),
-                                                  ),
-                                                  onPressed: () {
-                                                    state.createProject(
-                                                        e.sId ?? "");
-                                                  }),
-                                            ],
-                                          );
-                                        });
+                                    state.createProject(
+                                        e.sId ?? "", e.name ?? "");
                                   },
+                                  //   showDialog(
+                                  //       context: context,
+                                  //       builder: (context) {
+                                  //         return AlertDialog(
+                                  //           // title: Text(
+                                  //           //     'Enter the section name you want to create',
+                                  //           //     style: LTextStyle()),
+                                  //           content: SingleChildScrollView(
+                                  //             child: Column(
+                                  //               crossAxisAlignment:
+                                  //                   CrossAxisAlignment.start,
+                                  //               children: [
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment
+                                  //           .center,
+                                  //   children: [
+                                  //     SizedBox(
+                                  //       width: 100,
+                                  //       height: 80,
+                                  //       child: Image.asset(
+                                  //         "assets/icons/plus.png",
+                                  //         fit: BoxFit.cover,
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  //                 Row(
+                                  //                   mainAxisAlignment:
+                                  //                       MainAxisAlignment
+                                  //                           .center,
+                                  //                   children: const [
+                                  //                     Text(
+                                  //                       "Enter the  name of ",
+                                  //                       style: TextStyle(
+                                  //                         fontFamily: "Poppins",
+                                  //                         fontSize: 14,
+                                  //                         fontWeight:
+                                  //                             FontWeight.w400,
+                                  //                       ),
+                                  //                     ),
+                                  //                   ],
+                                  //                 ),
+                                  //                 Row(
+                                  //                   mainAxisAlignment:
+                                  //                       MainAxisAlignment
+                                  //                           .center,
+                                  //                   children: const [
+                                  //                     Text(
+                                  //                       "your project.",
+                                  //                       style: TextStyle(
+                                  //                         fontFamily: "Poppins",
+                                  //                         fontSize: 14,
+                                  //                         fontWeight:
+                                  //                             FontWeight.w400,
+                                  //                       ),
+                                  //                     ),
+                                  //                   ],
+                                  //                 ),
+                                  //                 mHeightSpan,
+                                  //                 Text(
+                                  //                   'Project Name',
+                                  //                   style: kBoldTextStyle(),
+                                  //                 ),
+                                  //                 kSizedBox(),
+                                  //                 TextFormField(
+                                  //                   cursorColor: primaryColor,
+                                  //                   onChanged: state
+                                  //                       .onProjectNameChange,
+                                  //                   decoration: InputDecoration(
+                                  //                     isDense: true,
+
+                                  //                     // hintMaxLines: 2,
+                                  //                     // hintText: "Enter Unit Price",
+                                  //                     border:
+                                  //                         const OutlineInputBorder(),
+                                  //                     focusedBorder:
+                                  //                         OutlineInputBorder(
+                                  //                       borderSide: BorderSide(
+                                  //                           color:
+                                  //                               primaryColor),
+                                  //                     ),
+                                  //                   ),
+                                  //                 ),
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //           actions: <Widget>[
+                                  //             TextButton(
+                                  //               child: Text(
+                                  //                 "Cancel",
+                                  //                 style: kTextStyle().copyWith(
+                                  //                     color: Colors.grey),
+                                  //               ),
+                                  //               onPressed: () {
+                                  //                 Navigator.pop(context);
+                                  //               },
+                                  //             ),
+                                  //             TextButton(
+                                  //                 child: Text(
+                                  //                   'Add',
+                                  //                   style: kTextStyle()
+                                  //                       .copyWith(
+                                  //                           color:
+                                  //                               primaryColor),
+                                  //                 ),
+                                  //                 onPressed: () {
+                                  //                   state.createProject(
+                                  //                       e.sId ?? "",
+                                  //                       e.name ?? "");
+                                  //                 }),
+                                  //           ],
+                                  //         );
+                                  //       });
+                                  // },
                                   child: Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(

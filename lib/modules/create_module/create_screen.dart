@@ -21,17 +21,17 @@ class CreateScreen extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        // leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         title: Text(
           'Create',
           style: LBoldTextStyle(),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: ImageIcon(AssetImage('assets/icons/mic.png')))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: ImageIcon(AssetImage('assets/icons/mic.png')))
+        // ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -59,6 +59,21 @@ class CreateScreen extends StatelessWidget {
                 ),
                 LSizedBox(),
                 LSizedBox(),
+                Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Select Files',
+                      style: kBoldTextStyle(),
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(primaryColor)),
+                        onPressed: () {
+                          state.pickFile();
+                        },
+                        child: Text('select'))
+                  ],
+                )
                 // ButtonWithIcon(
                 //   onTap: () {},
                 //   icon: Icons.edit_outlined,
@@ -75,58 +90,54 @@ class CreateScreen extends StatelessWidget {
             //   name: 'Create',
             // ),
             InkWell(
-                      onTap: state.submitLoading
-                          ? null
-                          : () async {
-                              await state.createProjects();
-                                  navigatorKey.currentState!
-                    .pushNamed('/home', arguments: 'home_display');
-                            },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: state.submitLoading
-                              ? LinearGradient(
-                                  colors: [
-                                      primaryColor.withOpacity(0.5),
-                                      const Color(0xff7ACCA9).withOpacity(0.5)
-                                    ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter)
-                              : LinearGradient(
-                                  colors: [
-                                      primaryColor,
-                                      const Color(0xff7ACCA9)
-                                    ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                        ),
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Create',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            mWidthSpan,
-                            if (state.submitLoading)
-                              const SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white),
-                                ),
-                              ),
-                          ],
+              onTap: state.submitLoading
+                  ? null
+                  : () async {
+                      await state.createProjects();
+                      navigatorKey.currentState!
+                          .pushNamed('/home', arguments: 'home_display');
+                    },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: state.submitLoading
+                      ? LinearGradient(
+                          colors: [
+                              primaryColor.withOpacity(0.5),
+                              const Color(0xff7ACCA9).withOpacity(0.5)
+                            ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)
+                      : LinearGradient(
+                          colors: [primaryColor, const Color(0xff7ACCA9)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
+                ),
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Create',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    mWidthSpan,
+                    if (state.submitLoading)
+                      const SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.white),
                         ),
                       ),
-                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

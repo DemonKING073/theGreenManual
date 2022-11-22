@@ -1,22 +1,19 @@
-// ignore_for_file: must_be_immutable, camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:provider/provider.dart';
-import 'package:the_green_manual/core/services/local_storage_services.dart';
-import 'package:the_green_manual/main.dart';
-import 'package:the_green_manual/modules/profile_module/profile_state.dart';
+import 'package:the_green_manual/modules/client_side/admin_module/adminState.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../constants/constant.dart';
+import '../../../constants/constant.dart';
+import '../../../core/services/local_storage_services.dart';
+import '../../../main.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class AdminScreen extends StatelessWidget {
+  const AdminScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<ProfileState>(context);
+    final state = Provider.of<AdminState>(context);
 
     showLanguageUpdateDialog(BuildContext context) async {
       return showDialog(
@@ -139,18 +136,18 @@ class ProfileScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        // leading:
-        //     IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+        leading:
+            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
         title: Text(
           'Profile',
           style: LBoldTextStyle(),
         ),
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {},
-        //       icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
-        // ],
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const ImageIcon(AssetImage('assets/icons/mic.png')))
+        ],
       ),
       body: state.isLoading
           ? Center(
@@ -243,7 +240,7 @@ class ProfileScreen extends StatelessWidget {
                         IconButton(
                             onPressed: () async {
                               await navigatorKey.currentState!.pushNamed(
-                                '/profile_edit',
+                                '/edit_admin',
                                 arguments: "edit",
                               );
                               state.fetchProfile();
@@ -281,7 +278,7 @@ class ProfileScreen extends StatelessWidget {
                         //   icons: Icons.person_outline,
                         //   onTap: () {
                         //     navigatorKey.currentState!.pushNamed(
-                        //       '/profile_edit',
+                        //       '/edit_admin',
                         //       arguments: "view",
                         //     );
                         //   },
@@ -312,46 +309,20 @@ class ProfileScreen extends StatelessWidget {
                     style: kBoldTextStyle(),
                   ),
                   LSizedBox(),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 3,
-                          blurRadius: 2,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: Column(
-                      children: [
-                        profileButtonsWithOutDescription(
-                          title: 'Help And Support',
-                          icons: Icons.support_agent,
-                          onTap: () {
-                            navigatorKey.currentState!
-                                .pushNamed('/helpAndSupport');
-                          },
-                        ),
-                        LSizedBox(),
-                        profileButtonsWithOutDescription(
-                            title: 'About App',
-                            icons: Icons.info,
-                            onTap: () async {
-                              Uri url =
-                                  Uri.parse("https://thegreenmanual.com/");
-                              if (await canLaunchUrl(url)) {
-                                launchUrl(url);
-                              }
-                            }),
-                      ],
-                    ),
-                  ),
+                  profileButtons(
+                      title: 'About App',
+                      description: '',
+                      icons: Icons.question_mark_outlined,
+                      onTap: () {}),
+                  profileButtonsWithOutDescription(
+                      title: 'About App',
+                      icons: Icons.info,
+                      onTap: () async {
+                        Uri url = Uri.parse("https://thegreenmanual.com/");
+                        if (await canLaunchUrl(url)) {
+                          launchUrl(url);
+                        }
+                      }),
                 ],
               ),
             ),

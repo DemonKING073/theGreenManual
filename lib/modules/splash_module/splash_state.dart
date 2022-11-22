@@ -47,16 +47,38 @@ class SplashState extends BaseState {
   bool isError = false;
 
   validAccessToken() async {
+    print(token);
     try {
-      await dio.get('/v1/auth/fetch-profile');
-      Future.delayed(
-        const Duration(seconds: 2),
-        () {
-          navigatorKey.currentState!
-              .pushNamedAndRemoveUntil('/home', (route) => false);
-        },
-      );
+      var response = await dio.get('/v1/auth/fetch-profile');
+      print("yo role ho.. ${response.data['data']['user']['role']}");
+      if (response.data['data']['user']['role'] == 'client') {
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/client_home', (route) => false);
+          },
+        );
+      } else if (response.data['data']['user']['role'] == 'subclient') {
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/client_home', (route) => false);
+          },
+        );
+      } else if (response.data['data']['user']['role'] == 'customer') {
+        Future.delayed(
+          const Duration(seconds: 2),
+          () {
+            navigatorKey.currentState!
+                .pushNamedAndRemoveUntil('/home', (route) => false);
+          },
+        );
+      }
     } on DioError catch (e) {
+      print('yo error ho..!!');
+      print(e.response);
       LocalStorageService().clear(LocalStorageKeys.accessToken);
       Future.delayed(
         const Duration(seconds: 2),

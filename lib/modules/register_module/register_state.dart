@@ -90,43 +90,58 @@ class RegisterState extends BaseState {
               data: {
             "provider": "google",
           });
-      if (response.data['message'] ==
-          'Email verification link sent to your email. Verify your email before login') {
-        return showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text(response.data['message'], style: LBoldTextStyle()),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    "Cancel",
-                    style: kTextStyle().copyWith(color: Colors.grey),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                    child: Text(
-                      'Ok',
-                      style: kTextStyle().copyWith(color: primaryColor),
-                    ),
-                    onPressed: () async {
-                      // await overViewState.updateName();
-                      Navigator.pop(context);
-                      // await overViewState.fetchData();
-                    }),
-              ],
-            );
-          },
-        );
-      } else {
+      // if (response.data['message'] ==
+      //     'Email verification link sent to your email. Verify your email before login') {
+      //   return showDialog(
+      //     context: context,
+      //     builder: (context) {
+      //       return AlertDialog(
+      //         title: Text(response.data['message'], style: LBoldTextStyle()),
+      //         actions: <Widget>[
+      //           TextButton(
+      //             child: Text(
+      //               "Cancel",
+      //               style: kTextStyle().copyWith(color: Colors.grey),
+      //             ),
+      //             onPressed: () {
+      //               Navigator.pop(context);
+      //             },
+      //           ),
+      //           TextButton(
+      //               child: Text(
+      //                 'Ok',
+      //                 style: kTextStyle().copyWith(color: primaryColor),
+      //               ),
+      //               onPressed: () async {
+      //                 // await overViewState.updateName();
+      //                 Navigator.pop(context);
+      //                 // await overViewState.fetchData();
+      //               }),
+      //         ],
+      //       );
+      //     },
+      //   );
+      // } else {
+      if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
         ToastService().s("Login Successfull!");
         navigatorKey.currentState!
             .pushNamedAndRemoveUntil("/home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'client') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
+        setSubmitLoading(false);
+      } else if (response.data['data']['role'] == 'subclient') {
+        LocalStorageService()
+            .write(LocalStorageKeys.accessToken, response.data['token']);
+        ToastService().s("Login Successfull!");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil("/client_home", (route) => false);
         setSubmitLoading(false);
       }
 
@@ -180,12 +195,28 @@ class RegisterState extends BaseState {
           },
         );
       } else {
-        LocalStorageService()
-            .write(LocalStorageKeys.accessToken, response.data['token']);
-        ToastService().s("Login Successfull!");
-        navigatorKey.currentState!
-            .pushNamedAndRemoveUntil("/home", (route) => false);
-        setSubmitLoading(false);
+        if (response.data['data']['role'] == 'customer') {
+          LocalStorageService()
+              .write(LocalStorageKeys.accessToken, response.data['token']);
+          ToastService().s("Login Successfull!");
+          navigatorKey.currentState!
+              .pushNamedAndRemoveUntil("/home", (route) => false);
+          setSubmitLoading(false);
+        } else if (response.data['data']['role'] == 'client') {
+          LocalStorageService()
+              .write(LocalStorageKeys.accessToken, response.data['token']);
+          ToastService().s("Login Successfull!");
+          navigatorKey.currentState!
+              .pushNamedAndRemoveUntil("/client_home", (route) => false);
+          setSubmitLoading(false);
+        } else if (response.data['data']['role'] == 'subclient') {
+          LocalStorageService()
+              .write(LocalStorageKeys.accessToken, response.data['token']);
+          ToastService().s("Login Successfull!");
+          navigatorKey.currentState!
+              .pushNamedAndRemoveUntil("/client_home", (route) => false);
+          setSubmitLoading(false);
+        }
       }
 
       // ignore: empty_catches
