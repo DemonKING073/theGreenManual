@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/constant.dart';
-import 'package:the_green_manual/constants/helper.dart';
-import 'package:the_green_manual/main.dart';
 import 'package:the_green_manual/modules/create_module/create_state.dart';
 
 import '../../common/ui/ui_helpers.dart';
@@ -18,7 +16,7 @@ class CreateScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
         // leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
@@ -34,73 +32,89 @@ class CreateScreen extends StatelessWidget {
         // ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
-                  onChanged: state.onNameChanged,
-                  cursorColor: primaryColor,
-                  decoration: InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor)),
-                      hintText: 'Project Name?'),
-                ),
-                kSizedBox(),
-                TextFormField(
-                  onChanged: state.onModelChanged,
-                  cursorColor: primaryColor,
-                  decoration: InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor)),
-                      hintText: 'Product name or Model'),
-                ),
-                LSizedBox(),
+                // TextFormField(
+                //   onChanged: state.onNameChanged,
+                //   cursorColor: primaryColor,
+                //   decoration: InputDecoration(
+                //       focusedBorder: UnderlineInputBorder(
+                //           borderSide: BorderSide(color: primaryColor)),
+                //       hintText: 'Project Name?'),
+                // ),
+                // kSizedBox(),
+                // TextFormField(
+                //   onChanged: state.onModelChanged,
+                //   cursorColor: primaryColor,
+                //   decoration: InputDecoration(
+                //       focusedBorder: UnderlineInputBorder(
+                //           borderSide: BorderSide(color: primaryColor)),
+                //       hintText: 'Product name or Model'),
+                // ),
+                // LSizedBox(),
                 LSizedBox(),
                 Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Select Files',
                       style: kBoldTextStyle(),
                     ),
                     ElevatedButton(
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(primaryColor)),
-                        onPressed: () {
-                          state.pickFile();
-                        },
-                        child: Text('select'))
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(primaryColor)),
+                      onPressed: () {
+                        state.pickFile();
+                      },
+                      child: const Text(
+                        'select',
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                        ),
+                      ),
+                    )
                   ],
-                )
-                // ButtonWithIcon(
-                //   onTap: () {},
-                //   icon: Icons.edit_outlined,
-                //   name: 'Create Section',
-                // )
+                ),
+                sHeightSpan,
+                if (state.file != null)
+                  Text.rich(
+                    TextSpan(children: [
+                      const TextSpan(
+                        text: "Filename: ",
+                        style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextSpan(
+                        text: state.fileName,
+                        style: const TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w200,
+                        ),
+                      ),
+                    ]),
+                  ),
               ],
             ),
-            // Button(
-            //   onTap: () async {
-            //     await state.createProjects();
-            //     navigatorKey.currentState!
-            //         .pushNamed('/home', arguments: 'home_display');
-            //   },
-            //   name: 'Create',
-            // ),
             InkWell(
-              onTap: state.submitLoading
+              onTap: (state.file == null || state.isLoading)
                   ? null
-                  : () async {
-                      await state.createProjects();
-                      navigatorKey.currentState!
-                          .pushNamed('/home', arguments: 'home_display');
+                  : () {
+                      state.getSignedUrl();
                     },
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  gradient: state.submitLoading
+                  gradient: (state.isLoading || state.file == null)
                       ? LinearGradient(
                           colors: [
                               primaryColor.withOpacity(0.5),
@@ -126,7 +140,7 @@ class CreateScreen extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                     ),
                     mWidthSpan,
-                    if (state.submitLoading)
+                    if (state.isLoading)
                       const SizedBox(
                         height: 25,
                         width: 25,

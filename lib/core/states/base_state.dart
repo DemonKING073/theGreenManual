@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:flutter/material.dart';
 
 class BaseState extends ChangeNotifier {
@@ -20,5 +22,10 @@ class BaseState extends ChangeNotifier {
   setLoading(bool val) {
     loading = val;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -17,6 +19,10 @@ class ProfileState extends ChangeNotifier {
     'Hindi',
     'Spanish',
   ];
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   File? galleryImage;
   Future pickImage(ImageSource source) async {
