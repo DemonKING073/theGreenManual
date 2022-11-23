@@ -152,18 +152,7 @@ class InventoryScreen extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: state.projectState!.data!.projects!.length,
                       itemBuilder: (context, index) {
-                        // print(
-                        //     "yoooo ${state.projectState!.data!.projects![index].product?.private}");
-                        // print(
-                        //     "yoooo ${state.projectState!.data!.projects![index].product?.sId}");
                         return InkWell(
-                          // onTap: () {
-                          //   navigatorKey.currentState!.pushNamed(
-                          //     "/inventory_details",
-                          //     arguments:
-                          //         state.projectState!.data!.projects![index],
-                          //   );
-                          // },
                           onTap: () {
                             navigatorKey.currentState!.pushNamed(
                               "/section_list",
@@ -213,7 +202,12 @@ class InventoryScreen extends StatelessWidget {
                                           //   Icons.star,
                                           //   color: primaryColor,
                                           // ),
-                                          ImageIcon(AssetImage('assets/images/personal.png', ), color: primaryColor,),
+                                          ImageIcon(
+                                            AssetImage(
+                                              'assets/images/personal.png',
+                                            ),
+                                            color: primaryColor,
+                                          ),
                                         IconButton(
                                           onPressed: () {
                                             showModalBottomSheet(
@@ -284,17 +278,17 @@ class InventoryScreen extends StatelessWidget {
                                                           //         .projects![index],
                                                           //   );
                                                           onTap: () {
-                                                          //   Navigator.pop(
-                                                          //       context);
-                                                          //   navigatorKey
-                                                          //       .currentState!
-                                                          //       .pushNamed(
-                                                          //     "/section_list",
-                                                          //     arguments: state
-                                                          //         .projectState!
-                                                          //         .data!
-                                                          //         .projects![index],
-                                                          //   );
+                                                            //   Navigator.pop(
+                                                            //       context);
+                                                            //   navigatorKey
+                                                            //       .currentState!
+                                                            //       .pushNamed(
+                                                            //     "/section_list",
+                                                            //     arguments: state
+                                                            //         .projectState!
+                                                            //         .data!
+                                                            //         .projects![index],
+                                                            //   );
 
                                                             Navigator.pushNamed(
                                                               context,
@@ -333,8 +327,10 @@ class InventoryScreen extends StatelessWidget {
                                           //   Icons.more_vert,
                                           //   color: Colors.grey,
                                           // ),
-                                          icon: ImageIcon(AssetImage(
-                                              'assets/icons/edit.png'), color: Colors.grey[800],),
+                                          icon: ImageIcon(
+                                            AssetImage('assets/icons/edit.png'),
+                                            color: Colors.grey[800],
+                                          ),
                                         ),
                                       ],
                                     )

@@ -1,9 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/constants/constant.dart';
 import 'package:the_green_manual/main.dart';
+
 import 'package:the_green_manual/modules/inventory_detail_module/section_List_module/section_list_state.dart';
 
 class SectionList extends StatelessWidget {
@@ -13,72 +15,114 @@ class SectionList extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<SectionListState>(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        centerTitle: true,
-        title: Text(
-          'Sections',
-          style: LBoldTextStyle().copyWith(color: Colors.white),
-        ),
-      ),
-      body: state.isLoading
-          ? Center(
-              child: CircularProgressIndicator(
-                color: primaryColor,
-              ),
-            )
-          : Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: state.productDetails!.data!.product!.sections!.isNotEmpty
-                  ? Column(
-                      children: state.productDetails!.data!.product!.sections!
-                          .map((e) {
-                        return InkWell(
-                          onTap: () {
-                            print('condo');
-                            Navigator.pushNamed(context, "/inventory_details",
-                                arguments: {
-                                  'id': state.inventoryState!.data!.projects!
-                                      .first.sId,
-                                  'section_name': e.name,
-                                  'section' : e
-                                });
-                          },
-                          child: SectionTile(
-                            section_name: e.name,
-                          ),
-                        );
-                      }).toList(),
-                    )
-                  : Center(
-                      child: Text(
-                        'No section!',
-                        style: kBoldTextStyle(),
-                      ),
-                    ),
+        body: SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    navigatorKey.currentState!.pop();
+                  },
+                  child: const Icon(
+                    Icons.arrow_back,
+                  ),
+                ),
+                const Text(
+                  "Sections",
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(
+                  width: 40,
+                )
+              ],
             ),
-    );
+          ),
+          Expanded(
+            child: state.isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: primaryColor,
+                    ),
+                  )
+                : Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: state
+                            .productDetails!.data!.product!.sections!.isNotEmpty
+                        ? Column(
+                            children: state
+                                .productDetails!.data!.product!.sections!
+                                .map((e) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/inventory_details",
+                                    arguments: {
+                                      'id': state.inventoryState!.data!
+                                          .projects!.first.sId,
+                                      'section_name': e.name,
+                                      'section': e
+                                    },
+                                  );
+                                },
+                                child: SectionTile(
+                                  sectionName: e.name,
+                                ),
+                              );
+                            }).toList(),
+                          )
+                        : Container(
+                            color: Colors.white,
+                            child: Center(
+                              child: Text(
+                                'No section!',
+                                style: kBoldTextStyle(),
+                              ),
+                            ),
+                          ),
+                  ),
+          )
+        ],
+      ),
+    ));
   }
 }
 
 class SectionTile extends StatelessWidget {
-  String? section_name;
+  String? sectionName;
   SectionTile({
-    Key? key,
-    this.section_name,
+    super.key,
+    this.sectionName,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(), borderRadius: BorderRadius.circular(10)),
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(bottom: 10),
+          border: Border.all(color: const Color(0xffE4E4E4)),
+          borderRadius: BorderRadius.circular(10)),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 18,
+      ),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Row(children: [
         Text(
-          section_name!,
-          style: kBoldTextStyle(),
+          sectionName!,
+          style: const TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ]),
     );
