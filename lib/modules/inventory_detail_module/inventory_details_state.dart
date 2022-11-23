@@ -28,8 +28,6 @@ class InventoryDetailState extends BaseState {
   Sections? section;
 
   InventoryDetailState(context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as InventoryItem;
-    // item = args;
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     if (args['id'] != null) {
       sId = args['id'];
@@ -39,11 +37,14 @@ class InventoryDetailState extends BaseState {
     }
     if (args['section'] != null) {
       section = args['section'];
+      onSelectedSectionChanged(section!);
     }
-    print('yo lado section ho : $section');
-    onSelectedSectionChanged(args['section']);
+    if (args['section_id'] != null) {
+      selectedSection = args['section_id'];
 
-    notifyListeners();
+      notifyListeners();
+      print("lado ${selectedSection}");
+    }
     fetchProjectDetails();
   }
 
@@ -54,7 +55,7 @@ class InventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/projects/?_id=${sId}");
+      final response = await dio.get("/v1/projects/?_id=$sId");
       inventoryState = InventoryResponse.fromJson(response.data);
       notifyListeners();
       fetchProductDetails();
@@ -69,30 +70,6 @@ class InventoryDetailState extends BaseState {
       productDetails = SingleProductResponse.fromJson(response.data);
       print(response);
       notifyListeners();
-      if (productDetails!.data!.product!.sections != null &&
-          productDetails!.data!.product!.sections!.isNotEmpty) {
-        selectedSection = productDetails!.data!.product!.sections!.first.sId;
-        notifyListeners();
-        try {
-          quillData = jsonDecode(
-              productDetails!.data!.product!.sections!.first.content!);
-          controller = QuillController(
-              document: Document.fromJson(quillData),
-              selection: const TextSelection.collapsed(offset: 0));
-          notifyListeners();
-        } catch (er) {}
-      }
-      if (productDetails!.data!.product!.sections != null &&
-          productDetails!.data!.product!.sections!.isNotEmpty) {
-        selectedSection = productDetails!.data!.product!.sections?.first.sId;
-        notifyListeners();
-        if (productDetails!.data!.product!.category != "personal") {
-          sectionBody =
-              productDetails!.data!.product!.sections!.first.content ??
-                  "Empty Section!";
-          notifyListeners();
-        }
-      }
     } on DioError {}
     setLoading(false);
   }
@@ -120,7 +97,7 @@ class InventoryDetailState extends BaseState {
     hideLoadingDialog();
   }
 
-  String sectionName = "";
+  late String sectionName;
 
   onSectionNameChanged(String val) {
     sectionName = val;
@@ -130,23 +107,12 @@ class InventoryDetailState extends BaseState {
   Sections? sectionItem;
 
   onSelectedSectionChanged(Sections val) {
-    print('yo value ho: $val');
-    showLoadingDialog();
     selectedSection = val.sId;
     sectionItem = val;
     notifyListeners();
-    controller.clear();
-    if (productDetails?.data?.product?.category == "Personal") {
-      quillData = jsonDecode(sectionItem!.content ?? "");
-      controller = QuillController(
-          document: Document.fromJson(quillData),
-          selection: const TextSelection.collapsed(offset: 0));
-      notifyListeners();
-    } else {
-      sectionBody = val.content ?? "Empty Section!";
-      notifyListeners();
-    }
-    hideLoadingDialog();
+    sectionBody = val.content ?? "Empty Section!";
+    notifyListeners();
+    setLoading(false);
   }
 
   String sectionBody = "";

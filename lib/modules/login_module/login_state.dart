@@ -11,7 +11,7 @@ import 'package:the_green_manual/core/states/base_state.dart';
 import 'package:the_green_manual/main.dart';
 
 class LoginState extends BaseState {
-  final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>(debugLabel: "LGN");
   Dio dio = getHttp();
 
   Future googleLogIn(context) async {

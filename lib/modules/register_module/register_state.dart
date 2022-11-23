@@ -49,7 +49,7 @@ class RegisterState extends BaseState {
   }
 
   final tokenInstance = GetStorage();
-  final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>(debugLabel: "RGR");
 
   Future googleLogIn(context) async {
     showLoadingDialog();

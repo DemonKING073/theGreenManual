@@ -47,7 +47,7 @@ class SectionList extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: state.isLoading
+            child: (state.isLoading || state.inventoryState == null)
                 ? Center(
                     child: CircularProgressIndicator(
                       color: primaryColor,
@@ -64,16 +64,17 @@ class SectionList extends StatelessWidget {
                                 .map((e) {
                               return InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
+                                  navigatorKey.currentState!.pushNamed(
                                     "/inventory_details",
                                     arguments: {
                                       'id': state.inventoryState!.data!
                                           .projects!.first.sId,
-                                      'section_name': e.name,
+                                      'section_name': e.name ?? "",
+                                      "section_id": e.sId,
                                       'section': e
                                     },
                                   );
+                                  print("thi is kera ${e.sId}");
                                 },
                                 child: SectionTile(
                                   sectionName: e.name,

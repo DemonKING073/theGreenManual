@@ -6,7 +6,7 @@ import 'package:the_green_manual/core/states/base_state.dart';
 import 'package:the_green_manual/main.dart';
 
 class ForgotPasswordState extends BaseState {
-  final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>(debugLabel: "NEW");
   Dio dio = getHttp();
 
   bool submitLoading = false;

@@ -38,46 +38,7 @@ class ResumeScreen extends StatelessWidget {
               ? const Center(
                   child: Text("No Projects!"),
                 )
-              : Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: ListView.builder(
-                    itemCount: state.projectState!.data!.projects!.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          if (state.projectState!.data!.projects![index]
-                                  .product !=
-                              null) {
-                            navigatorKey.currentState!.pushNamed(
-                                '/resume_details',
-                                arguments:
-                                    state.projectState!.data!.projects![index]);
-                          }
-                        },
-                        child: ProjectTile(
-                          isProductDeleted: state.projectState!.data!
-                                      .projects![index].product ==
-                                  null
-                              ? true
-                              : false,
-                          onTap: () {},
-                          isPrivate: state.projectState!.data!.projects![index]
-                                      .product ==
-                                  null
-                              ? false
-                              : state.projectState!.data!.projects![index]
-                                          .product!.private ==
-                                      true
-                                  ? true
-                                  : false,
-                          projectName:
-                              state.projectState!.data!.projects![index].name!,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+              : Container(),
     );
   }
 }
@@ -132,7 +93,7 @@ class ProjectTile extends StatelessWidget {
                     //   color: primaryColor,
                     // ),
                     ImageIcon(
-                      AssetImage(
+                      const AssetImage(
                         'assets/images/personal.png',
                       ),
                       color: primaryColor,
@@ -145,7 +106,7 @@ class ProjectTile extends StatelessWidget {
                     //   Icons.more_vert,
                     //   color: Colors.grey,
                     // )
-                    icon: ImageIcon(AssetImage('assets/icons/edit.png')),
+                    icon: const ImageIcon(AssetImage('assets/icons/edit.png')),
                   )
                 ],
               )

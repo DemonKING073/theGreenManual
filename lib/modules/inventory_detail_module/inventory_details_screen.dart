@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
+
 import 'package:provider/provider.dart';
-import 'package:the_green_manual/common/ui/ui_helpers.dart';
 
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_state.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,81 +14,6 @@ class InventoryDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<InventoryDetailState>(context);
-
-    showCreateSection() async {
-      return showDialog(
-          context: context,
-          builder: (context) {
-            return StatefulBuilder(
-              builder: (context, setState) {
-                return AlertDialog(
-                  content: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundColor: primaryColor,
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        ),
-                        mHeightSpan,
-                        Center(
-                            child: Text(
-                          "Enter the section name you want to create",
-                          textAlign: TextAlign.center,
-                          style: LBoldTextStyle()
-                              .copyWith(fontWeight: FontWeight.w600),
-                        )),
-                        mHeightSpan,
-                        Row(
-                          children: [
-                            Text(
-                              'Section Name',
-                              style: LBoldTextStyle()
-                                  .copyWith(fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                        sHeightSpan,
-                        TextFormField(
-                          onChanged: state.onSectionNameChanged,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: primaryColor),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text(
-                        "Cancel",
-                        style: kTextStyle().copyWith(color: Colors.grey),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    TextButton(
-                        child: Text(
-                          'Add',
-                          style: kTextStyle().copyWith(color: primaryColor),
-                        ),
-                        onPressed: () async {
-                          state.createSection();
-                        }),
-                  ],
-                );
-              },
-            );
-          });
-    }
 
     showDeleteSectionDialog(BuildContext context, id) async {
       return showDialog(
@@ -195,24 +119,6 @@ class InventoryDetailsScreen extends StatelessWidget {
           state.productDetails?.data?.product?.name ?? '',
           style: LBoldTextStyle(),
         ),
-        actions: [
-          if (state.productDetails?.data?.product?.category == "Personal")
-            IconButton(
-              onPressed: () {
-                if (state.productDetails != null) {
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus) {
-                    currentFocus.unfocus();
-                  }
-                  state.updateSection();
-                }
-              },
-              icon: Icon(
-                Icons.save,
-                color: primaryColor,
-              ),
-            )
-        ],
         centerTitle: true,
       ),
       body: state.isLoading
@@ -296,46 +202,11 @@ class InventoryDetailsScreen extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          if (state.productDetails!.data!.product!.category ==
-                              "Personal")
-                            InkWell(
-                              onTap: () {
-                                showCreateSection();
-                              },
-                              child: Container(
-                                height: 40,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
                         ],
                       ),
                     ),
                   ),
                   LSizedBox(),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        if (state.productDetails!.data!.product!.sections!
-                            .isNotEmpty)
-                          if (state.productDetails!.data!.product!.category ==
-                              "Personal")
-                            QuillToolbar.basic(
-                              controller: state.controller,
-                              showUndo: false,
-                              showRedo: false,
-                            ),
-                      ],
-                    ),
-                  ),
                   if (state.productDetails != null &&
                       state.productDetails!.data!.product!.sections != null &&
                       state.productDetails!.data!.product!.sections!.isEmpty)
@@ -348,41 +219,27 @@ class InventoryDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   LSizedBox(),
-                  if (state.productDetails!.data!.product!.category ==
-                      "Personal")
-                    Expanded(
-                      child: state.productDetails!.data!.product!.sections ==
-                                  null ||
-                              state.productDetails!.data!.product!.sections!
-                                  .isEmpty
-                          ? Container()
-                          : QuillEditor.basic(
-                              controller: state.controller,
-                              readOnly: false,
+                  Expanded(
+                    child: state.sectionBody.isEmpty
+                        ? Center(
+                            child: Text(state.sectionBody),
+                          )
+                        : SingleChildScrollView(
+                            child: Html(
+                              data: state.sectionBody,
+                              onLinkTap:
+                                  (url, context, attributes, element) async {
+                                Uri hamro = Uri.parse(url.toString());
+                                if (!await launchUrl(
+                                  hamro,
+                                  mode: LaunchMode.externalApplication,
+                                )) {
+                                  throw 'Could not launch $url';
+                                }
+                              },
                             ),
-                    )
-                  else
-                    Expanded(
-                      child: state.sectionBody.isEmpty
-                          ? Center(
-                              child: Text(state.sectionBody),
-                            )
-                          : SingleChildScrollView(
-                              child: Html(
-                                data: state.sectionBody,
-                                onLinkTap:
-                                    (url, context, attributes, element) async {
-                                  Uri hamro = Uri.parse(url.toString());
-                                  if (!await launchUrl(
-                                    hamro,
-                                    mode: LaunchMode.externalApplication,
-                                  )) {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-                              ),
-                            ),
-                    ),
+                          ),
+                  ),
                 ],
               ),
             ),

@@ -203,7 +203,7 @@ class InventoryScreen extends StatelessWidget {
                                           //   color: primaryColor,
                                           // ),
                                           ImageIcon(
-                                            AssetImage(
+                                            const AssetImage(
                                               'assets/images/personal.png',
                                             ),
                                             color: primaryColor,
@@ -328,7 +328,8 @@ class InventoryScreen extends StatelessWidget {
                                           //   color: Colors.grey,
                                           // ),
                                           icon: ImageIcon(
-                                            AssetImage('assets/icons/edit.png'),
+                                            const AssetImage(
+                                                'assets/icons/edit.png'),
                                             color: Colors.grey[800],
                                           ),
                                         ),

@@ -58,7 +58,8 @@ void main() async {
   runApp(const TheGreenManual());
 }
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: "MAIN");
 
 class TheGreenManual extends StatelessWidget {
   const TheGreenManual({Key? key}) : super(key: key);
