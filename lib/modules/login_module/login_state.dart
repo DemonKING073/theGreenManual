@@ -31,9 +31,6 @@ class LoginState extends BaseState {
 
       // Once signed in, return the UserCredential
       final res = await FirebaseAuth.instance.signInWithCredential(credential);
-      print("==========================================================");
-      print(res);
-
       final token = await res.user!.getIdToken();
       LocalStorageService().write(LocalStorageKeys.accessToken, token);
       getVerificationGoogle(context);
@@ -78,10 +75,7 @@ class LoginState extends BaseState {
         final res = await firebaseInstance.signInWithEmailAndPassword(
             email: email!, password: password!);
         final token = await res.user!.getIdToken();
-        print("\$ ${res.user!.getIdToken()}");
         LocalStorageService().write(LocalStorageKeys.accessToken, token);
-        print('yo aarko token ho: $token');
-
         getVerification(context);
       } on FirebaseAuthException catch (e) {
         ToastService().e(e.message ?? "Error");
@@ -104,10 +98,10 @@ class LoginState extends BaseState {
               data: {
             "provider": "google",
           });
-      print(
-          '-------------------------------------------------------------------');
-      print('yo token ho fghgfh:    $token');
-      print(response.data['data']['role']);
+      // print(
+      //     '-------------------------------------------------------------------');
+      // print('yo token ho fghgfh:    $token');
+      // print(response.data['data']['role']);
       if (response.data['data']['role'] == 'customer') {
         LocalStorageService()
             .write(LocalStorageKeys.accessToken, response.data['token']);
@@ -132,7 +126,9 @@ class LoginState extends BaseState {
       }
 
       // ignore: empty_catches
-    } on DioError catch (err) {}
+    } on DioError catch (err) {
+      print(err);
+    }
   }
 
   getVerification(context) async {
@@ -204,6 +200,8 @@ class LoginState extends BaseState {
       }
 
       // ignore: empty_catches
-    } on DioError catch (err) {}
+    } on DioError catch (err) {
+      print(err);
+    }
   }
 }

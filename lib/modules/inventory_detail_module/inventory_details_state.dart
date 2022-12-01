@@ -41,9 +41,7 @@ class InventoryDetailState extends BaseState {
     }
     if (args['section_id'] != null) {
       selectedSection = args['section_id'];
-
       notifyListeners();
-      print("lado ${selectedSection}");
     }
     fetchProjectDetails();
   }
@@ -66,9 +64,7 @@ class InventoryDetailState extends BaseState {
     try {
       final response = await dio.get(
           "/v1/products/${inventoryState!.data!.projects!.first.product!.sId}");
-      print("this is data ${response.data}");
       productDetails = SingleProductResponse.fromJson(response.data);
-      print(response);
       notifyListeners();
     } on DioError {}
     setLoading(false);
@@ -102,6 +98,7 @@ class InventoryDetailState extends BaseState {
   onSectionNameChanged(String val) {
     sectionName = val;
     notifyListeners();
+    print("this is section $section");
   }
 
   Sections? sectionItem;
@@ -111,6 +108,7 @@ class InventoryDetailState extends BaseState {
     sectionItem = val;
     notifyListeners();
     sectionBody = val.content ?? "Empty Section!";
+    print("yo section $sectionBody");
     notifyListeners();
     setLoading(false);
   }

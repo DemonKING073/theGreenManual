@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -5,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'package:the_green_manual/modules/inventory_detail_module/inventory_details_state.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../constants/constant.dart';
 
@@ -236,6 +239,66 @@ class InventoryDetailsScreen extends StatelessWidget {
                                 )) {
                                   throw 'Could not launch $url';
                                 }
+                              },
+                              customRenders: {
+                                (context) =>
+                                    context.tree.element?.attributes['src']
+                                        ?.contains("youtube.com/embed") ??
+                                    false: CustomRender.widget(
+                                  widget: (context, buildChildren) {
+                                    double? width = double.tryParse(
+                                        context.tree.attributes['width'] ?? "");
+                                    double? height = double.tryParse(
+                                        context.tree.attributes['height'] ??
+                                            "");
+                                    return SizedBox(
+                                      width: width ?? (height ?? 150) * 2,
+                                      height: height ?? (width ?? 300) / 2,
+                                      child: WebView(
+                                        initialUrl:
+                                            context.tree.attributes['src']!,
+                                        javascriptMode:
+                                            JavascriptMode.unrestricted,
+                                        navigationDelegate:
+                                            (NavigationRequest request) async {
+                                          //no need to load any url besides the embedded youtube url when displaying embedded youtube, so prevent url loading
+                                          if (!request.url
+                                              .contains("youtube.com/embed")) {
+                                            return NavigationDecision.prevent;
+                                          } else {
+                                            return NavigationDecision.navigate;
+                                          }
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                                // (context) => !(context
+                                //         .tree.element?.attributes['src']
+                                //         ?.contains("youtube.com/embed") ??
+                                //     context.tree.element?.attributes['src'] ==
+                                //         null): CustomRender.widget(
+                                //     widget: (context, buildChildren) {
+                                //   double? width = double.tryParse(
+                                //       context.tree.attributes['width'] ?? "");
+                                //   double? height = double.tryParse(
+                                //       context.tree.attributes['height'] ?? "");
+                                //   return SizedBox(
+                                //     width: width ?? (height ?? 150) * 2,
+                                //     height: height ?? (width ?? 300) / 2,
+                                //     child: WebView(
+                                //       initialUrl:
+                                //           context.tree.attributes['src'],
+                                //       javascriptMode:
+                                //           JavascriptMode.unrestricted,
+                                //       gestureRecognizers: {
+                                //         Factory(() =>
+                                //             VerticalDragGestureRecognizer())
+                                //       },
+                                //       //on other iframe content scrolling might be necessary, so use VerticalDragGestureRecognizer
+                                //     ),
+                                //   );
+                                // })
                               },
                             ),
                           ),
