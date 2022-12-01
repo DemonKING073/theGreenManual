@@ -168,9 +168,7 @@ class LoginState extends BaseState {
                       style: kTextStyle().copyWith(color: primaryColor),
                     ),
                     onPressed: () async {
-                      // await overViewState.updateName();
                       Navigator.pop(context);
-                      // await overViewState.fetchData();
                     }),
               ],
             );

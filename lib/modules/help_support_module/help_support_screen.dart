@@ -1,12 +1,19 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:the_green_manual/main.dart';
 
 import '../../constants/constant.dart';
 
-class HelpAndSupportScreen extends StatelessWidget {
+class HelpAndSupportScreen extends StatefulWidget {
   const HelpAndSupportScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HelpAndSupportScreen> createState() => _HelpAndSupportScreenState();
+}
+
+class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +21,7 @@ class HelpAndSupportScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
         title: Text(
@@ -24,9 +31,9 @@ class HelpAndSupportScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               HelpButtons(
@@ -37,7 +44,12 @@ class HelpAndSupportScreen extends StatelessWidget {
                   }),
               LSizedBox(),
               HelpButtons(
-                  title: 'FAQs', icons: Icons.question_mark, onTap: () {})
+                title: 'FAQs',
+                icons: Icons.question_mark,
+                onTap: () {
+                  navigatorKey.currentState!.pushNamed('/faq');
+                },
+              )
             ],
           ),
         ),
@@ -50,7 +62,11 @@ class HelpButtons extends StatelessWidget {
   String title;
   IconData icons;
   Function onTap;
-  HelpButtons({required this.title, required this.icons, required this.onTap});
+  HelpButtons(
+      {super.key,
+      required this.title,
+      required this.icons,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +86,7 @@ class HelpButtons extends StatelessWidget {
                   color: primaryColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Column(
@@ -81,7 +97,7 @@ class HelpButtons extends StatelessWidget {
               ),
             ],
           ),
-          Icon(
+          const Icon(
             Icons.keyboard_arrow_right_rounded,
             color: Colors.grey,
             size: 24,

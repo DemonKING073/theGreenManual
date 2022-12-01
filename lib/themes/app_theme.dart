@@ -3,7 +3,7 @@ import 'package:the_green_manual/common/constants/app_dimens.dart';
 
 const fontFamily = "Quicksand";
 const disabledColor = Color(0xFFbcbcbc);
-const primaryColor = Color(0xFFFF9045);
+const primaryColor = Color(0xff61B994);
 const secondaryColor = Color(0xFF282724);
 const lightGray = Color(0xFF3C3C3C);
 const red = Color(0xFFFF4949);

@@ -14,6 +14,7 @@ import 'package:the_green_manual/modules/client_side/clientInventoryDetails/clie
 import 'package:the_green_manual/modules/client_side/edit_admin_module/editAdminState.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_screen.dart';
 import 'package:the_green_manual/modules/contact_us_module/contact_us_state.dart';
+import 'package:the_green_manual/modules/faq_module/faq_screen.dart';
 import 'package:the_green_manual/modules/forgot_password_module/forgot_password_screen.dart';
 import 'package:the_green_manual/modules/forgot_password_module/forgot_password_state.dart';
 import 'package:the_green_manual/modules/home_module/home_screen.dart';
@@ -147,6 +148,7 @@ class TheGreenManual extends StatelessWidget {
               '/section_list': (context) => ChangeNotifierProvider(
                   create: (_) => SectionListState(context),
                   child: const SectionList()),
+              '/faq': ((context) => const FAQScreen())
             },
           ),
         ),
