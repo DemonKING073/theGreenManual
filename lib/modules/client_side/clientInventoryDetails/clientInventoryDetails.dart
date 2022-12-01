@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/modules/client_side/clientInventoryDetails/ClientInventoryDetailState.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -354,10 +353,7 @@ class ClientInventoryDetailScreen extends StatelessWidget {
                               state.productDetails!.data!.product!.sections!
                                   .isEmpty
                           ? Container()
-                          : QuillEditor.basic(
-                              controller: state.controller,
-                              readOnly: false,
-                            ),
+                          : Container(),
                     )
                   else
                     Expanded(

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:the_green_manual/core/http/http.dart';
 import 'package:the_green_manual/core/services/toast_service.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
@@ -16,7 +15,6 @@ class SectionListState extends BaseState {
   InventoryResponse? projectState;
 
   dynamic quillData;
-  QuillController controller = QuillController.basic();
   late InventoryItem item;
 
   SectionListState(context) {

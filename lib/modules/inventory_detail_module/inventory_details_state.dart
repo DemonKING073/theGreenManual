@@ -1,10 +1,7 @@
 // ignore_for_file: avoid_print, empty_catches
 
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:load/load.dart';
 import 'package:the_green_manual/apiModels/single_product_response.dart';
 
@@ -18,8 +15,6 @@ import 'package:the_green_manual/modules/inventory_module/modals/inventory_respo
 
 class InventoryDetailState extends BaseState {
   late InventoryItem item;
-
-  QuillController controller = QuillController.basic();
 
   InventoryResponse? inventoryState;
 
@@ -74,24 +69,7 @@ class InventoryDetailState extends BaseState {
 
   dynamic quillData;
 
-  updateSection() async {
-    var quill = jsonEncode(controller.document.toDelta().toJson());
-
-    var data = {
-      "content": quill.toString(),
-      "comment": DateTime.now().toUtc().toIso8601String(),
-      "saveAsPublic": true,
-    };
-    showLoadingDialog();
-    print("----------------------------------------------------->");
-    print(data);
-    try {
-      await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
-      ToastService().s("Updated successfully!");
-      fetchProductDetails();
-    } on DioError {}
-    hideLoadingDialog();
-  }
+  updateSection() async {}
 
   late String sectionName;
 

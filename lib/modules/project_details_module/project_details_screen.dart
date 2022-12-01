@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 
 import 'package:provider/provider.dart';
 import 'package:the_green_manual/common/ui/ui_helpers.dart';
@@ -14,8 +13,6 @@ class ProjectDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<ProjectDetailsState>(context);
-
-    QuillController controller = QuillController.basic();
 
     showCreateSection() async {
       return showDialog(
@@ -202,20 +199,8 @@ class ProjectDetailsScreen extends StatelessWidget {
                   LSizedBox(),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        QuillToolbar.basic(
-                          controller: controller,
-                          showUndo: false,
-                          showRedo: false,
-                        ),
-                      ],
-                    ),
+                    child: Row(),
                   ),
-                  Expanded(
-                    child: QuillEditor.basic(
-                        controller: controller, readOnly: false),
-                  )
                 ],
               ),
             ),

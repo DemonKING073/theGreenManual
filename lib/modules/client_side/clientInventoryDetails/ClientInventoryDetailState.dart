@@ -1,8 +1,9 @@
+// ignore_for_file: empty_catches
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:load/load.dart';
 import 'package:the_green_manual/core/states/base_state.dart';
 
@@ -16,15 +17,12 @@ class ClientInventoryDetailState extends BaseState {
   // late InventoryItem item;
   String? item;
 
-  QuillController controller = QuillController.basic();
-
   InventoryResponse? inventoryState;
 
   SingleProductResponse? productDetails;
 
   ClientInventoryDetailState(context) {
     final args = ModalRoute.of(context)!.settings.arguments as String;
-    print('yo args ho $args');
     item = args;
     notifyListeners();
     fetchProjectDetails();
@@ -38,9 +36,8 @@ class ClientInventoryDetailState extends BaseState {
   fetchProjectDetails() async {
     setLoading(true);
     try {
-      final response = await dio.get("/v1/projects/?_id=${item}");
+      final response = await dio.get("/v1/projects/?_id=$item");
       inventoryState = InventoryResponse.fromJson(response.data);
-      print(response);
       notifyListeners();
       fetchProductDetails();
     } catch (err) {}
@@ -48,22 +45,14 @@ class ClientInventoryDetailState extends BaseState {
 
   fetchProductDetails() async {
     try {
-      final response = await dio.get(
-          "/v1/products/${item}");
-      print(response);
+      final response = await dio.get("/v1/products/$item");
       productDetails = SingleProductResponse.fromJson(response.data);
-      print('condo jasto $response');
       notifyListeners();
       if (productDetails!.data!.product!.sections != null &&
           productDetails!.data!.product!.sections!.isNotEmpty) {
         selectedSection = productDetails!.data!.product!.sections!.first.sId;
         notifyListeners();
         try {
-          quillData = jsonDecode(
-              productDetails!.data!.product!.sections!.first.content!);
-          controller = QuillController(
-              document: Document.fromJson(quillData),
-              selection: const TextSelection.collapsed(offset: 0));
           notifyListeners();
         } catch (er) {}
       }
@@ -86,24 +75,7 @@ class ClientInventoryDetailState extends BaseState {
 
   dynamic quillData;
 
-  updateSection() async {
-    var quill = jsonEncode(controller.document.toDelta().toJson());
-
-    var data = {
-      "content": quill.toString(),
-      "comment": DateTime.now().toUtc().toIso8601String(),
-      "saveAsPublic": true,
-    };
-    showLoadingDialog();
-    print("----------------------------------------------------->");
-    print(data);
-    try {
-      await dio.patch("/v1/sections/$selectedSection/add-content", data: data);
-      ToastService().s("Updated successfully!");
-      fetchProductDetails();
-    } on DioError {}
-    hideLoadingDialog();
-  }
+  updateSection() async {}
 
   String sectionName = "";
 
@@ -118,13 +90,7 @@ class ClientInventoryDetailState extends BaseState {
     selectedSection = val.sId;
     sectionItem = val;
     notifyListeners();
-    controller.clear();
     if (productDetails!.data!.product!.category == "Personal") {
-      quillData = jsonDecode(sectionItem!.content ?? "");
-      controller = QuillController(
-          document: Document.fromJson(quillData),
-          selection: const TextSelection.collapsed(offset: 0));
-      notifyListeners();
     } else {
       sectionBody = val.content ?? "Empty Section!";
       notifyListeners();

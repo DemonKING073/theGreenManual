@@ -5,7 +5,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 
 import 'package:the_green_manual/apiModels/single_product_response.dart';
 import 'package:the_green_manual/core/http/http.dart';
@@ -18,8 +17,6 @@ import 'package:the_green_manual/modules/resume_module/model/resume_data.dart';
 
 class ResumeDetailState extends BaseState {
   late InventoryItem item;
-
-  QuillController controller = QuillController.basic();
 
   ScrollController quillScrollController = ScrollController();
   ScrollController htmlController = ScrollController();
@@ -68,13 +65,13 @@ class ResumeDetailState extends BaseState {
   navigateToSection(Sections val) {
     sectionItem = val;
     notifyListeners();
-    controller.clear();
+
     if (item.product!.private == true) {
       if (val.content != null && val.content!.isNotEmpty) {
         quillData = jsonDecode(val.content!);
-        controller = QuillController(
-            document: Document.fromJson(quillData),
-            selection: const TextSelection.collapsed(offset: 0));
+        // controller = QuillController(
+        //     document: Document.fromJson(quillData),
+        //     selection: const TextSelection.collapsed(offset: 0));
         notifyListeners();
         for (final element in bookmarkdata!.savedData!) {
           if (element.id == item.sId) {
@@ -144,9 +141,9 @@ class ResumeDetailState extends BaseState {
         try {
           quillData = jsonDecode(
               productDetails!.data!.product!.sections!.first.content!);
-          controller = QuillController(
-              document: Document.fromJson(quillData),
-              selection: const TextSelection.collapsed(offset: 0));
+          // controller = QuillController(
+          //     document: Document.fromJson(quillData),
+          //     selection: const TextSelection.collapsed(offset: 0));
           notifyListeners();
         } catch (er) {}
       }
@@ -183,13 +180,12 @@ class ResumeDetailState extends BaseState {
       sectionBody = val.content ?? "Empty Section!";
       notifyListeners();
     } else {
-      controller.clear();
       if (sectionItem!.content != null && sectionItem!.content!.isNotEmpty) {
-        quillData = jsonDecode(sectionItem!.content!);
-        controller = QuillController(
-            document: Document.fromJson(quillData),
-            selection: const TextSelection.collapsed(offset: 0));
-        notifyListeners();
+        // quillData = jsonDecode(sectionItem!.content!);
+        // controller = QuillController(
+        //     document: Document.fromJson(quillData),
+        //     selection: const TextSelection.collapsed(offset: 0));
+        // notifyListeners();
       }
     }
   }

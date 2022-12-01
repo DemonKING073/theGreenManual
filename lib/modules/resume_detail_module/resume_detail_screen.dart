@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:provider/provider.dart';
-import 'package:the_green_manual/core/services/toast_service.dart';
 
 import 'package:the_green_manual/modules/resume_detail_module/resume_detail_state.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,20 +35,7 @@ class ResumeDetailScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              onPressed: () {
-                if (state.sectionItem?.content == null ||
-                    (state.sectionItem!.content != null &&
-                        state.sectionItem!.content!.isEmpty) ||
-                    (state.item.product!.private == true &&
-                        state.controller.document
-                            .toPlainText()
-                            .trim()
-                            .isEmpty)) {
-                  ToastService().w("Empty section cannot be bookmarked");
-                } else {
-                  state.onBookMark();
-                }
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.bookmark,
                 color: primaryColor,
@@ -117,30 +102,22 @@ class ResumeDetailScreen extends StatelessWidget {
                     if (state.productDetails!.data!.product!.category ==
                         "Personal")
                       Expanded(
-                        child: state.productDetails!.data!.product!.sections ==
-                                    null ||
-                                state.productDetails!.data!.product!.sections!
-                                    .isEmpty
-                            ? const Center(
-                                child: Text("No Sections!"),
-                              )
-                            : QuillEditor(
-                                controller: state.controller,
-                                focusNode: FocusNode(),
-                                scrollController: state.quillScrollController,
-                                scrollable: true,
-                                padding: const EdgeInsets.all(2),
-                                autoFocus: true,
-                                readOnly: true,
-                                expands: true,
-                              ),
-                        // QuillEditor.basic(
-                        //     controller: state.controller,
-                        //     readOnly: true,
-                        //     keyboardAppearance: Brightness.dark,
-                        //     locale: const Locale('en'),
-                        //   ),
-                      )
+                          child:
+                              state.productDetails!.data!.product!.sections ==
+                                          null ||
+                                      state.productDetails!.data!.product!
+                                          .sections!.isEmpty
+                                  ? const Center(
+                                      child: Text("No Sections!"),
+                                    )
+                                  : Container()
+                          // QuillEditor.basic(
+                          //     controller: state.controller,
+                          //     readOnly: true,
+                          //     keyboardAppearance: Brightness.dark,
+                          //     locale: const Locale('en'),
+                          //   ),
+                          )
                     else
                       Expanded(
                         child: state.sectionBody.isEmpty
