@@ -136,7 +136,7 @@ class LoginState extends BaseState {
       final token = LocalStorageService().read(LocalStorageKeys.accessToken);
       Dio newDio = Dio();
       final response = await newDio
-          .post("https://api-gmanual.herokuapp.com/api/v1/auth/provider-login",
+          .post("https://api.thegreenmanual.com/api/v1/auth/provider-login",
               options: Options(headers: {
                 "Firebase-Token": token,
               }),
